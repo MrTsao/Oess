@@ -1,0 +1,74 @@
+/* pages/tabbar/study/random/random.wxss */
+@import "../../../common/lib/weui.wxss";
+
+.section {
+  width: 98%;
+  margin: 20rpx auto;
+}
+
+/* The line */
+
+.time {
+  width: 120rpx;
+  height: 100rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+  line-height: 50px;
+  color: #777;
+  text-shadow: #eee 0 2px 0;
+  text-align: center;
+  margin: 0 20rpx;
+  border-bottom: #cd853f solid 2rpx;
+}
+
+.timeLine {
+  content: '';
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 6rpx;
+  border-radius: 5rpx;
+  background: linear-gradient(to bottom,#FF7F50,#CD853F,#6B8E23,#708090);
+  box-shadow: 0 0 5rpx 2rpx #D2B48C;
+  left: 145rpx;
+}
+
+.item-txt {
+  flex: 1;
+  margin: 2rpx 0rpx;
+  font-size: 28rpx;
+  text-align: center;
+  width: 100%;
+  color: #999;
+  height: 100rpx;
+}
+
+.txt-head {
+  width: 100%;
+  height: 68rpx;
+  line-height: 68rpx;
+  color: #000;
+}
+
+.txt-foot {
+  height: 30rpx;
+  line-height: 30rpx;
+  font-size: 24rpx;
+  color: #999;
+}
+
+/*--------------------------1.通用 div排版 start----------------*/
+
+.horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+/*--------------------------1.通用 div排版 end------------------*/

@@ -1,0 +1,45 @@
+{
+  "pages": [
+    "pages/study/random/random",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/services/servicelist",
+    "pages/study/study",
+    "pages/study/favorite/favorite",
+    "pages/study/special/special",
+    "pages/study/real/real",
+    "pages/study/real/real_exe",
+    "pages/study/evaluation/evaluation",
+    "pages/study/realsimulate/realsimulate",
+    "pages/study/realsimulate/realsimulate_exe"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "习题在线",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#777",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "image/home.png",
+        "selectedIconPath": "image/home2.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/study/study",
+        "iconPath": "image/home.png",
+        "selectedIconPath": "image/home2.png",
+        "text": "练习"
+      },
+      {
+        "pagePath": "pages/services/servicelist",
+        "iconPath": "image/service.png",
+        "selectedIconPath": "image/service2.png",
+        "text": "服务"
+      }
+    ]
+  }
+}
