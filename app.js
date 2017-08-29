@@ -17,20 +17,30 @@ App({
       }
     })
 
+    if (that.globalData.userInfo && !user){
+      wx.setStorageSync('user', that.globalData.userInfo);
+      user = that.globalData.userInfo;
+    }
+
+    if (that.globalData.openData && !openkey) {
+      wx.setStorageSync('openkey', that.globalData.userInfo);
+      openkey = that.globalData.openData;
+    }
+
     if (!openkey.OPEN_KEY || !user.nickName || isNeedNewSession) {
       //调用登录接口
       wx.login({
         success: function (res) {
           if (res.code) {
             wx.getUserInfo({
-              success: function (res) {
-                that.globalData.userInfo = res.userInfo;
-                wx.setStorageSync('user', res.userInfo);//userInfo
+              success: function (res2) {
+                that.globalData.userInfo = res2.userInfo;
+                wx.setStorageSync('user', res2.userInfo);//userInfo
               }
             })
-            util.getOpenId(that.globalData.url, res.code, function (res) {
-              that.globalData.openData = res.data
-              wx.setStorageSync('openkey', res.data);//存储openid  
+            util.getOpenId(that.globalData.url, res.code, function (res3) {
+              that.globalData.openData = res3.data
+              wx.setStorageSync('openkey', res3.data);//存储openid  
             })
           }
           else {
@@ -41,16 +51,7 @@ App({
     } else {
       that.globalData.userInfo = user;
       that.globalData.openData = openkey;
-    }
-
-    if (that.globalData.userInfo) {
-      typeof cb == "function" && cb(that.globalData.userInfo)
-    }
-    if (that.globalData.openData) {
-      //防止缓存清除后，跳转出错
-      wx.setStorageSync('openkey', that.globalData.openData)//存储openid
-      typeof fuser == "function" && fuser(that.globalData.openData)
-    }
+    } 
   },
   globalData: {
     userInfo: null,

@@ -105,12 +105,6 @@ function imageUtil(e) {
 function _post_json(url, jsPost, success, fail) {
 
   let app = getApp();
-  //console.log("----_post--start-------");
-  // wx.showToast({
-  //     title: "正在加载...",
-  //     icon: "loading",
-  //     duration: 5000
-  // })
   wx.showNavigationBarLoading()
   wx.request({
     url: url,
@@ -127,10 +121,9 @@ function _post_json(url, jsPost, success, fail) {
         console.log(res.data.data);
       } else {
         if (res.data.msg != "") {
-          if (res.data.msg == "NO_USER") {
-            wx.navigateTo({
-              url: '/pages/profile/profile'
-            })
+          if (res.data.msg == "NO_SESSION") {
+            wx.setStorageSync('openkey', null);
+            app.getUserInfo();
           } else {
             wx.showToast({
               title: res.data.msg || "错误"
