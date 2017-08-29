@@ -171,15 +171,6 @@ Page({
       title: '加载中...',
       mask: true
     })
-    //加载时执行
-    var that = this
-    //调用应用实例的方法获取全局数据
-    app.getUserInfo(function (userInfo) {
-      //更新数据
-      that.setData({
-        userInfo: userInfo
-      })
-    })
     Post.call(this, this, "LOAD")
   },
   /**
@@ -201,7 +192,7 @@ function Post(that, action, data) {
   var jsPost = data || new util.jsonRow()
   jsPost.AddCell("PAGE", that.data.PAGE)
   jsPost.AddCell("ACTION", action)
-  util.Post(that,action, jsPost, function (that,res) {
+  util.Post(that, action, jsPost, function (that, res) {
     if (res) {
       //更新数据
       if (jsPost.arrjson.ACTION == "LOAD") {
@@ -218,6 +209,7 @@ function Post(that, action, data) {
           , summaryValues: objSummaries
           , ecnt: res.ecnt
           , index: iIndex
+          , userInfo: app.globalData.userInfo
         })
         wx.hideLoading()
       }

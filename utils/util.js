@@ -103,7 +103,6 @@ function imageUtil(e) {
 * fail 失败的回调
 */
 function _post_json(url, jsPost, success, fail) {
-
   let app = getApp();
   wx.showNavigationBarLoading()
   wx.request({
@@ -157,18 +156,20 @@ jsonRow.prototype = {
 //服务器请求数据
 function Post(that, action, data, doAfter) {
   //数据请求执行方法
-  let app = getApp();
-  var jsPost = data || new jsonRow()
-  var ppage = that.data.PAGE || "BseHandler"
-  jsPost.AddCell("PAGE", ppage)
-  jsPost.AddCell("ACTION", action)
-  jsPost.AddCell("OPEN_KEY", app.globalData.openData.OPEN_KEY)
-  _post_json(app.globalData.url, jsPost, function (res) {
-    typeof doAfter == "function" && doAfter(that, res.data.data)
+  var app = getApp();
+  app.getOpenInfo(function () {
+    var jsPost = data || new jsonRow()
+    var ppage = that.data.PAGE || "BseHandler"
+    jsPost.AddCell("PAGE", ppage)
+    jsPost.AddCell("ACTION", action)
+    jsPost.AddCell("OPEN_KEY", app.globalData.openData.OPEN_KEY)
+    _post_json(app.globalData.url, jsPost, function (res) {
+      typeof doAfter == "function" && doAfter(that, res.data.data)
+    })
   })
 }
 
-function _getOpenId(url,rescode, doAfter) {
+function _getOpenId(url, rescode, doAfter) {
   var jsPost = new jsonRow()
   jsPost.AddCell("PAGE", "BseHandler")
   jsPost.AddCell("ACTION", "OPENID")
