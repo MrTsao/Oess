@@ -171,6 +171,12 @@ Page({
       title: '加载中...',
       mask: true
     })
+    var that = this
+    app.getUserInfo(null,function(user){
+      that.setData({
+        userInfo: user
+      })
+    })
     Post.call(this, this, "LOAD")
   },
   /**
@@ -209,7 +215,6 @@ function Post(that, action, data) {
           , summaryValues: objSummaries
           , ecnt: res.ecnt
           , index: iIndex
-          , userInfo: app.globalData.userInfo
         })
         wx.hideLoading()
       }

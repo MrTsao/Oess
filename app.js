@@ -2,7 +2,14 @@
 var util = require('/utils/util.js');
 App({
   onLaunch: function () {
-    this.getUserInfo(null, null)
+    wx.checkSession({
+      success: function (e) {   //登录态未过期
+      },
+      fail: function () {   //登录态过期了
+        wx.setStorageSync('openkey', null);
+        wx.setStorageSync('code', '');
+      }
+    })
   },
   getOpenInfo: function (doAfter) {
     var that = this
@@ -15,38 +22,36 @@ App({
         typeof doAfter == "function" && doAfter()
       })
     } else if (rescode == '') {
-      that.getUserInfo(null, null)
+      that.getUserInfo(function(){
+        that.getOpenInfo(doAfter)
+      })
     }
-    if (openkey.OPEN_KEY != that.globalData.openData.OPEN_KEY) {
-      that.globalData.openData = openkey
-    }    
+    if (openkey && openkey.OPEN_KEY) {
+      if (!that.globalData.openData || openkey.OPEN_KEY != that.globalData.openData.OPEN_KEY) {
+        that.globalData.openData = openkey
+      }
+    }
     if (openkey.OPEN_KEY && rescode != '') {
       typeof doAfter == "function" && doAfter()
     }
   },
-  getUserInfo: function (cb, fuser) {
+  getUserInfo: function (doAfter,doGetUser) {
     var that = this
     var user = wx.getStorageSync('user') || {};
     var code = wx.getStorageSync('code') || '';
-    var isNeedNewSession = false;
-    wx.checkSession({
-      success: function (e) {   //登录态未过期
-      },
-      fail: function () {   //登录态过期了
-        isNeedNewSession = true;
-      }
-    })
-    if (!user.nickName || code == '' || isNeedNewSession) {
+    if (!user.nickName || code == '') {
       //调用登录接口
       wx.login({
         success: function (res) {
           if (res.code) {
             that.globalData.code = res.code;
             wx.setStorageSync('code', res.code);//userInfo
+            typeof doAfter == "function" && doAfter()
             wx.getUserInfo({
               success: function (res2) {
                 that.globalData.userInfo = res2.userInfo;
                 wx.setStorageSync('user', res2.userInfo);//userInfo
+                typeof doGetUser == "function" && doGetUser(res2.userInfo)
               }
             })
           }
@@ -58,6 +63,8 @@ App({
     } else {
       that.globalData.userInfo = user;
       that.globalData.code = code;
+      typeof doAfter == "function" && doAfter()
+      typeof doGetUser == "function" && doGetUser(user)
     }
   },
   globalData: {

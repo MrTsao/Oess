@@ -104,6 +104,8 @@ function imageUtil(e) {
 */
 function _post_json(url, jsPost, success, fail) {
   let app = getApp();
+  var data = jsPost || new jsonRow()
+  data.AddCell("OPEN_KEY", app.globalData.openData.OPEN_KEY)
   wx.showNavigationBarLoading()
   wx.request({
     url: url,
@@ -112,7 +114,7 @@ function _post_json(url, jsPost, success, fail) {
       'Cookie': 'ASP.NET_SessionId=' + app.globalData.openData.SESSION_ID
     },
     method: 'POST',
-    data: jsPost.GetStr(),
+    data: data.GetStr(),
     success: function (res) {
       //wx.hideToast()
       wx.hideNavigationBarLoading()
@@ -122,14 +124,26 @@ function _post_json(url, jsPost, success, fail) {
         if (res.data.msg != "") {
           if (res.data.msg == "NO_SESSION") {
             wx.setStorageSync('openkey', null);
-            app.getUserInfo();
+            wx.setStorageSync('code', '');
+            app.getUserInfo(function () {
+              app.getOpenInfo(function () {
+                _post_json(url, jsPost, success, fail)
+              });
+            });
+          } else if (res.data.msg == "NO_USER") {
+            app.getUserInfo(null,function(user){
+              _newUserId(url, user, app.globalData.openData, function(){
+                _post_json(url, jsPost, success, fail)
+              }) 
+            })
           } else {
             wx.showToast({
               title: res.data.msg || "错误"
             })
           }
+        } else {
+          success(res);
         }
-        success(res);
       }
     },
     fail: function (res) {
@@ -162,7 +176,6 @@ function Post(that, action, data, doAfter) {
     var ppage = that.data.PAGE || "BseHandler"
     jsPost.AddCell("PAGE", ppage)
     jsPost.AddCell("ACTION", action)
-    jsPost.AddCell("OPEN_KEY", app.globalData.openData.OPEN_KEY)
     _post_json(app.globalData.url, jsPost, function (res) {
       typeof doAfter == "function" && doAfter(that, res.data.data)
     })
@@ -177,7 +190,36 @@ function _getOpenId(url, rescode, doAfter) {
   wx.request({
     url: url,
     header: {
+      'content-type': 'application/json'
+    },
+    method: 'POST',
+    data: jsPost.GetStr(),
+    success: function (res) {
+      if (res.data.msg == "err") {
+        console.log(res.data.data);
+      } else {
+        typeof doAfter == "function" && doAfter(res.data)
+      }
+    },
+    fail: function (res) {
+      console.log(res);
+    }
+  });
+}
+
+
+function _newUserId(url, user, openData, doAfter) {
+  var jsPost = new jsonRow()
+  jsPost.AddCell("PAGE", "REGIESTHANDLER")
+  jsPost.AddCell("ACTION", "NEW")
+  jsPost.AddCell("USER_NME", user.nickName)
+  jsPost.AddCell("HEAD_IMG", user.avatarUrl)
+  jsPost.AddCell("OPEN_KEY", openData.OPEN_KEY)
+  wx.request({
+    url: url,
+    header: {
       'content-type': 'application/json',
+      'Cookie': 'ASP.NET_SessionId=' + openData.SESSION_ID
     },
     method: 'POST',
     data: jsPost.GetStr(),
