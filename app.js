@@ -17,8 +17,10 @@ App({
     } else if (rescode == '') {
       that.getUserInfo(null, null)
     }
-    if (openkey.OPEN_KEY && rescode != '') {
+    if (openkey.OPEN_KEY != that.globalData.openData.OPEN_KEY) {
       that.globalData.openData = openkey
+    }    
+    if (openkey.OPEN_KEY && rescode != '') {
       typeof doAfter == "function" && doAfter()
     }
   },
