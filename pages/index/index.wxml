@@ -1,5 +1,49 @@
 <!--index.wxml-->
 <view class="container">
-  
-  <view class="classname" bindtap="load" >sfasdfasdfasdf</view>
+  <view class="fun-list">
+    <block wx:for="{{showItems}}">
+      <navigator open-type="navigate" url="{{item.url}}" hover-class="none">
+        <view class="item">
+          <view class="item-image" style="background-color:{{item.color}};">
+            <image src="{{item.img}}"></image>
+          </view>
+          <view class="item-txt">
+            {{item.txt}}
+          </view>
+        </view>
+      </navigator>
+    </block>
+  </view>
+  <view class="page-section">
+    <swiper indicator-dots="{{false}}" autoplay="true" circular="true" interval="5000" duration="500">
+      <block wx:for="{{background}}" wx:key="item.id">
+        <swiper-item>
+          <image src="{{item.url}}" class="swiper-item" mode="center" />
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>  
+  <view class="page-section" hidden="{{hothide}}" >
+    <view class="section-title">
+      <view class="head">
+        章节练习
+      </view>
+    </view>
+    <block wx:for="{{HOTS}}" wx:for="{{HOTS}}" wx:for-index="idx" wx:key="{{item.id}}">
+      <navigator class="infoItem" url="/pages/tabbar/news/newsItem?id={{item.INFO_HOST_ID}}&txt={{item.INFO_TITLE}}&url={{item.INFO_IMG_URL}}">
+        <view class="hot-item flex-wrp">
+          <view class="avatar">
+            <image src="../../../image/{{IMGLIST[idx]}}"></image>
+          </view>
+          <view class="hot-content">
+            <view class="hot-source">
+              <text class="hotmate">{{item.INFO_TITLE}}</text>
+              <text class="lasttime">{{item.INITIAL_USR}}</text>
+            </view>
+            <text class="hot-txt">{{item.INFO_DESC}}</text>
+          </view>
+        </view>
+      </navigator>
+    </block>
+  </view>
 </view>
