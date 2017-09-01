@@ -1,7 +1,7 @@
 //index.js
 //获取应用实例
-var util = require('../../utils/util.js');
 var app = getApp();
+var util = require('../../utils/util.js');
 Page({
   data: {
     PAGE: "INDEX",
@@ -29,15 +29,15 @@ Page({
     }, {
       img: "../../image/index-img/2.png",
       txt: "在线刷题",
-      url: "real"
+      url: "/pages/study/random/random"
     }, {
       img: "../../image/index-img/3.png",
       txt: "历年真题",
-      url: "real"
+      url: "/pages/study/real/real"
     }, {
       img: "../../image/index-img/4.png",
       txt: "模拟考试",
-      url: "real"
+      url: "/pages/study/realsimulate/realsimulate"
     }, {
       img: "../../image/index-img/6.png",
       txt: "电子资料",
@@ -54,22 +54,18 @@ Page({
       img: "../../image/index-img/10.png",
       txt: "我的错题",
       url: "real"
-    }]
+    }],
+    chapters: [],
+    COLOR: ['#6699cc', '#778899', '#99cc66', '#5F9EA0', '#8FBC8F', '#BDB76B']
   },
   //事件处理函数
   bindViewTap: function () {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
   },
   onLoad: function () {
-    //  util.Post(this, "LOAD", null, function (that, data) {
-    //    console.log(data)
-    //  });
-  }
-  , load: function (e) {
     util.Post(this, "LOAD", null, function (that, data) {
-      console.log(data)
+      that.setData({
+        chapters: data.CHAPTER
+      })
     });
   }
 })

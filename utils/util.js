@@ -1,4 +1,3 @@
-
 function formatTime(date) {
   var year = date.getFullYear()
   var month = date.getMonth() + 1
@@ -102,13 +101,13 @@ function imageUtil(e) {
 * success 成功的回调
 * fail 失败的回调
 */
-function _post_json(url, jsPost, success, fail) {
+function _post_json(jsPost, success, fail) {
   let app = getApp();
   var data = jsPost || new jsonRow()
   data.AddCell("OPEN_KEY", app.globalData.openData.OPEN_KEY)
   wx.showNavigationBarLoading()
   wx.request({
-    url: url,
+    url: app.globalData.url,
     header: {
       'content-type': 'application/json',
       'Cookie': 'ASP.NET_SessionId=' + app.globalData.openData.SESSION_ID
@@ -127,7 +126,7 @@ function _post_json(url, jsPost, success, fail) {
             wx.setStorageSync('code', '');
             app.getUserInfo(function () {
               app.getOpenInfo(function () {
-                _post_json(url, jsPost, success, fail)
+                _post_json(jsPost, success, fail)
               });
             });
           } else if (res.data.msg == "NO_USER") {
@@ -176,7 +175,7 @@ function Post(that, action, data, doAfter) {
     var ppage = that.data.PAGE || "BseHandler"
     jsPost.AddCell("PAGE", ppage)
     jsPost.AddCell("ACTION", action)
-    _post_json(app.globalData.url, jsPost, function (res) {
+    _post_json(jsPost, function (res) {
       typeof doAfter == "function" && doAfter(that, res.data.data)
     })
   })

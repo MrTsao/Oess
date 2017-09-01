@@ -187,7 +187,7 @@ Page({
     return {
       title: that.data.TXT,
       desc: '',
-      path: '/pages/tabbar/study/random/random'
+      path: '/pages/study/random/random'
     }
   },
   onReachBottom: function () { }

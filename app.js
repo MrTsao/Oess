@@ -59,6 +59,9 @@ App({
             console.log('获取用户登录态失败！' + res.errMsg)
           }
         }
+        , fail: function (res){
+          console.log('获取用户登录态失败！' + res.errMsg)
+        }
       })
     } else {
       that.globalData.userInfo = user;

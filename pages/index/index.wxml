@@ -1,10 +1,10 @@
 <!--index.wxml-->
 <view class="container">
   <view class="fun-list">
-    <block wx:for="{{showItems}}">
+    <block wx:for="{{showItems}}" wx:key="{{item.txt}}" >
       <navigator open-type="navigate" url="{{item.url}}" hover-class="none">
         <view class="item">
-          <view class="item-image" style="background-color:{{item.color}};">
+          <view class="item-image">
             <image src="{{item.img}}"></image>
           </view>
           <view class="item-txt">
@@ -29,18 +29,22 @@
         章节练习
       </view>
     </view>
-    <block wx:for="{{HOTS}}" wx:for="{{HOTS}}" wx:for-index="idx" wx:key="{{item.id}}">
-      <navigator class="infoItem" url="/pages/tabbar/news/newsItem?id={{item.INFO_HOST_ID}}&txt={{item.INFO_TITLE}}&url={{item.INFO_IMG_URL}}">
-        <view class="hot-item flex-wrp">
-          <view class="avatar">
-            <image src="../../../image/{{IMGLIST[idx]}}"></image>
-          </view>
-          <view class="hot-content">
-            <view class="hot-source">
-              <text class="hotmate">{{item.INFO_TITLE}}</text>
-              <text class="lasttime">{{item.INITIAL_USR}}</text>
+    <block wx:for="{{chapters}}" wx:for-index="idx" wx:key="{{item.CPID}}">
+      <navigator url="/pages/chapter?id={{item.CPID}}">
+        <view class="cpt-item" style="border-color:{{COLOR[idx%COLOR.length]}};">
+          <image class="cpt-img" src='/image/index-img/dot.png' style="background-color:{{COLOR[idx%COLOR.length]}};"></image>
+          <view class="cpt-content">
+            <view class="cpt-head">
+              <text>{{item.CN0}}</text>
+              <text class="cpt-space">{{item.CNME}}</text>
             </view>
-            <text class="hot-txt">{{item.INFO_DESC}}</text>
+            <view class="cpt-detail">
+              <text class="cpt-txt">习题量：{{item.QCNT}}</text>
+              <text class="cpt-txt cpt-space">练习量：{{item.UQCNT}}</text>
+            </view>
+          </view>
+          <view class="cpt-opt">
+            <image  src='/image/index-img/pen.png'></image>
           </view>
         </view>
       </navigator>
