@@ -1,4 +1,4 @@
-// real_exe.js
+// chapter_exec.js
 var util = require('../../../utils/util.js')
 var sUtil = require('../sutil.js')
 var app = getApp()
@@ -10,7 +10,7 @@ Page({
   data: {
     RSID: '',
     TXT: '',
-    PAGE: "REAL_SIMULATE_EXE",
+    PAGE: "CHAPTER_EXEC",
     q_type: ["单选题", "多选题", "不定项题", "判断题", "主观题", "其他"],
     exerises: [],
     summaries: [],
@@ -72,9 +72,9 @@ Page({
   },
   touchEnd: function (e) {
     sUtil.touchEnd(e, this, function (that, objExamItem) {
-      // var jsPost = new util.jsonRow()
-      // jsPost.AddCell("BID", objExamItem.bid)
-      // Post.call(this, that, "NEXT", jsPost)
+      var jsPost = new util.jsonRow()
+      jsPost.AddCell("BID", objExamItem.bid)
+      Post.call(this, that, "NEXT", jsPost)
     }, function (that) {
       //刷新评论
       let iIndex = that.data.index
@@ -180,7 +180,7 @@ Page({
       mask: true
     })
     wx.setNavigationBarTitle({
-      title: options.txt + '全真模拟'
+      title: options.txt + '-章节练习'
     })
     //加载时执行
     var that = this
@@ -190,8 +190,8 @@ Page({
       , TXT: options.txt
       , start_time: new Date()
     })
-    var exerises = wx.getStorageSync('REAL_SIMULATE_' + options.id) || [];
-    var summaries = wx.getStorageSync('REAL_SIMULATE_SUM' + options.id) || [];
+    var exerises = wx.getStorageSync('CHAPTER_' + options.id) || [];
+    var summaries = wx.getStorageSync('CHAPTER_SUM' + options.id) || [];
     if (exerises.length > 0 && summaries.length > 0) {
       let iIndex = 0
       for (var i = 0; i < exerises.length; i++) {
@@ -215,10 +215,12 @@ Page({
 })
 
 function Post(that, action, data) {
+  if (!that.data.RSID)
+    return
   //数据请求执行方法
   var jsPost = data || new util.jsonRow()
   jsPost.AddCell("RSID", that.data.RSID)
-  util.Post(that, action, jsPost, function (that,res) {
+  util.Post(that, action, jsPost, function (that, res) {
     if (res) {
       //更新数据
       if (action == "LOAD") {
@@ -230,7 +232,7 @@ function Post(that, action, data) {
           }
         }
         //格式化练习时间
-        // let objSummaries = res.summaries
+        // let objSummaries = res.data.data.summaries
         // objSummaries[0].USE_SECOND = util.formatString(objSummaries[0].USE_SECOND)
 
         that.setData({
@@ -240,6 +242,11 @@ function Post(that, action, data) {
           , index: iIndex
         })
         wx.hideLoading()
+      }
+      else if (action == "NEXT") {
+        that.setData({
+          exerises: that.data.exerises.concat(res.exerises)
+        })
       }
       else if (action == "FINISHEDEXAM") {
         that.setData({
@@ -270,7 +277,13 @@ function Post(that, action, data) {
     else if (action == "ANSWERED" && that.data.auto_next) {
       //答题后，自动下一题的情况下处理
       var iIndex = that.data.index
-      if (iIndex == that.data.exerises.length - 1) {
+      if (iIndex == that.data.exerises.length - 2) {
+        var jsPost = new util.jsonRow()
+        jsPost.AddCell("BID", objExamItem.bid)
+        Post.call(this, that, "NEXT", jsPost)
+        --iIndex
+      }
+      else if (iIndex == that.data.exerises.length - 1) {
         wx.showToast({
           title: "已经是最后一题"
         })
@@ -281,7 +294,7 @@ function Post(that, action, data) {
         , start_time: new Date()
       })
     }
-    wx.setStorageSync('REAL_SIMULATE_' + that.data.RSID, that.data.exerises);//缓存
-    wx.setStorageSync('REAL_SIMULATE_SUM' + that.data.RSID, that.data.summaries);//缓存
+    wx.setStorageSync('CHAPTER_' + that.data.RSID, that.data.exerises);//缓存
+    wx.setStorageSync('CHAPTER_SUM' + that.data.RSID, that.data.summaries);//缓存
   })
 }

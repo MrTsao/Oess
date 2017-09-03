@@ -120,27 +120,26 @@ function _post_json(jsPost, success, fail) {
       if (res.data.msg == "err") {
         console.log(res.data.data);
       } else {
-        if (res.data.msg != "") {
-          if (res.data.msg == "NO_SESSION") {
-            wx.setStorageSync('openkey', null);
-            wx.setStorageSync('code', '');
-            app.getUserInfo(function () {
-              app.getOpenInfo(function () {
-                _post_json(jsPost, success, fail)
-              });
+        if (res.data.msg == "NO_SESSION") {
+          wx.setStorageSync('openkey', null);
+          wx.setStorageSync('code', '');
+          app.getUserInfo(function () {
+            app.getOpenInfo(function () {
+              _post_json(jsPost, success, fail)
             });
-          } else if (res.data.msg == "NO_USER") {
-            app.getUserInfo(null,function(user){
-              _newUserId(url, user, app.globalData.openData, function(){
-                _post_json(url, jsPost, success, fail)
-              }) 
+          });
+        } else if (res.data.msg == "NO_USER") {
+          app.getUserInfo(null, function (user) {
+            _newUserId(app.globalData.url, user, app.globalData.openData, function () {
+              _post_json(app.globalData.url, jsPost, success, fail)
             })
-          } else {
+          })
+        } else {
+          if (res.data.msg != "") {
             wx.showToast({
               title: res.data.msg || "错误"
             })
           }
-        } else {
           success(res);
         }
       }

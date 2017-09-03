@@ -1,4 +1,5 @@
 <!--index.wxml-->
+<import src="/common/chapterlist.wxml" />
 <view class="container">
   <view class="fun-list">
     <block wx:for="{{showItems}}" wx:key="{{item.txt}}" >
@@ -22,32 +23,6 @@
         </swiper-item>
       </block>
     </swiper>
-  </view>  
-  <view class="page-section" hidden="{{hothide}}" >
-    <view class="section-title">
-      <view class="head">
-        章节练习
-      </view>
-    </view>
-    <block wx:for="{{chapters}}" wx:for-index="idx" wx:key="{{item.CPID}}">
-      <navigator url="/pages/chapter?id={{item.CPID}}">
-        <view class="cpt-item" style="border-color:{{COLOR[idx%COLOR.length]}};">
-          <image class="cpt-img" src='/image/index-img/dot.png' style="background-color:{{COLOR[idx%COLOR.length]}};"></image>
-          <view class="cpt-content">
-            <view class="cpt-head">
-              <text>{{item.CN0}}</text>
-              <text class="cpt-space">{{item.CNME}}</text>
-            </view>
-            <view class="cpt-detail">
-              <text class="cpt-txt">习题量：{{item.QCNT}}</text>
-              <text class="cpt-txt cpt-space">练习量：{{item.UQCNT}}</text>
-            </view>
-          </view>
-          <view class="cpt-opt">
-            <image  src='/image/index-img/pen.png'></image>
-          </view>
-        </view>
-      </navigator>
-    </block>
   </view>
+  <template is="chapterlist" data="{{chapters: chapters,COLOR:COLOR}}" />
 </view>

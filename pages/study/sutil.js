@@ -155,7 +155,7 @@ function selectedOptions(e, that, update, needupdate = false) {
   }
   sExe[iIndex].u_answer = sVal
   sExe[iIndex].u_second = Math.round(mSec / 1000)
-  if (exType == "0" && (!sExe[iIndex].is_answered || needupdate)) { //单项选择时更新
+  if ((exType == "0" || exType == "3") && (!sExe[iIndex].is_answered || needupdate)) { //单项选择时更新
     sExe[iIndex].seq = ++iEcnt
     sExe[iIndex].show_item = 1
     sExe[iIndex].is_answered = true

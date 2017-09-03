@@ -23,10 +23,9 @@ page {
 }
 
 .padding10 {
-  padding: 10px 10px;
-  margin: 7rpx 0 6rpx 0;
+  padding: 5px 10px;
+  margin: 0rpx 0 6rpx 0;
   background: #fff;
-  border-top: 1px solid #eee;
 }
 
 .que-tag {
@@ -63,11 +62,24 @@ page {
 }
 
 .section_head {
-  background: linear-gradient(to top right, #fff, #eee, #fff);
+  background: #F5F5F5;
+  border-bottom: 1rpx solid #ddd;
+  display: flex;
+  flex-direction: row;
+  padding: 5rpx 20rpx;
+  justify-content: flex-start;
+  align-items: center;
 }
 
+.section_img{
+  width: 15rpx;
+  height: 15rpx;
+  background-color: #2186e0;
+  margin-right: 20rpx;
+  border-radius: 20rpx;
+  box-shadow: 0rpx 0rpx 0rpx 2rpx #555;
+}
 .section_title {
-  border-left: 6rpx solid #2186e0;
   padding: 6rpx 4rpx;
   font-size: 28rpx;
   font-weight: bolder;
@@ -363,8 +375,8 @@ page {
 }
 
 .answer_list {
-  padding-left: 40rpx;
-  font-size: 26rpx;
+  padding-left: 20rpx;
+  font-size: 24rpx;
   font-weight: bolder;
   color: crimson;
 }

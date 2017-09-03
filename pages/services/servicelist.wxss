@@ -1,1 +1,68 @@
 /* servicelist.wxss */
+/* pages/services/services.wxss */
+@import "../../common/lib/weui.wxss";
+
+.page-section{
+  border-top: 0px solid #eee;
+}
+.item-total {
+  display: flex;
+  flex-direction: row;
+  padding:30rpx 10rpx;
+}
+
+.titem{  
+  flex-grow:1;
+  text-align: center;
+}
+.titem .item-head{
+  font-size: 32rpx;
+  color: #000;
+}
+
+.titem .item-desc{
+  font-size: 24rpx;
+  color: #888;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+}
+
+
+
+.item-image {
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 50rpx;
+  margin-left: 20rpx;
+}
+
+.item-image image {
+  width: 35rpx;
+  height: 35rpx;
+  padding: 8rpx 8rpx;
+}
+
+.item-txt {
+  flex: 8;
+  font-size: 28rpx;
+  padding: 20rpx 40rpx;
+}
+.item-txt2 {
+  flex: 8;
+  font-size: 28rpx;
+  padding: 20rpx 40rpx;
+  border-top: 1px solid #eee;
+}
+
+form {
+  width: 100%;
+}
+
+.splited{
+  height: 20rpx;
+  background-color: #F5F5F5;
+  width: 100%;
+}

@@ -1,6 +1,11 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/focus/focus",
+    "pages/focus/focusItem",
+    "pages/services/servicelist",
+    "pages/study/chapter/chapter_exec",
+    "pages/study/chapter/chapter",
     "pages/study/random/random",
     "pages/study/favorite/favorite",
     "pages/study/special/special",
@@ -8,9 +13,7 @@
     "pages/study/real/real_exe",
     "pages/study/evaluation/evaluation",
     "pages/study/realsimulate/realsimulate",
-    "pages/study/realsimulate/realsimulate_exe",
-    "pages/services/servicelist",
-    "pages/focus/focus"
+    "pages/study/realsimulate/realsimulate_exe"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -25,7 +25,7 @@ Page({
     showItems: [{
       img: "../../image/index-img/1.png",
       txt: "章节练习",
-      url: "real"
+      url: "/pages/study/chapter/chapter"
     }, {
       img: "../../image/index-img/2.png",
       txt: "在线刷题",
@@ -67,5 +67,16 @@ Page({
         chapters: data.CHAPTER
       })
     });
+  },
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+    var that = this
+    return {
+      title: "事易考",
+      desc: '选择事易考！事业成功！',
+      path: '/pages/index/index'
+    }
   }
 })

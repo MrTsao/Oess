@@ -1,66 +1,76 @@
 // servicelist.js
+var util = require('../../utils/util.js')
+var app = getApp()
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-  
+    userInfo: {},
+    HEAD_IMG: "",
+    PAGE: "PROFILE",
+    items: [{
+      txt: "个人资料",
+      color: "#3CB371",
+      img: "/image/user.png",
+      url: "/pages/profile/profile",
+      spilted: true
+    },{
+      txt: "我的余额",
+      color: "#cd853f",
+      img: "/image/doller.png",
+      url: "/pages/profile/profile"
+    },{
+      txt: "我的收藏",
+      color: "#BDB76B",
+      img: "/image/Reading.png",
+      url: "/",
+      spilted:true
+    }, {
+      txt: "报考地区",
+      color: "#8FBC8F",
+      img: "/image/location.png",
+      url: "/",
+      spilted: true
+    }, {
+      txt: "练习科目",
+      color: "#778899",
+      img: "/image/class.png",
+      url: "/"
+    }, {
+      txt: "推荐给朋友",
+      color: "#008B8B",
+      img: "/image/share.png",
+      url: "/"
+    }],
+    info: [{ RATE: '-', DT: '-', US: '-' }]
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
+    var that = this
+    //调用应用实例的方法获取全局数据
+    app.getUserInfo(null, function (user) {
+      that.setData({
+        userInfo: user
+      })
+    })
+    Post.call(this, this, "LOAD", null, function (that, data) {
+      if (data.info.length > 0) {
+        data.info[0].US = util.formatString(data.info[0].US)
+      }
+      that.setData({
+        info: data.info
+      })
+    });
   }
 })
+
+//服务器请求数据
+function Post(that, action, data, doAfter) {
+  //数据请求执行方法
+  util.Post(that, action, data, function (that,res) {
+    if (res) {
+      //回调
+      typeof doAfter == "function" && doAfter(that, res)
+    }
+    else {
+      // console.log('error')
+    }
+  })
+}
