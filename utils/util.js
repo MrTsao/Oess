@@ -131,7 +131,7 @@ function _post_json(jsPost, success, fail) {
         } else if (res.data.msg == "NO_USER") {
           app.getUserInfo(null, function (user) {
             _newUserId(app.globalData.url, user, app.globalData.openData, function () {
-              _post_json(app.globalData.url, jsPost, success, fail)
+              _post_json(jsPost, success, fail)
             })
           })
         } else {
