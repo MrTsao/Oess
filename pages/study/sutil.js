@@ -22,7 +22,7 @@ function touchEnd(e, that, next, refreshComment) {
     if (endDot.x - startDot.x <= -100) {
       //向右滑动
       let iIndex = that.data.index
-      if (iIndex == that.data.exerises.length - 2) {
+      if (iIndex == that.data.exerises.length - 3) {
         // wx.showToast({
         //     title: '加载中...',
         //     icon: 'loading',

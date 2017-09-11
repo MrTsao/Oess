@@ -4,6 +4,6 @@
 <import src="/common/chapterlist.wxml" />
 <import src="/common/foot.wxml" />
 <view class="container">
-      <template is="pagehead" data="{{avatarUrl: userInfo.avatarUrl,nickName:userInfo.nickName}}" />
-      <template is="chapterlist" data="{{chapters: chapters,COLOR:COLOR}}" />
-  </view>
+  <template is="pagehead" data="{{avatarUrl: userInfo.avatarUrl,nickName:userInfo.nickName}}" />
+  <template is="chapterlist" data="{{chapters: chapters,COLOR:COLOR}}" />
+</view>

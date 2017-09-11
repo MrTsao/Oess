@@ -19,7 +19,7 @@
   margin-right: auto;
   border-radius: 5rpx;
   background-color: #fff;
-  box-shadow: 0 0 8rpx #1aad19;
+  box-shadow: 0 0 5rpx 3rpx #4682B4;
 }
 
 .answer-list{
@@ -27,15 +27,13 @@
   flex-direction: row;
   justify-content: flex-start;
   flex-wrap: wrap;
-  padding-left: 20rpx;
-  padding-right: 20rpx;
-  padding-bottom: 20rpx;
+  padding: 20rpx;
   align-content: space-between;
 }
 
 .answer-list .answer-item{
   display: flex;
-  flex: auto;
+  flex-wrap: wrap;
   flex-direction: column;
   border: 1rpx solid #eee;
   border-radius: 5rpx;
@@ -56,4 +54,17 @@
   height: 30rpx;
   line-height: 30rpx;
   text-align: center;
+}
+
+.splited{
+  height: 20rpx;
+  background-color: #F5F5F5;
+  width: 100%;
+}
+.setlabel{
+  font-size: 32rpx;
+  padding: 20rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }

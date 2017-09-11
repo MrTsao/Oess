@@ -1,11 +1,24 @@
 /**index.wxss**/
 @import "../../common/lib/chapterlist.wxss";
-.fun-list{
+
+.class-desc {
+  font-size: 28rpx;
+  padding: 20rpx 20rpx 10rpx 50rpx;
+  align-self: flex-start;
+}
+
+.class-type {
+  color: #4682b4;
+  margin-left: 20rpx;
+  font-size: 32rpx;
+}
+
+.fun-list {
   margin-top: 20rpx;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content:center;
+  justify-content: center;
   color: #808080;
 }
 
@@ -20,7 +33,7 @@
   width: 100rpx;
   height: 100rpx;
   border-radius: 100rpx;
-  border: 1rpx solid #4682B4;
+  border: 1rpx solid #4682b4;
 }
 
 .item-image image {
@@ -34,7 +47,6 @@
   padding: 10rpx 20rpx;
 }
 
-
 swiper {
   height: 200rpx;
   width: 100%;
@@ -46,4 +58,78 @@ swiper {
   width: 100%;
 }
 
+/* 菜单框架 */
+
+.lawSub1 {
+  text-align: left;
+  position: fixed;
+  top: -1rpx;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  z-index: 9998;
+}
+
+.all-menu{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.menu-content {
+  opacity: 1;
+  flex-grow: 1;
+  border-right: 1rpx solid #C0C0C0;
+  background-color: #F5F5F5;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 70%;
+}
+
+.menu-blank {
+  background-color:#eee;
+  flex-grow: 1;
+  opacity: 0.5;
+  width: 40%;
+}
+
+/* 单项菜单 */
+
+.Sub1item {
+  background-color: #eee;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 5rpx 0 #808080;
+  margin-bottom: 2rpx;
+}
+
+/* 一级菜单 */
+
+.itemHead {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 6rpx 0;
+  color: #444;
+  text-shadow: 1px 1px 0 #ddd;
+}
+
+/* 一级菜单 标题 */
+
+.itemHead text {
+  font-size: 32rpx;
+  padding-left: 20rpx;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+  flex: auto;
+}
+
+.menuSltd {
+  background-color: #F5F5F5;
+  color: #4682B4;
+  text-shadow: 1px 1px 0 #D3D3D3;
+}
 

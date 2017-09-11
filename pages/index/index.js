@@ -6,6 +6,23 @@ Page({
   data: {
     PAGE: "INDEX",
     userInfo: {},
+    height: 0,
+    width: 0,
+    menuhide: true,//是否折叠菜单 
+    menuIndex: 0,
+    menu: [{
+      id: "1"
+      , txt: "综合基础知识"
+    }, {
+      id: "2"
+      , txt: "管理基础知识"
+    }, {
+      id: "3"
+      , txt: "教育公共基础知识"
+    }, {
+      id: "4"
+      , txt: "综合基础教育类"
+    }],//菜单内容
     background: [{
       id: "item-1",
       url: "https://www.yondo.cc/wxapp/images/102.png"
@@ -61,9 +78,24 @@ Page({
   //事件处理函数
   bindViewTap: function () {
   },
+  //展开或隐藏菜单
+  menucontrol: function (e) {
+    this.setData({
+      menuhide: !this.data.menuhide
+    })
+  },
+  subitemcontrol: function (e) {
+    this.setData({
+      menuIndex: e.currentTarget.dataset.idx
+      , menuhide: !this.data.menuhide
+    });
+  },
   onLoad: function () {
+    var SysInfo = wx.getSystemInfoSync()
     util.Post(this, "LOAD", null, function (that, data) {
       that.setData({
+        height: SysInfo.windowHeight,
+        width: SysInfo.screenWidth,
         chapters: data.CHAPTER
       })
     });

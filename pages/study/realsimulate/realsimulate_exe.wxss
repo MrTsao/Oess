@@ -19,7 +19,7 @@
   margin-right: auto;
   border-radius: 5rpx;
   background-color: #fff;
-  box-shadow: 0 0 8rpx #1aad19;
+  box-shadow: 0 0 5rpx 3rpx #4682B4;
 }
 
 .setlabel{
@@ -40,7 +40,7 @@
 
 .answer-list .answer-item{
   display: flex;
-  flex: auto;
+  flex-wrap: wrap;
   flex-direction: column;
   border: 1rpx solid #eee;
   border-radius: 5rpx;
