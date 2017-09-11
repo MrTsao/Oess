@@ -85,7 +85,7 @@ swiper {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  width: 70%;
+  width: 80%;
 }
 
 .menu-blank {
@@ -102,7 +102,7 @@ swiper {
   display: flex;
   flex-direction: column;
   box-shadow: 0 0 5rpx 0 #808080;
-  margin-bottom: 2rpx;
+  margin-bottom: 3rpx;
 }
 
 /* 一级菜单 */
@@ -120,7 +120,7 @@ swiper {
 /* 一级菜单 标题 */
 
 .itemHead text {
-  font-size: 32rpx;
+  font-size: 36rpx;
   padding-left: 20rpx;
   padding-top: 10rpx;
   padding-bottom: 10rpx;

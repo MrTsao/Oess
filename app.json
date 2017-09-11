@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/study/real/real",
     "pages/index/index",
     "pages/focus/focus",
     "pages/focus/focusItem",
@@ -10,6 +9,7 @@
     "pages/study/random/random",
     "pages/study/favorite/favorite",
     "pages/study/special/special",
+    "pages/study/real/real",
     "pages/study/real/real_exe",
     "pages/study/evaluation/evaluation",
     "pages/study/realsimulate/realsimulate",
