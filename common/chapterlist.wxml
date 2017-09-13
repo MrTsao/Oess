@@ -2,7 +2,7 @@
   <view class="page-section" >
     <view class="section-title">
       <view class="head">
-        章节练习
+        章节练习·免费
       </view>
     </view>
     <block wx:for="{{chapters}}" wx:for-index="idx" wx:key="{{item.CPID}}">
@@ -15,7 +15,7 @@
               <text class="cpt-space">{{item.CNME}}</text>
             </view>
             <view class="cpt-detail">
-              <text class="cpt-txt">习题量：{{item.QCNT}}</text>
+              <text class="cpt-txt">免费习题量：{{item.QCNT}}</text>
               <text class="cpt-txt cpt-space">练习量：{{item.UQCNT}}</text>
             </view>
           </view>

@@ -13,7 +13,8 @@
     "pages/study/real/real_exe",
     "pages/study/evaluation/evaluation",
     "pages/study/realsimulate/realsimulate",
-    "pages/study/realsimulate/realsimulate_exe"
+    "pages/study/realsimulate/realsimulate_exe",
+    "pages/doc/doclist"
   ],
   "window": {
     "backgroundTextStyle": "light",

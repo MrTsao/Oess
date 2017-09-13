@@ -58,7 +58,7 @@ Page({
     }, {
       img: "../../image/index-img/6.png",
       txt: "电子资料",
-      url: "real"
+      url: "/pages/doc/doclist"
     }, {
       img: "../../image/index-img/8.png",
       txt: "高频考题",

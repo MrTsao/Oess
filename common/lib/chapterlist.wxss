@@ -11,7 +11,7 @@
   width: 20rpx;
   height: 20rpx;
   margin: 10rpx 30rpx 15rpx 20rpx ;
-  border-radius: 20rpx;
+  border-radius: 100%;
   box-shadow: 0rpx 0rpx 0rpx 2rpx #555;
 }
 
