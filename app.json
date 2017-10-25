@@ -14,7 +14,10 @@
     "pages/study/evaluation/evaluation",
     "pages/study/realsimulate/realsimulate",
     "pages/study/realsimulate/realsimulate_exe",
-    "pages/doc/doclist"
+    "pages/doc/doclist",
+    "pages/study/random/random_mde",
+    "pages/trade/member",
+    "pages/trade/realexam"
   ],
   "window": {
     "backgroundTextStyle": "light",

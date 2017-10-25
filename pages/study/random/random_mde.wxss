@@ -1,0 +1,46 @@
+/* pages/study/random/random_mde.wxss */
+
+.container {
+  width: 100%;
+  padding: 10rpx 10rpx;
+  display: flex;
+  flex-direction: column;
+  color: #999;
+}
+
+.container .opt-item {
+  width: 95%;
+  border-radius: 10rpx;
+  border: 1rpx solid #eee;
+  margin-top: 10rpx;
+  padding: 30rpx 10rpx;
+  text-align: center;
+}
+
+.btn-hover {
+  background-color: #4682b4;
+  color: #eee;
+}
+
+.tips {
+  margin-top: 50rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.icon {
+  width: 50rpx;
+  height: 50rpx;
+  border: 1rpx solid #eee;
+  border-radius: 50rpx;
+  text-align: center;
+  background-color: #4682b4;
+  color: #eee;
+  flex-wrap: 0;
+}
+.tips-content{
+  flex-grow: 1;
+  width: 100%;
+}

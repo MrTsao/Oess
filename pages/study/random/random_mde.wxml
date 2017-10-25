@@ -1,0 +1,16 @@
+<!--pages/study/random/random_mde.wxml-->
+<view class="container">
+  <view class="opt-item" hover-class='btn-hover'>
+    免费体验区
+  </view>
+  <view class="opt-item" hover-class='btn-hover'>
+    会员专区
+  </view>
+  <view class="tips">
+    <view class="icon">?</view>
+    <view class="tips-content"> 
+      <view>题目数限制：200</view>
+      <view>已刷题：0</view>
+    </view>
+  </view>
+</view>
