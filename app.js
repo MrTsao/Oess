@@ -74,8 +74,8 @@ App({
     userInfo: null,
     openData: null,
     code: '',
-    url: 'https://www.yondo.cc/wxapp/wxget.axd',
-    uploadurl: 'https://www.yondo.cc/wxapp/wxupload.axd',
-    bseurl: 'https://www.yondo.cc/'
+    url: 'https://www.cqsuoji.com/Oes/wxget.axd',
+    uploadurl: 'https://www.cqsuoji.com/Oes/wxupload.axd',
+    bseurl: 'https://www.cqsuoji.com/'
   }
 })

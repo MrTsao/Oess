@@ -20,10 +20,11 @@
     "pages/trade/realexam"
   ],
   "window": {
-    "backgroundTextStyle": "light",
+    "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#4682B4",
-    "navigationBarTitleText": "事易考",
-    "navigationBarTextStyle": "white"
+    "navigationBarTitleText": "轻松事考",
+    "navigationBarTextStyle": "white",
+    "enablePullDownRefresh": true
   },
   "tabBar": {
     "color": "#808080",

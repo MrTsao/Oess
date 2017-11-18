@@ -1,3 +1,4 @@
+var app = getApp();
 function formatTime(date) {
   var year = date.getFullYear()
   var month = date.getMonth() + 1
@@ -64,6 +65,22 @@ function formatTimeString(n) {
   return strFormat
 }
 
+function currentWeekInfo() {
+  var now = new Date()
+  var nowDayOfWeek = now.getDay() //今天本周的第几天
+  var nowDay = now.getDate() //当前日
+  var nowMonth = now.getMonth() //当前月
+  var nowYear = now.getYear() //当前年
+  var weekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek)
+  var weekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek))
+  var sweek = formatNumber(weekStartDate.getMonth() + 1) + '月' + formatNumber(weekStartDate.getDate()) + '日'
+  var eweek = formatNumber(weekEndDate.getMonth() + 1) + '月' + formatNumber(weekEndDate.getDate()) + '日'
+
+  var num = Math.ceil((nowDay + 6 - nowDayOfWeek) / 7).toString();
+
+  return [sweek + ' ～ ' + eweek, (nowMonth + 1).toString(), num]
+}
+
 function imageUtil(e) {
   var imageSize = {};
   var originalWidth = e.detail.width;//图片原始宽 
@@ -94,6 +111,56 @@ function imageUtil(e) {
   console.log('缩放后的宽: ' + imageSize.imageWidth)
   console.log('缩放后的高: ' + imageSize.imageHeight)
   return imageSize;
+} 
+
+//高亮转换
+function HighlightTransform(data) {
+  let newList = [];
+  for (let i = 0; i < data.length; i++) {
+    let texts = data[i].text.split(data[i].key);
+    let t = '';
+    for (let j = 0; j < texts.length; j++) {
+      if (j < texts.length - 1) {
+        t += texts[j] + '@' + data[i].key + '@';
+      } else {
+        t += texts[j]
+      }
+    }
+    let arr = t.split('@');
+    let list = [];
+    for (let k = 0; k < arr.length; k++) {
+      list.push({
+        text: arr[k],
+        isgl: (arr[k] == data[i].key)
+      });
+    }
+    newList.push(list);
+  }
+  return newList;
+}
+
+/**
+ * url 请求地址
+ * success 成功的回调
+ * fail 失败的回调
+ */
+function _get(url, success, fail) {
+
+  console.log("------start---_get----");
+  wx.request({
+    url: url,
+    header: {
+      // 'Content-Type': 'application/json'
+    },
+    success: function (res) {
+      success(res);
+    },
+    fail: function (res) {
+      fail(res);
+    }
+  });
+
+  console.log("----end-----_get----");
 }
 
 /**
@@ -146,6 +213,7 @@ function _post_json(jsPost, success, fail) {
     },
     fail: function (res) {
       console.log(res);
+      wx.hideNavigationBarLoading();
     }
   });
   //console.log("----end----_post-----");
@@ -165,6 +233,22 @@ jsonRow.prototype = {
   }
 };
 
+function updateArr(bseobj,fromobj,key){
+  var arr = bseobj.concat(fromobj.filter(function (item) {
+    var isneed = true
+    bseobj.forEach(function(e){
+      if(e[key] == item[key]){
+        isneed = false
+        return
+      }
+    })
+    return isneed
+  })).sort(function(a,b){
+    return b[key].localeCompare(a[key])
+  });
+  return arr
+}
+
 //服务器请求数据
 function Post(that, action, data, doAfter) {
   //数据请求执行方法
@@ -175,7 +259,7 @@ function Post(that, action, data, doAfter) {
     jsPost.AddCell("PAGE", ppage)
     jsPost.AddCell("ACTION", action)
     _post_json(jsPost, function (res) {
-      typeof doAfter == "function" && doAfter(that, res.data.data)
+      typeof doAfter == "function" && doAfter(that, res.data.data,res.data.mod)
     })
   })
 }
@@ -201,6 +285,7 @@ function _getOpenId(url, rescode, doAfter) {
     },
     fail: function (res) {
       console.log(res);
+      wx.hideNavigationBarLoading();
     }
   });
 }
@@ -230,6 +315,7 @@ function _newUserId(url, user, openData, doAfter) {
     },
     fail: function (res) {
       console.log(res);
+      wx.hideNavigationBarLoading();
     }
   });
 }
@@ -238,6 +324,8 @@ module.exports = {
   formatTime: formatTime,
   formatTimeString: formatTimeString,
   formatString: formatString,
+  currentWeekInfo: currentWeekInfo,
+  updateArr: updateArr,
   imageUtil: imageUtil,
   Post: Post,
   jsonRow: jsonRow,

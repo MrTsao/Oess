@@ -100,14 +100,17 @@ Page({
       })
     });
   },
+  onPullDownRefresh: function () {
+    wx.stopPullDownRefresh()
+  },
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
     var that = this
     return {
-      title: "事易考",
-      desc: '选择事易考！事业成功！',
+      title: "轻松事考",
+      desc: '选择轻松事考！事业成功！',
       path: '/pages/index/index'
     }
   }

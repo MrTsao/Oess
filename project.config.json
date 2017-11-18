@@ -4,15 +4,24 @@
 		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
-		"minified": true
+		"minified": true,
+		"newFeature": true
 	},
-	"compileType": "weapp",
+	"compileType": "miniprogram",
 	"libVersion": "1.5.2",
-	"appid": "wx4cca9a221dd9ff09",
+	"appid": "wxd924eee97e823854",
 	"projectname": "Oess",
 	"condition": {
-		"weapp": {
-			"current": 1,
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
 			"list": [
 				{
 					"id": -1,
@@ -23,17 +32,10 @@
 				{
 					"id": -1,
 					"name": "random_mod",
-					"pathName": "pages/study/random/random_mde"
+					"pathName": "pages/study/random/random_mde",
+					"query": ""
 				}
 			]
-		},
-		"search": {
-			"current": -1,
-			"list": []
-		},
-		"conversation": {
-			"current": -1,
-			"list": []
 		}
 	}
 }
