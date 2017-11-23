@@ -5,7 +5,9 @@ var util = require('../../../utils/util.js');
 Page({
   data: {
     PAGE: "CHAPTER",
-    userInfo: {},
+    userInfo: {
+      avatarUrl: "/image/icon.png"
+    },
     chapters: [],
     COLOR: ['#6699cc', '#778899', '#99cc66', '#5F9EA0', '#8FBC8F', '#BDB76B']
   },
