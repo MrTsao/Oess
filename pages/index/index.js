@@ -6,6 +6,7 @@ Page({
   data: {
     PAGE: "INDEX",
     userInfo: {},
+    M: null,
     height: 0,
     width: 0,
     menuhide: true,//是否折叠菜单 
@@ -92,11 +93,12 @@ Page({
   },
   onLoad: function () {
     var SysInfo = wx.getSystemInfoSync()
-    util.Post(this, "LOAD", null, function (that, data) {
+    util.Post(this, "LOAD", null, function (that, data, a, m) {
       that.setData({
         height: SysInfo.windowHeight,
         width: SysInfo.screenWidth,
-        chapters: data.CHAPTER
+        chapters: data.CHAPTER,
+        M: m
       })
     });
   },

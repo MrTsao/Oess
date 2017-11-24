@@ -1,8 +1,8 @@
 <template name="chapterlist">
-  <view class="page-section" >
+  <view class="page-section">
     <view class="section-title">
       <view class="head">
-        章节练习·免费
+        章节练习·{{M=='1'?'会员':'免费'}}
       </view>
     </view>
     <block wx:for="{{chapters}}" wx:for-index="idx" wx:key="{{item.CPID}}">
@@ -20,7 +20,7 @@
             </view>
           </view>
           <view class="cpt-opt">
-            <image  src='/image/index-img/pen.png'></image>
+            <image src='/image/index-img/pen.png'></image>
           </view>
         </view>
       </navigator>

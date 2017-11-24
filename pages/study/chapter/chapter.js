@@ -5,6 +5,7 @@ var util = require('../../../utils/util.js');
 Page({
   data: {
     PAGE: "CHAPTER",
+    M: null,
     userInfo: {
       avatarUrl: "/image/icon.png"
     },
@@ -21,9 +22,10 @@ Page({
         userInfo: user
       })
     })
-    util.Post(this, "LOAD", null, function (that, data) {
+    util.Post(this, "LOAD", null, function (that, data, a, m) {
       that.setData({
-        chapters: data.CHAPTER
+        chapters: data.CHAPTER,
+        M: m
       })
     });
   },

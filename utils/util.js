@@ -259,7 +259,7 @@ function Post(that, action, data, doAfter) {
     jsPost.AddCell("PAGE", ppage)
     jsPost.AddCell("ACTION", action)
     _post_json(jsPost, function (res) {
-      typeof doAfter == "function" && doAfter(that, res.data.data,res.data.mod)
+      typeof doAfter == "function" && doAfter(that, res.data.data,res.data.mod,res.data.m)
     })
   })
 }

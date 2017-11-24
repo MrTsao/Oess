@@ -28,8 +28,8 @@
       </block>
     </swiper>
   </view>
-  <template is="chapterlist" data="{{chapters: chapters,COLOR:COLOR}}" />
-  <scroll-view scroll-y="{{true}}" class="lawSub1" hidden='{{menuhide}}' >
+  <template is="chapterlist" data="{{chapters: chapters,COLOR:COLOR,M:M}}" />
+  <scroll-view scroll-y="{{true}}" class="lawSub1" hidden='{{menuhide}}'>
     <view class="all-menu">
       <view class="menu-content" style="height:{{height}}px;">
         <view wx:for="{{menu}}" wx:for-item="itm" wx:for-index="idx" wx:key="itm.id" class="Sub1item">
