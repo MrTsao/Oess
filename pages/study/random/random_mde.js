@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo: {},
+    userInfo: { avatarUrl: "/image/icon.png"},
     PAGE: "RANDOM",
     M: '',
     summaryValues: [],

@@ -3,7 +3,7 @@ var util = require('../../utils/util.js')
 var app = getApp()
 Page({
   data: {
-    userInfo: {},
+    userInfo: { avatarUrl: "/image/icon.png"},
     HEAD_IMG: "",
     PAGE: "PROFILE",
     items: [{

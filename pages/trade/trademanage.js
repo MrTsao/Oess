@@ -1,4 +1,4 @@
-// pages/trade/realexam.js
+// pages/trade/trademanage.js
 Page({
 
   /**

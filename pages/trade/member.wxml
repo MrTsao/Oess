@@ -32,16 +32,24 @@
   </view>
   <view class='splited'></view>
 </view>
-<view class="page-section-gap goods" style="margin-top:{{tp=='PP'?'280rpx':'110rpx'}};">
+<view class="page-section-gap goods" style="margin-top:{{tp=='PP'?'275rpx':'110rpx'}};">
   <block wx:if="{{tp=='MR'}}">
     <view class="good-item" wx:for="{{goods}}" wx:if="{{item.GOODS_TYPE==tp}}" wx:key="{{item.GOODS_ID}}">
-      <view class="item-content">
+      <view class="item-content" data-id="{{item.GOODS_ID}}" bindtap='purchmember'>
         <view class="item-txt">
           {{item.GOODS_EXPIRE}}个月
         </view>
         <view class="item-price">
           售价{{ item.GOODS_AMT/100}}元
         </view>
+      </view>
+    </view>
+    <view class="tips">
+      <view>
+        会员权益
+        <view class="tips-content">1、章节练习无题目数量限制</view>
+        <view class="tips-content">2、在线刷题无题目数量限制</view>
+        <view class="tips-content">3、解锁模拟考试功能</view>
       </view>
     </view>
   </block>
@@ -51,7 +59,9 @@
         <checkbox value="{{item.GOODS_ID}}" checked="{{item.check}}" />
         <label class="paper-content">
           <label class="contnet-ttl">{{item.GOODS_NME}}</label>
-          <label class="item-price">有效期:永久；售价{{ item.GOODS_AMT/100}}元</label>
+          <label class="item-price">有效期
+            <label style="color:#933;">永久</label> 售价
+            <label style="color:#933;">{{ item.GOODS_AMT/100}}</label>元</label>
         </label>
       </label>
     </checkbox-group>
@@ -63,8 +73,9 @@
 <!--底层-->
 <view wx:if="{{tp=='PP'}}" class="page-bottom">
   <checkbox bindtap="selectadd">全选</checkbox>
-  <label>总计<label class="font-red">{{TTL_AMT/100}}</label>元</label>
+  <label>总计
+    <label class="font-red">{{TTL_AMT/100}}</label>元</label>
   <view class="cust-btn">
-    <a bindtap="startTrade">提交</a>
+    <a bindtap="startTrade">支付</a>
   </view>
 </view>

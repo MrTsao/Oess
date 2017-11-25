@@ -17,7 +17,7 @@
     "pages/doc/doclist",
     "pages/study/random/random_mde",
     "pages/trade/member",
-    "pages/trade/realexam"
+    "pages/trade/trademanage"
   ],
   "window": {
     "backgroundTextStyle": "dark",

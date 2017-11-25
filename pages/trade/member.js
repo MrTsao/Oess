@@ -44,10 +44,71 @@ Page({
       that.setData({
         goods: data.goods,
         M: m,
-        tp: options.tp || "PP",
+        tp: options.tp || "MR",
         yearList: yearList
       })
     });
+  },
+  purchmember: function (e) {
+    let id = e.currentTarget.dataset.id;
+    var jsPost = new util.jsonRow()
+    jsPost.AddCell("ID", id)
+    util.Post(this, "PMEMBER", jsPost, function (that, data) {
+      wx.requestPayment({
+        timeStamp: data.timeStamp,
+        nonceStr: data.nonceStr,
+        package: data.package,
+        signType: data.signType,
+        paySign: data.paySign,
+        success: function (res) {
+          wx.showToast({
+            title: '支付成功!',
+          })
+          wx.navigateBack({
+            delta: 1
+          })
+        },
+        fail: function (res) {
+          wx.showModal({
+            title: '支付失败',
+            content: res.errMsg,
+          })
+        },
+        complete: function (res) {
+          console.log(res)
+        }
+      })
+    })
+  },
+  startTrade: function (e) {
+    var jsPost = new util.jsonRow()
+    jsPost.AddCell("ID", this.data.selecteditems.join(","))
+    util.Post(this, "PMEMBER", jsPost, function (that, data) {
+      wx.requestPayment({
+        timeStamp: data.timeStamp,
+        nonceStr: data.nonceStr,
+        package: data.package,
+        signType: data.signType,
+        paySign: data.paySign,
+        success: function (res) {
+          wx.showToast({
+            title: '支付成功!',
+          })
+          wx.redirectTo({
+            url:'member'
+          })
+        },
+        fail: function (res) {
+          wx.showModal({
+            title: '支付失败',
+            content: res.errMsg,
+          })
+        },
+        complete: function (res) {
+          console.log(res)
+        }
+      })
+    })
   },
   buygoods: function (e) {
     this.setData({
@@ -57,7 +118,6 @@ Page({
   selected: function (e) {
     let selectedid = e.detail.value;
     let selecteditems = this.data.selecteditems;
-
     let goods = this.data.goods;
     let year = this.data.yearList[this.data.date];
     let region = this.data.region;
@@ -155,7 +215,19 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    wx.stopPullDownRefresh()
+    util.Post(this, "LOAD", null, function (that, data, a, m) {
+      var yearList = that.data.yearList
+      for (var i = 0; i < data.goods.length; i++) {
+        if (data.goods[i].IN_YEAR && yearList.indexOf(data.goods[i].IN_YEAR) == -1) {
+          yearList.push(data.goods[i].IN_YEAR)
+        }
+      }
+      that.setData({
+        goods: data.goods,
+        yearList: yearList
+      })
+      wx.stopPullDownRefresh()
+    });
   },
 
   /**
