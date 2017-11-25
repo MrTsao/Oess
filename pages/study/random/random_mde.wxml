@@ -1,16 +1,40 @@
 <!--pages/study/random/random_mde.wxml-->
+<import src="/common/pagehead.wxml" />
 <view class="container">
-  <view class="opt-item" hover-class='btn-hover'>
-    免费体验区
-  </view>
-  <view class="opt-item" hover-class='btn-hover'>
-    会员专区
+  <!--开始弹出窗-->
+  <view class="dv-module">
+    <template is="pagehead" data="{{avatarUrl: userInfo.avatarUrl,nickName:userInfo.nickName}}" />
+    <view class="vertical content">
+      <view class="item-txt">
+        您目前处于
+        <view>{{M=='1'?'会员模式':'免费体验模式'}}</view>
+      </view>
+      <view class="page-section page-section-gap" wx:for="{{summaryItems}}" wx:key="item.id">
+        <view class="item">
+          <view class="item-image" style="background-color:{{item.color}};">
+            <image src="{{item.img}}"></image>
+          </view>
+          <view class="item-txt">
+            {{item.txt}}：{{ summaryValues[0][item.val]}}
+          </view>
+        </view>
+      </view>
+      <view class="page-section page-section-gap">
+      </view>
+    </view>
+    <view class="cust-btn page-section-gap">
+      <a bindtap="startTran">{{M=='1'?'开始练习':'免费体验'}}</a>
+      <a bindtap="startTrade" wx:if="{{M!='1'}}">会员充值</a>
+    </view>
   </view>
   <view class="tips">
-    <view class="icon">?</view>
-    <view class="tips-content"> 
-      <view>题目数限制：200</view>
-      <view>已刷题：0</view>
+    <view>
+      免费体验模式
+      <view class="tips-content">随机题目数限制：200</view>
+    </view>
+    <view>
+      会员权益
+      <view class="tips-content">随机练习题目无限制</view>
     </view>
   </view>
 </view>

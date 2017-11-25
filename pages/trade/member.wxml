@@ -1,2 +1,70 @@
 <!--pages/trade/member.wxml-->
-<text>pages/trade/member.wxml</text>
+<view class="tabs">
+  <view class="item" data-type="MR" bindtap='buygoods' style="background-color:{{tp=='MR'?'#8FBC8F':'#EEE'}};color:{{tp=='MR'?'#fff':'#bbb'}};">会员充值</view>
+  <view class="item" data-type="PP" bindtap='buygoods' style="background-color:{{tp=='PP'?'#8FBC8F':'#EEE'}};color:{{tp=='PP'?'#fff':'#bbb'}};">真题购买</view>
+</view>
+<view class="content-fixed-top" wx:if="{{tp=='PP'}}">
+  <view class="page-section">
+    <view class="sitem">
+      <view class="sitem-image" style="background-color:#778899;">
+        <image src="/image/time.png"></image>
+      </view>
+      <view class="sitem-content">
+        年份
+        <picker mode="selector" value="{{date}}" range="{{yearList}}" bindchange="bindDateChange">
+          {{yearList[date]}} 年
+        </picker>
+      </view>
+    </view>
+  </view>
+  <view class="page-section">
+    <view class="sitem">
+      <view class="sitem-image" style="background-color:#8FBC8F;">
+        <image src="/image/location.png"></image>
+      </view>
+      <view class="sitem-content border-top">
+        省/市-县/区
+        <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+          {{region[0]}}，{{region[1]}}，{{region[2]}}
+        </picker>
+      </view>
+    </view>
+  </view>
+  <view class='splited'></view>
+</view>
+<view class="page-section-gap goods" style="margin-top:{{tp=='PP'?'280rpx':'110rpx'}};">
+  <block wx:if="{{tp=='MR'}}">
+    <view class="good-item" wx:for="{{goods}}" wx:if="{{item.GOODS_TYPE==tp}}" wx:key="{{item.GOODS_ID}}">
+      <view class="item-content">
+        <view class="item-txt">
+          {{item.GOODS_EXPIRE}}个月
+        </view>
+        <view class="item-price">
+          售价{{ item.GOODS_AMT/100}}元
+        </view>
+      </view>
+    </view>
+  </block>
+  <block wx:if="{{tp=='PP'}}">
+    <checkbox-group name="cgPP" bindchange="selected">
+      <label class="paper-item" wx:for="{{goods}}" wx:if="{{item.GOODS_TYPE==tp && (yearList[date] =='全部' || item.IN_YEAR == yearList[date]) && (region[0] == '全部' || item.PLACE_CDE == region[0]) && (region[2] == '全部' || item.STATION_CDE == region[2])}}" wx:key="{{item.GOODS_ID}}">
+        <checkbox value="{{item.GOODS_ID}}" checked="{{item.check}}" />
+        <label class="paper-content">
+          <label class="contnet-ttl">{{item.GOODS_NME}}</label>
+          <label class="item-price">有效期:永久；售价{{ item.GOODS_AMT/100}}元</label>
+        </label>
+      </label>
+    </checkbox-group>
+    <view class="exerises-feed-bottom">
+      <label> </label>
+    </view>
+  </block>
+</view>
+<!--底层-->
+<view wx:if="{{tp=='PP'}}" class="page-bottom">
+  <checkbox bindtap="selectadd">全选</checkbox>
+  <label>总计<label class="font-red">{{TTL_AMT/100}}</label>元</label>
+  <view class="cust-btn">
+    <a bindtap="startTrade">提交</a>
+  </view>
+</view>

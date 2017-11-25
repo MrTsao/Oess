@@ -2,7 +2,7 @@
 <import src="/common/pagehead.wxml" />
 <import src="/common/foot.wxml" />
 <!--主体-->
-<view class="container" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
+<view wx:if="{{show_content}}" class="container" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
   <!--题目-->
   <view class="page-section">
     <view class="weui-cells weui-cells_after-title">
@@ -128,30 +128,6 @@
     <view class="flex-item bind" bindtap="doComments">
       <image src="/image/Comments.png"></image>
       <lable>评论</lable>
-    </view>
-  </view>
-</view>
-<!--开始弹出窗-->
-<view class="module-bg-layer" wx:if="{{show_start_module}}">
-  <view class="dv-module">
-    <template is="pagehead" data="{{avatarUrl: userInfo.avatarUrl,nickName:userInfo.nickName}}" />
-    <view class="vertical content">
-      <view>
-        <image class="icon-foot" src="/image/icon_foot.png"></image>
-      </view>
-      <view class="page-section page-section-gap" wx:for="{{summaryItems}}" wx:key="item.id">
-        <view class="item">
-          <view class="item-image" style="background-color:{{item.color}};">
-            <image src="{{item.img}}"></image>
-          </view>
-          <view class="item-txt">
-            {{item.txt}}：{{ summaryValues[0][item.val]}}
-          </view>
-        </view>
-      </view>
-    </view>
-    <view class="cust-btn page-section-gap">
-      <a bindtap="startTran">开始练习</a>
     </view>
   </view>
 </view>

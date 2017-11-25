@@ -1,3 +1,4 @@
 {
-    "navigationBarTitleText": "随机练习"
+    "navigationBarTitleText": "随机练习",
+    "enablePullDownRefresh": false
 }

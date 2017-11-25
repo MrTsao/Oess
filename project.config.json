@@ -34,6 +34,12 @@
 					"name": "random_mod",
 					"pathName": "pages/study/random/random_mde",
 					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "会员充值",
+					"pathName": "pages/trade/member",
+					"query": ""
 				}
 			]
 		}

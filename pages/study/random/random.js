@@ -5,23 +5,6 @@ var app = getApp()
 Page({
   data: {
     userInfo: {},
-    summaryValues: [],
-    summaryItems: [{
-      txt: "练习量",
-      color: "#cd853f",
-      val: "BATCH_COUNT",
-      img: "/image/exam.png"
-    }, {
-      txt: "正确率",
-      color: "#008B8B",
-      val: "RATE",
-      img: "/image/crate.png"
-    }, {
-      txt: "总用时",
-      color: "#3CB371",
-      val: "USE_SECOND",
-      img: "/image/time.png"
-    }],
     PAGE: "RANDOM",
     q_type: ["单选题", "多选题", "不定项题", "判断题", "主观题", "其他"],
     exerises: [],
@@ -35,7 +18,7 @@ Page({
     comm_len: 0,
     r_id: '',//评论ID
     show_comment_module: false,
-    show_start_module: true
+    show_content: false
   },
   setautonext: function (e) {
     var that = this
@@ -159,20 +142,9 @@ Page({
       Post.call(this, that, "COLL", jsPost)
     })
   },
-  startTran: function (e) {
-    //开始练习
-    this.setData({
-      show_start_module: false,
-      start_time: new Date()
-    })
-  },
   onLoad: function (options) {
-    wx.showLoading({
-      title: '加载中...',
-      mask: true
-    })
     var that = this
-    app.getUserInfo(null,function(user){
+    app.getUserInfo(null, function (user) {
       that.setData({
         userInfo: user
       })
@@ -190,6 +162,9 @@ Page({
       path: '/pages/study/random/random'
     }
   },
+  onPullDownRefresh: function () {
+    wx.stopPullDownRefresh();
+  },
   onReachBottom: function () { }
 })
 
@@ -198,7 +173,22 @@ function Post(that, action, data) {
   var jsPost = data || new util.jsonRow()
   jsPost.AddCell("PAGE", that.data.PAGE)
   jsPost.AddCell("ACTION", action)
-  util.Post(that, action, jsPost, function (that, res) {
+  util.Post(that, action, jsPost, function (that, res, mod) {
+    if (mod == "END") {
+      wx.showModal({
+        showCancel: false,
+        title: '体验已完成！',
+        content: '您已完成所有的随机练习体验模式，如需继续，请完成会员充值！谢谢！',
+        success: function (res) {
+          if (res.confirm) {
+            wx.navigateBack({
+              delta: 1
+            })
+          }
+        }
+      })
+      return
+    }
     if (res) {
       //更新数据
       if (jsPost.arrjson.ACTION == "LOAD") {
@@ -206,17 +196,13 @@ function Post(that, action, data) {
         if (res.exerises.length > 5) {
           iIndex = 2
         }
-        //格式化练习时间
-        let objSummaries = res.summaries
-        objSummaries[0].USE_SECOND = util.formatString(objSummaries[0].USE_SECOND)
-
         that.setData({
           exerises: that.data.exerises.concat(res.exerises)
-          , summaryValues: objSummaries
           , ecnt: res.ecnt
           , index: iIndex
+          , start_time: new Date()
+          , show_content: true
         })
-        wx.hideLoading()
       }
       else if (jsPost.arrjson.ACTION == "NEXT") {
         that.setData({

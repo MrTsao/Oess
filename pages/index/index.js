@@ -47,7 +47,7 @@ Page({
     }, {
       img: "../../image/index-img/2.png",
       txt: "在线刷题",
-      url: "/pages/study/random/random"
+      url: "/pages/study/random/random_mde"
     }, {
       img: "../../image/index-img/3.png",
       txt: "历年真题",

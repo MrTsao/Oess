@@ -29,6 +29,24 @@ Page({
       })
     });
   },
+  onPullDownRefresh: function () {
+    util.Post(this, "LOAD", null, function (that, data, a, m) {
+      that.setData({
+        chapters: data.CHAPTER,
+        M: m
+      })
+      wx.stopPullDownRefresh()
+    })
+  },
+  // onShow:function(){
+  //   util.Post(this, "LOAD", null, function (that, data, a, m) {
+  //     that.setData({
+  //       chapters: data.CHAPTER,
+  //       M: m
+  //     })
+  //   })
+  // }
+  // ,
   /**
    * 用户点击右上角分享
    */
