@@ -1,4 +1,6 @@
 <!--pages/tabbar/study/realsimulate/realsimulate.wxml-->
+<import src="/common/loading.wxml" />
+<template is="pageloading" data="{{hideclass:hideclass,realhide:realhide}}" />
 <view class="container">
   <view wx:if="{{batches.length > 0 && !batches[0].IS_FINISH_EXAM}}" class="addbatch vertical" bindtap="exebatch">
     <label class="lbDesc2">{{batches[0].BATCH_NO}}</label>

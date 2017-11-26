@@ -1,5 +1,7 @@
 <!--real_exe.wxml-->
 <!--主体-->
+<import src="/common/loading.wxml" />
+<template is="pageloading" data="{{hideclass:hideclass,realhide:realhide}}" />
 <view class="container" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
   <!--题目-->
   <view class="page-section">

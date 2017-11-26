@@ -20,7 +20,7 @@
 .tips-content{
   font-size: 28rpx;
   text-indent: 40rpx;
-  color: #553333;
+  color: #A9A9A9;
 }
 
 /*--------------------------8.起始弹出窗 start----------------------*/

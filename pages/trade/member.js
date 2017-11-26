@@ -9,6 +9,8 @@ Page({
   data: {
     PAGE: "GOODS",
     M: '',
+    hideclass: "",
+    realhide: false,
     tp: 'MR',
     goods: [],
     yearList: ["全部"],
@@ -17,7 +19,8 @@ Page({
     date: 0,
     TTL_AMT: 0,
     selecteditems: [],
-    allchecked: false
+    allchecked: false,
+    id: ''
   },
   bindDateChange: function (e) {
     this.setData({
@@ -45,8 +48,15 @@ Page({
         goods: data.goods,
         M: m,
         tp: options.tp || "MR",
-        yearList: yearList
+        id: options.id || '',
+        yearList: yearList,
+        hideclass: "hideLoad"
       })
+      setTimeout(function () {
+        that.setData({
+          realhide: true
+        });
+      }, 800);
     });
   },
   purchmember: function (e) {
@@ -95,7 +105,7 @@ Page({
             title: '支付成功!',
           })
           wx.redirectTo({
-            url:'member'
+            url: 'member'
           })
         },
         fail: function (res) {
@@ -119,10 +129,11 @@ Page({
     let selectedid = e.detail.value;
     let selecteditems = this.data.selecteditems;
     let goods = this.data.goods;
+    let id = this.data.id;
     let year = this.data.yearList[this.data.date];
     let region = this.data.region;
     for (var i = 0; i < goods.length; i++) {
-      if (goods[i].GOODS_TYPE == 'PP' && (year == '全部' || goods[i].IN_YEAR == year) && (region[0] == '全部' || goods[i].PLACE_CDE == region[0]) && (region[2] == '全部' || goods[i].STATION_CDE == region[2])) {
+      if (goods[i].GOODS_TYPE == 'PP' && (year == '全部' || goods[i].IN_YEAR == year) && (region[0] == '全部' || goods[i].PLACE_CDE == region[0]) && (region[2] == '全部' || goods[i].STATION_CDE == region[2]) && (id == '' || id != '' && goods[i].REFER_ID == id)) {
         if (selectedid.includes(goods[i].GOODS_ID)) {
           if (!selecteditems.includes(goods[i].GOODS_ID)) {
             selecteditems.push(goods[i].GOODS_ID)
@@ -154,10 +165,11 @@ Page({
     let allchecked = !this.data.allchecked;
     let selecteditems = this.data.selecteditems;
     let goods = this.data.goods;
+    let id = this.data.id;
     let year = this.data.yearList[this.data.date];
     let region = this.data.region;
     for (var i = 0; i < goods.length; i++) {
-      if (goods[i].GOODS_TYPE == 'PP' && (year == '全部' || goods[i].IN_YEAR == year) && (region[0] == '全部' || goods[i].PLACE_CDE == region[0]) && (region[2] == '全部' || goods[i].STATION_CDE == region[2])) {
+      if (goods[i].GOODS_TYPE == 'PP' && (year == '全部' || goods[i].IN_YEAR == year) && (region[0] == '全部' || goods[i].PLACE_CDE == region[0]) && (region[2] == '全部' || goods[i].STATION_CDE == region[2]) && (id == '' || id != '' && goods[i].REFER_ID == id)) {
         if (!selecteditems.includes(goods[i].GOODS_ID) && allchecked) {
           selecteditems.push(goods[i].GOODS_ID)
         } else {
@@ -181,6 +193,11 @@ Page({
       goods: goods,
       TTL_AMT: ttl,
       allchecked: allchecked
+    })
+  },
+  delId: function (e) {
+    this.setData({
+      id: ''
     })
   },
   /**

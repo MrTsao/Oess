@@ -11,6 +11,8 @@ Page({
     REALID: '',
     TXT: '',
     PAGE: "REAL_EXE",
+    hideclass: "",
+    realhide: false,
     q_type: ["单选题", "多选题", "不定项题", "判断题", "主观题", "其他"],
     exerises: [],
     ecnt: 0,//有效答题数
@@ -147,10 +149,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.showLoading({
-      title: '加载中...',
-      mask: true
-    })
     wx.setNavigationBarTitle({
       title: options.txt + '真题模拟'
     })
@@ -175,8 +173,13 @@ Page({
         exerises: exerises
         , ecnt: exerises.length
         , index: iIndex
+        , hideclass: "hideLoad"
       })
-      wx.hideLoading()
+      setTimeout(function () {
+        that.setData({
+          realhide: true
+        });
+      }, 800);
     } else {
       Post.call(this, this, "LOAD")
     }
@@ -188,7 +191,7 @@ function Post(that, action, data) {
   //数据请求执行方法
   var jsPost = data || new util.jsonRow()
   jsPost.AddCell("REALID", that.data.REALID)
-  util.Post(that, action, jsPost, function (that,res) {
+  util.Post(that, action, jsPost, function (that, res) {
     if (res) {
       //更新数据
       if (action == "LOAD") {
@@ -204,8 +207,13 @@ function Post(that, action, data) {
           // , summaryValues: objSummaries
           , ecnt: res.ecnt
           , index: iIndex
+          , hideclass: "hideLoad"
         })
-        wx.hideLoading()
+        setTimeout(function () {
+          that.setData({
+            realhide: true
+          });
+        }, 800);
       }
       else if (action == "COMMENT") {
         //题目评论

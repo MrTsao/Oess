@@ -1,6 +1,8 @@
 <!--pages/tabbar/study/random/random.wxml-->
 <import src="/common/pagehead.wxml" />
 <import src="/common/foot.wxml" />
+<import src="/common/loading.wxml" />
+<template is="pageloading" data="{{hideclass:hideclass,realhide:realhide}}" />
 <!--主体-->
 <view wx:if="{{show_content}}" class="container" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd">
   <!--题目-->

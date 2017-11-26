@@ -6,6 +6,8 @@ Page({
   data: {
     userInfo: {},
     PAGE: "RANDOM",
+    hideclass: "",
+    realhide: false,
     q_type: ["单选题", "多选题", "不定项题", "判断题", "主观题", "其他"],
     exerises: [],
     ecnt: 0,//有效答题数
@@ -202,7 +204,13 @@ function Post(that, action, data) {
           , index: iIndex
           , start_time: new Date()
           , show_content: true
+          , hideclass: "hideLoad"
         })
+        setTimeout(function () {
+          that.setData({
+            realhide: true
+          });
+        }, 800);
       }
       else if (jsPost.arrjson.ACTION == "NEXT") {
         that.setData({

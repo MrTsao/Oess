@@ -1,5 +1,7 @@
 <!--pages/study/random/random_mde.wxml-->
 <import src="/common/pagehead.wxml" />
+<import src="/common/loading.wxml" />
+<template is="pageloading" data="{{hideclass:hideclass,realhide:realhide}}" />
 <view class="container">
   <!--开始弹出窗-->
   <view class="dv-module">

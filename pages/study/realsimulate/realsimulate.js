@@ -4,10 +4,12 @@ var app = getApp()
 Page({
   data: {
     PAGE: "REAL_SIMULATE",
+    hideclass: "",
+    realhide: false,
     batches: [],
     height: 0
   },
-  onLoad: function (options) {    
+  onLoad: function (options) {
     var that = this
     wx.getSystemInfo({
       success(res) {
@@ -18,32 +20,27 @@ Page({
     })
   },
   onShow: function () {
-    wx.showLoading({
-      title: '加载中...',
-      mask: true
+    util.Post(this, "LOAD", null, function (that, res) {
+      if (res) {
+        let objbatches = res.batches
+        for (var i = 0; i < objbatches.length; i++) {
+          objbatches[i].EXAM_USER_DT = util.formatString(objbatches[i].EXAM_USER_DT)
+        }
+        that.setData({
+          batches: objbatches,
+          hideclass: "hideLoad"
+        })
+        setTimeout(function () {
+          that.setData({
+            realhide: true
+          });
+        }, 800);
+      }
     })
-    Post.call(this, this, "LOAD")
   },
   onPullDownRefresh() {
-    Post.call(this, this, "LOAD")
-    wx.stopPullDownRefresh()
-  },
-  addbatch() {
-    Post.call(this, this, "ADD")
-  },
-  exebatch() {
-    wx.navigateTo({
-      url: 'realsimulate_exe?id=' + this.data.batches[0].EXAM_BATCH_ID + '&txt=' + this.data.batches[0].BATCH_NO,
-    })
-  }
-})
-
-function Post(that, action, data) {
-  //数据请求执行方法
-  util.Post(that, action, null, function (that,res) {
-    if (res) {
-      //更新数据
-      if (action == "LOAD") {
+    util.Post(this, "LOAD", null, function (that, res) {
+      if (res) {
         let objbatches = res.batches
         for (var i = 0; i < objbatches.length; i++) {
           objbatches[i].EXAM_USER_DT = util.formatString(objbatches[i].EXAM_USER_DT)
@@ -51,8 +48,13 @@ function Post(that, action, data) {
         that.setData({
           batches: objbatches
         })
-        wx.hideLoading()
-      } else if (action == "ADD") {
+        wx.stopPullDownRefresh()
+      }
+    })
+  },
+  addbatch() {
+    util.Post(this, "ADD", null, function (that, res) {
+      if (res) {
         let objbatches = res.batches
         for (var i = 0; i < objbatches.length; i++) {
           objbatches[i].EXAM_USER_DT = util.formatString(objbatches[i].EXAM_USER_DT)
@@ -61,6 +63,11 @@ function Post(that, action, data) {
           batches: objbatches
         })
       }
-    }
-  })
-}
+    })
+  },
+  exebatch() {
+    wx.navigateTo({
+      url: 'realsimulate_exe?id=' + this.data.batches[0].EXAM_BATCH_ID + '&txt=' + this.data.batches[0].BATCH_NO,
+    })
+  }
+})

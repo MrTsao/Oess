@@ -6,6 +6,8 @@ Page({
   data: {
     PAGE: "CHAPTER",
     M: null,
+    hideclass: "",
+    realhide: false,
     userInfo: {
       avatarUrl: "/image/icon.png"
     },
@@ -25,8 +27,14 @@ Page({
     util.Post(this, "LOAD", null, function (that, data, a, m) {
       that.setData({
         chapters: data.CHAPTER,
-        M: m
+        M: m,
+        hideclass: "hideLoad"
       })
+      setTimeout(function () {
+        that.setData({
+          realhide: true
+        });
+      }, 800);
     });
   },
   onPullDownRefresh: function () {

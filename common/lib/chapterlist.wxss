@@ -46,6 +46,8 @@
 .cpt-detail{
   padding: 15rpx 0rpx;
   border-bottom: 1rpx solid #eee;
+  display:flex;
+  flex-direction: row;
 }
 
 .cpt-txt{

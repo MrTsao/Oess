@@ -7,8 +7,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo: { avatarUrl: "/image/icon.png"},
+    userInfo: { avatarUrl: "/image/icon.png" },
     PAGE: "RANDOM",
+    hideclass: "",
+    realhide: false,
     M: '',
     summaryValues: [],
     summaryItems: [{
@@ -50,8 +52,14 @@ Page({
 
       that.setData({
         summaryValues: objSummaries,
-        M: m
+        M: m,
+        hideclass: "hideLoad"
       })
+      setTimeout(function () {
+        that.setData({
+          realhide: true
+        });
+      }, 800);
     });
   },
   startTrade: function (e) {

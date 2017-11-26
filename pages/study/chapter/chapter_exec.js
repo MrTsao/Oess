@@ -11,6 +11,8 @@ Page({
     RSID: '',
     TXT: '',
     PAGE: "CHAPTER_EXEC",
+    hideclass: "",
+    realhide: false,
     q_type: ["单选题", "多选题", "不定项题", "判断题", "主观题", "其他"],
     exerises: [],
     summaries: [],
@@ -175,10 +177,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.showLoading({
-      title: '加载中...',
-      mask: true
-    })
     wx.setNavigationBarTitle({
       title: options.txt + '-章节练习'
     })
@@ -204,9 +202,14 @@ Page({
         exerises: exerises
         , summaries: summaries
         , ecnt: exerises.length
-        , index: iIndex
+        , index: iIndex,
+        hideclass: "hideLoad"
       })
-      wx.hideLoading()
+      setTimeout(function () {
+        that.setData({
+          realhide: true
+        });
+      }, 800);
     } else {
       Post.call(this, this, "LOAD")
     }
@@ -239,9 +242,14 @@ function Post(that, action, data) {
           exerises: that.data.exerises.concat(res.exerises)
           , summaries: res.summaries
           , ecnt: res.ecnt
-          , index: iIndex
+          , index: iIndex,
+          hideclass: "hideLoad"
         })
-        wx.hideLoading()
+        setTimeout(function () {
+          that.setData({
+            realhide: true
+          });
+        }, 800);
       }
       else if (action == "NEXT") {
         that.setData({

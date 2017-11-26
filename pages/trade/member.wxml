@@ -1,7 +1,9 @@
 <!--pages/trade/member.wxml-->
+<import src="/common/loading.wxml" />
+<template is="pageloading" data="{{hideclass:hideclass,realhide:realhide}}" />
 <view class="tabs">
-  <view class="item" data-type="MR" bindtap='buygoods' style="background-color:{{tp=='MR'?'#8FBC8F':'#EEE'}};color:{{tp=='MR'?'#fff':'#bbb'}};">会员充值</view>
-  <view class="item" data-type="PP" bindtap='buygoods' style="background-color:{{tp=='PP'?'#8FBC8F':'#EEE'}};color:{{tp=='PP'?'#fff':'#bbb'}};">真题购买</view>
+  <view class="item" data-type="MR" bindtap='buygoods' style="background-color:{{tp=='MR'?'#4682B4':'#EEE'}};color:{{tp=='MR'?'#fff':'#bbb'}};">会员充值</view>
+  <view class="item" data-type="PP" bindtap='buygoods' style="background-color:{{tp=='PP'?'#4682B4':'#EEE'}};color:{{tp=='PP'?'#fff':'#bbb'}};">真题购买</view>
 </view>
 <view class="content-fixed-top" wx:if="{{tp=='PP'}}">
   <view class="page-section">
@@ -40,7 +42,7 @@
           {{item.GOODS_EXPIRE}}个月
         </view>
         <view class="item-price">
-          售价{{ item.GOODS_AMT/100}}元
+          售价<label style="color:#933;">{{ item.GOODS_AMT/100}}</label>元
         </view>
       </view>
     </view>
@@ -55,7 +57,8 @@
   </block>
   <block wx:if="{{tp=='PP'}}">
     <checkbox-group name="cgPP" bindchange="selected">
-      <label class="paper-item" wx:for="{{goods}}" wx:if="{{item.GOODS_TYPE==tp && (yearList[date] =='全部' || item.IN_YEAR == yearList[date]) && (region[0] == '全部' || item.PLACE_CDE == region[0]) && (region[2] == '全部' || item.STATION_CDE == region[2])}}" wx:key="{{item.GOODS_ID}}">
+      <label class="paper-item" wx:for="{{goods}}" wx:if="{{item.GOODS_TYPE==tp && (yearList[date] =='全部' || item.IN_YEAR == yearList[date]) && (region[0] == '全部' || item.PLACE_CDE == region[0]) && (region[2] == '全部' || item.STATION_CDE == region[2]) && (id=='' || id != '' && item.REFER_ID == id)}}"
+        wx:key="{{item.GOODS_ID}}">
         <checkbox value="{{item.GOODS_ID}}" checked="{{item.check}}" />
         <label class="paper-content">
           <label class="contnet-ttl">{{item.GOODS_NME}}</label>
@@ -65,6 +68,9 @@
         </label>
       </label>
     </checkbox-group>
+    <view wx:if="{{id!=''}}" class="center-txt-tips" bindtap='delId'>
+      <label>点击查看所有未购真题＞＞</label>
+    </view>
     <view class="exerises-feed-bottom">
       <label> </label>
     </view>

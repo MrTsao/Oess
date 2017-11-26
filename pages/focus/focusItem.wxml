@@ -1,5 +1,7 @@
 <!--pages/focus/focusItem.wxml-->
 <import src="../../common/foot.wxml" />
+<import src="/common/loading.wxml" />
+<template is="pageloading" data="{{hideclass:hideclass,realhide:realhide}}" />
 <VIEW>
   <swiper autoplay="{{false}}" indicator-dots="{{false}}" circular="{{false}}" class="swiper">
     <swiper-item>

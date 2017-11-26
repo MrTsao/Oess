@@ -12,6 +12,8 @@ Page({
     BGURL: '',
     BSURL: '',
     PAGE: "NEWS_ITEM",
+    hideclass: "",
+    realhide: false,
     imagewidth: 0,
     imageheight: 0,
     NODES: ""
@@ -35,8 +37,14 @@ Page({
 
     Post.call(this, this, "LOAD", null, function (that, data) {
       that.setData({
-        NODES: data.NODES
+        NODES: data.NODES,
+        hideclass: "hideLoad"
       })
+      setTimeout(function () {
+        that.setData({
+          realhide: true
+        });
+      }, 800);
     });
   },
   imageLoad: function (e) {

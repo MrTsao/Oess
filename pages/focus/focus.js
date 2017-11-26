@@ -8,12 +8,13 @@ Page({
     bseurl: '',
     rpxrate: 0.0, //rpx-px比率
     PAGE: "NEWS_LIST",
+    hideclass: "",
+    realhide: false,
     RCNT: 10,//每次请求数量
     HOTS: [],
     searchval: "",//搜索内容
     moreLoading: false,
     moreLoadingComplete: false,
-    startLoadingComplete: false,
     currenttime: 0,
   },
   onLoad: function (options) {
@@ -32,15 +33,17 @@ Page({
         width: SysInfo.screenWidth,
         rpxrate: Math.floor(SysInfo.screenWidth / 750 * 100) / 100,
         HOTS: data.HOTS,
-        startLoadingComplete: true,
-        bseurl: app.globalData.bseurl
+        bseurl: app.globalData.bseurl,
+        hideclass: "hideLoad"
       })
+      setTimeout(function () {
+        that.setData({
+          realhide: true
+        });
+      }, 800);
     });
   },
   onPullDownRefresh() {
-    this.setData({
-      startLoadingComplete: false
-    })
     var jsPost = new util.jsonRow()
     jsPost.AddCell("RCNT", this.data.HOTS.length < 10 ? 10 : this.data.HOTS.length)
     jsPost.AddCell("CCNT", 0)
@@ -48,8 +51,7 @@ Page({
       that.setData({
         HOTS: data.HOTS,
         moreLoading: false,
-        moreLoadingComplete: false,
-        startLoadingComplete: true,
+        moreLoadingComplete: false
       })
     });
     wx.stopPullDownRefresh()

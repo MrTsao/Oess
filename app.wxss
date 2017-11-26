@@ -1,4 +1,5 @@
 /**app.wxss**/
+
 .container {
   height: 100%;
   display: flex;
@@ -9,57 +10,58 @@
   box-sizing: border-box;
 }
 
-.page-head{
+.page-head {
   padding-top: 60rpx;
   padding-bottom: 60rpx;
   text-align: center;
-  width:100%;
-  background: #5F9EA0;
+  width: 100%;
+  background: #5f9ea0;
 }
-.page-head-title{
+
+.page-head-title {
   display: inline-block;
   padding: 0 40rpx 10rpx 40rpx;
   font-size: 32rpx;
-  color: #A0A0A0;
+  color: #a0a0a0;
 }
 
-.page-head-desc{
+.page-head-desc {
   padding-top: 0rpx;
   color: #fff;
   font-size: 32rpx;
   text-shadow: #555 0 1px 0;
 }
-.head-userinfo
-{
+
+.head-userinfo {
   width: 150rpx;
   height: 150rpx;
   margin: 0rpx;
   border-radius: 50%;
-  box-shadow:#555 0 1px 0;
+  box-shadow: #555 0 1px 0;
 }
 
-.page-foot{
+.page-foot {
   margin: 100rpx 0 30rpx 0;
   text-align: center;
   color: #1aad19;
   font-size: 0;
 }
-.icon-foot{
+
+.icon-foot {
   width: 126rpx;
   height: 23rpx;
 }
 
-
 .page-section {
   width: 100%;
   margin: 0;
-  background: #ffffff;
+  background: #fff;
   border-top: 1px solid #eee;
 }
 
-.section-title{
+.section-title {
   padding: 20rpx 30rpx;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   margin-left: -1rpx;
   border-bottom: 1rpx solid #ddd;
   color: #808080;
@@ -116,7 +118,7 @@
   height: 60rpx;
   margin: 0rpx;
   border-radius: 50%;
-  box-shadow:#555 0 1px 0;
+  box-shadow: #555 0 1px 0;
 }
 
 .userinfo-font {
@@ -125,14 +127,134 @@
   text-shadow: #555 0 1px 0;
 }
 
-.btn-Update{
-  margin-top: 40rpx;  
+.btn-Update {
+  margin-top: 40rpx;
   width: 50%;
 }
+
 /* widget */
-.btn-area{
+
+.btn-area {
   box-sizing: border-box;
   width: 100%;
   text-align: center;
   margin: 20rpx auto;
+}
+
+/*--------------------------1.通用 遮罩层 start----------------------*/
+
+.page-loading {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  overflow: hidden;
+  z-index: 999999;
+  margin: auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #4682b4;
+  color: #eee;
+  font-size: 28rpx;
+  transition: opacity 1s;
+}
+
+.loading-center {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.loading-center-absolute {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 200px;
+  width: 200px;
+  margin-top: -100px;
+  margin-left: -100px;
+}
+
+.object {
+  -moz-border-radius: 50% 50% 50% 50%;
+  -webkit-border-radius: 50% 50% 50% 50%;
+  border-radius: 50% 50% 50% 50%;
+  position: absolute;
+  border-left: 5px solid #fff;
+  border-right: 5px solid #fff;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  -webkit-animation: animate 2s infinite;
+  animation: animate 2s infinite;
+}
+
+.object_one {
+  left: 75px;
+  top: 75px;
+  width: 50px;
+  height: 50px;
+}
+
+.object_two {
+  left: 65px;
+  top: 65px;
+  width: 70px;
+  height: 70px;
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.object_three {
+  left: 55px;
+  top: 55px;
+  width: 90px;
+  height: 90px;
+  -webkit-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+}
+
+.object_four {
+  left: 45px;
+  top: 45px;
+  width: 110px;
+  height: 110px;
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.hideLoad {
+  opacity: 0;
+}
+
+@-webkit-keyframes animate {
+  50% {
+    -ms-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
   }
+
+  100% {
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes animate {
+  50% {
+    -ms-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
+
+  100% {
+    -ms-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+}
+/*--------------------------1.通用 遮罩层 end----------------------*/
