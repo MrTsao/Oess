@@ -9,7 +9,7 @@
   top: 0;
   height: 100rpx;
   width: 100%;
-  border-bottom: 1rpx solid #eee;
+  border-bottom: 1rpx solid #4682B4;
   padding-top: 5rpx;
   background-color: #fff;
   z-index: 20000;
@@ -18,7 +18,6 @@
 .tabs .item {
   flex-grow: 1;
   text-align: center;
-  border-right: 1rpx solid #eee;
   border-top-left-radius: 10rpx;
   border-top-right-radius: 10rpx;
   padding: 30rpx 0rpx;
@@ -69,7 +68,7 @@
 
 .content-fixed-top {
   position: fixed;
-  top: 100rpx;
+  top: 106rpx;
   left: 0rpx;
   width: 100%;
   height: 180rpx;

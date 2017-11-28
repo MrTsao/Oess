@@ -4,10 +4,16 @@ var app = getApp()
 Page({
   data: {
     PAGE: "REAL_SIMULATE",
+    M:'',
     hideclass: "",
     realhide: false,
     batches: [],
     height: 0
+  },
+  startTrade:function(){
+    wx.navigateTo({
+      url: '/pages/trade/member?tp=MR',
+    })
   },
   onLoad: function (options) {
     var that = this
@@ -20,7 +26,7 @@ Page({
     })
   },
   onShow: function () {
-    util.Post(this, "LOAD", null, function (that, res) {
+    util.Post(this, "LOAD", null, function (that, res, a, m) {
       if (res) {
         let objbatches = res.batches
         for (var i = 0; i < objbatches.length; i++) {
@@ -28,6 +34,7 @@ Page({
         }
         that.setData({
           batches: objbatches,
+          M: m,
           hideclass: "hideLoad"
         })
         setTimeout(function () {

@@ -2,29 +2,50 @@
 <import src="/common/loading.wxml" />
 <template is="pageloading" data="{{hideclass:hideclass,realhide:realhide}}" />
 <view class="container">
-  <view wx:if="{{batches.length > 0 && !batches[0].IS_FINISH_EXAM}}" class="addbatch vertical" bindtap="exebatch">
-    <label class="lbDesc2">{{batches[0].BATCH_NO}}</label>
-    <label class="lbDescTip">点击练习</label>
+  <view wx:if="{{M=='1'}}">
+    <view wx:if="{{batches.length > 0 && !batches[0].IS_FINISH_EXAM}}" class="addbatch vertical" bindtap="exebatch">
+      <view class="lbDesc2">{{batches[0].BATCH_NO}}</view>
+      <view class="lbDescTip">点击练习</view>
+    </view>
+    <view wx:if="{{batches.length == 0 || batches[0].IS_FINISH_EXAM}}" class="addbatch" bindtap="addbatch">
+      <label class="lbAdd">+</label>
+      <label class="lbDesc">点击添加</label>
+    </view>
+    <view class="lbhead">全真模拟记录（已完成）</view>
+    <view class="batch-list">
+      <block wx:for="{{batches}}" wx:for-index="idx" wx:key="item.EXAM_BATCH_ID">
+        <view wx:if="{{item.IS_FINISH_EXAM}}" class="batchItem vertical">
+          <navigator url="realsimulate_exe?id={{item.EXAM_BATCH_ID}}&txt={{item.BATCH_NO}}">
+            <view class="itemno">批次号：
+              <label class="batchno">{{item.BATCH_NO }}</label>
+            </view>
+            <view class="itemdetail">
+              <view>用时：{{item.EXAM_USER_DT}}</view>
+              <view>得分：{{item.ACT_SCORE}}</view>
+            </view>
+          </navigator>
+        </view>
+      </block>
+      <view wx:if="{{batches.length == 0 || (batches.length == 1 && !batches[0].IS_FINISH_EXAM)}}" class="nobatch">暂无批次！</view>
+    </view>
   </view>
-  <view wx:if="{{batches.length == 0 || batches[0].IS_FINISH_EXAM}}" class="addbatch" bindtap="addbatch">
-    <label class="lbAdd">+</label>
-    <label class="lbDesc">点击添加</label>
-  </view>
-  <view class="lbhead">全真模拟记录（已完成）</view>
-  <view class="batch-list">
-    <block wx:for="{{batches}}" wx:for-index="idx" wx:key="item.EXAM_BATCH_ID">
-      <view wx:if="{{item.IS_FINISH_EXAM}}" class="batchItem vertical">
-        <navigator url="realsimulate_exe?id={{item.EXAM_BATCH_ID}}&txt={{item.BATCH_NO}}">
-          <view class="itemno">批次号：
-            <label class="batchno">{{item.BATCH_NO }}</label>
-          </view>
-          <view class="itemdetail">
-            <view>用时：{{item.EXAM_USER_DT}}</view>
-            <view>得分：{{item.ACT_SCORE}}</view>
-          </view>
-        </navigator>
+  <view wx:if="{{M!='1'}}">
+    <view class='tips'>
+      尊敬的用户，您好！
+      <view class="tips-content">非常抱歉，
+        <label style="color:#933;">《全真模拟测试》</label>属于会员专属项目.</view>
+      <view class="tips-content">请加入会员后再使用!期待您的加入！</view>
+    </view>
+    <view class='btn-area'>
+      <a bindtap="startTrade">加入会员</a>
+    </view>
+    <view class="tips">
+      <view>
+        会员权益
+        <view class="tips-content">1、章节练习无题目数量限制</view>
+        <view class="tips-content">2、在线刷题无题目数量限制</view>
+        <view class="tips-content">3、解锁模拟考试功能</view>
       </view>
-    </block>
-    <view wx:if="{{batches.length == 0 || (batches.length == 1 && !batches[0].IS_FINISH_EXAM)}}" class="nobatch">暂无批次！</view>
+    </view>
   </view>
 </view>

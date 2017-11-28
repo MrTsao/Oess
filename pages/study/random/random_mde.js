@@ -48,7 +48,11 @@ Page({
     util.Post(this, "GETSUMMARY", null, function (that, data, a, m) {
       //格式化练习时间
       let objSummaries = data.summaries
-      objSummaries[0].USE_SECOND = util.formatString(objSummaries[0].USE_SECOND)
+      if (objSummaries.length > 0) {
+        objSummaries[0].USE_SECOND = util.formatString(objSummaries[0].USE_SECOND)
+      } else {
+        objSummaries.push({ BATCH_COUNT: 0, RATE: '0%', USE_SECOND: 0 })
+      }
 
       that.setData({
         summaryValues: objSummaries,

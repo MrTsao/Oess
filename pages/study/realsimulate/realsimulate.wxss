@@ -2,15 +2,14 @@
 @import "../../../common/lib/weui.wxss";
 
 .addbatch {
-  border: 1rpx solid #8fad9c;
+  border: 1rpx solid #4682b4;
   height: 140rpx;
   line-height: 140rpx;
-  width: 90%;
   margin: 10% auto;
   border-radius: 20rpx;
   text-align: center;
-  background-color: #8FBC8F;
-  box-shadow: 0 0 20rpx 1rpx #eee, 0 0 20rpx 1rpx #8fbc8f;
+  background-color: #4682b4;
+  box-shadow: 0 0 20rpx 1rpx #eee, 0 0 20rpx 1rpx #4682b4;
   display: flex;
   justify-content: center;
 }
@@ -27,14 +26,16 @@
   color: #ddd;
   text-shadow: 0 0 3px #228b22;
   vertical-align: middle;
+  width: 100%;
 }
 
 .addbatch .lbDesc2 {
-  font-size: 36rpx;
-  color: #ddd;
+  font-size: 30rpx;
+  color: #fff;
   text-shadow: 0 0 3px #228b22;
   vertical-align: bottom;
   line-height: 60rpx;
+  padding: 0rpx 20rpx; 
 }
 
 .lbDescTip {
@@ -96,4 +97,24 @@
 .vertical {
   display: flex;
   flex-direction: column;
+}
+
+.tips {
+  margin-top: 50rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  font-size: 34rpx;
+  color: #999;
+}
+
+.tips-content {
+  font-size: 30rpx;
+  text-indent: 40rpx;
+  color: #a9a9a9;
+  width: 100%;
+}
+.btn-area{
+  margin-top: 60rpx;
 }

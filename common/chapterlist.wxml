@@ -1,8 +1,11 @@
 <template name="chapterlist">
   <view class="page-section">
     <view class="section-title">
-      <view class="head">
+      <view>
         章节练习·{{M=='1'?'会员':'免费'}}
+      </view>
+      <view class="addtomember" wx:if="{{M!='1'}}" bindtap="startTrade" >
+        加入会员
       </view>
     </view>
     <block wx:for="{{chapters}}" wx:for-index="idx" wx:key="{{item.CPID}}">

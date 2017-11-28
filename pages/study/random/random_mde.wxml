@@ -26,7 +26,7 @@
     </view>
     <view class="cust-btn page-section-gap">
       <a bindtap="startTran">{{M=='1'?'开始练习':'免费体验'}}</a>
-      <a bindtap="startTrade" wx:if="{{M!='1'}}">会员充值</a>
+      <a bindtap="startTrade" wx:if="{{M!='1'}}">加入会员</a>
     </view>
   </view>
   <view class="tips">

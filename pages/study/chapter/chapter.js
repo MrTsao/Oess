@@ -15,8 +15,11 @@ Page({
     COLOR: ['#6699cc', '#778899', '#99cc66', '#5F9EA0', '#8FBC8F', '#BDB76B']
   },
   //事件处理函数
-  bindViewTap: function () {
-  },
+  startTrade: function () {
+    wx.navigateTo({
+      url: '/pages/trade/member?tp=MR',
+    })
+  }, 
   onLoad: function () {
     var that = this
     app.getUserInfo(null, function (user) {
