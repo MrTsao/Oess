@@ -1,0 +1,30 @@
+.exam_item {
+  width: 48%;
+  margin: 0 1%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.exam_item view {
+  border: 1rpx solid #eee;
+  border-radius: 8rpx;
+  box-shadow: 0 3rpx 8rpx -1rpx #eee;
+  padding: 15rpx 15rpx;
+  margin-top: 15rpx;
+}
+
+.exam_item .content {
+  word-break: break-all;
+  font-size: 30rpx;
+  color: #fff;
+  text-indent: 20rpx;
+}
+.exam_item .logs {
+  margin-top: 10rpx; 
+  font-size: 24rpx;
+  border-top: 1rpx dashed #ccc;
+  color: #eee;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

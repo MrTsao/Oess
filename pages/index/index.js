@@ -63,15 +63,15 @@ Page({
     }, {
       img: "../../image/index-img/8.png",
       txt: "高频考题",
-      url: "real"
+      url: "/pages/high/highexam"
     }, {
       img: "../../image/index-img/9.png",
       txt: "高频错题",
-      url: "real"
+      url: "/pages/high/higherror"
     }, {
       img: "../../image/index-img/10.png",
       txt: "我的错题",
-      url: "real"
+      url: "/pages/high/myerror"
     }],
     chapters: [],
     COLOR: ['#6699cc', '#778899', '#99cc66', '#5F9EA0', '#8FBC8F', '#BDB76B']

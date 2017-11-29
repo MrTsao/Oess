@@ -73,11 +73,7 @@ Page({
     sUtil.touchMove(e)
   },
   touchEnd: function (e) {
-    sUtil.touchEnd(e, this, function (that, objExamItem) {
-      // var jsPost = new util.jsonRow()
-      // jsPost.AddCell("BID", objExamItem.bid)
-      // Post.call(this, that, "NEXT", jsPost)
-    }, function (that) {
+    sUtil.touchEnd(e, this, null, function (that) {
       //刷新评论
       let iIndex = that.data.index
       let sExe = that.data.exerises
@@ -85,6 +81,8 @@ Page({
       var jsPost = new util.jsonRow()
       jsPost.AddCell("QID", sId)
       Post.call(that, that, "REFRESHCOMMENT", jsPost)
+    },function(that){//交卷
+      Post.call(that, that, "FINISHEDEXAM")
     })
   },
   //------------------------END-----左右滑动控制--------------------
@@ -279,8 +277,13 @@ function Post(that, action, data) {
       //答题后，自动下一题的情况下处理
       var iIndex = that.data.index
       if (iIndex == that.data.exerises.length - 1) {
-        wx.showToast({
-          title: "已经是最后一题"
+        wx.showModal({
+          content: "已经是最后一题，是否交卷！",
+          success: function (res) {
+            if (res.confirm) {
+              Post.call(that, that, "FINISHEDEXAM")
+            }
+          }
         })
         --iIndex
       }

@@ -1,0 +1,3 @@
+/* pages/high/myerror.wxss */
+
+@import "../../common/lib/examlist.wxss";

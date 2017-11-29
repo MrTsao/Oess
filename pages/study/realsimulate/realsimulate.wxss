@@ -11,11 +11,11 @@
   background-color: #4682b4;
   box-shadow: 0 0 20rpx 1rpx #eee, 0 0 20rpx 1rpx #4682b4;
   display: flex;
+  flex-direction: row;
   justify-content: center;
 }
 
 .addbatch .lbAdd {
-  margin-right: 30rpx;
   font-size: 100rpx;
   color: #eee;
   text-shadow: 0 0 3px #ff8c00;
@@ -25,8 +25,6 @@
   font-size: 36rpx;
   color: #ddd;
   text-shadow: 0 0 3px #228b22;
-  vertical-align: middle;
-  width: 100%;
 }
 
 .addbatch .lbDesc2 {
@@ -42,6 +40,7 @@
   font-size: 24rpx;
   color: #ddd;
   line-height: 40rpx;
+  text-align: center;
 }
 
 .lbhead {
@@ -51,7 +50,7 @@
 
 .batch-list {
   border: 1rpx solid #eee;
-  width: 90%;
+  width: 100%;
   margin: 2rpx auto;
   border-radius: 10rpx;
   color: #444;
@@ -61,7 +60,7 @@
 .batchItem {
   font-size: 26rpx;
   margin: 15rpx auto;
-  width: 90%;
+  width: 100%;
   border: 1rpx solid #8fad9c;
   border-radius: 10rpx;
   padding: 0 10rpx;
@@ -72,6 +71,8 @@
 .itemno {
   margin-top: 10rpx;
   height: 40rpx;
+  display: flex;
+  flex-direction: row;
 }
 
 .batchno {

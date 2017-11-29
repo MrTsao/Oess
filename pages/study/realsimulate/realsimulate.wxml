@@ -16,7 +16,8 @@
       <block wx:for="{{batches}}" wx:for-index="idx" wx:key="item.EXAM_BATCH_ID">
         <view wx:if="{{item.IS_FINISH_EXAM}}" class="batchItem vertical">
           <navigator url="realsimulate_exe?id={{item.EXAM_BATCH_ID}}&txt={{item.BATCH_NO}}">
-            <view class="itemno">批次号：
+            <view class="itemno">
+              <label>批次号：</label>
               <label class="batchno">{{item.BATCH_NO }}</label>
             </view>
             <view class="itemdetail">

@@ -1,0 +1,24 @@
+<template name="examlist">
+  <scroll-view scroll-y="true" style="height:{{scrollH}}px" bindscrolltolower="loadExames">
+    <view style="width:100%">
+      <view id='item1' class="exam_item">
+        <view wx:for="{{col1}}" wx:key="{{item.QUESTIONS_ID}}" style="background-color:{{COLOR[index%8]}};">
+          <div class='content'>　{{item.QUESTIONS_DESC}}</div>
+          <div class='logs'>
+            <div>错误率{{'0.0%'}}</div>
+            <div>评论{{0}}</div>
+          </div>
+        </view>
+      </view>
+      <view id='item2' class="exam_item">
+        <view wx:for="{{col2}}" wx:key="{{item.QUESTIONS_ID}}" style="background-color:{{COLOR[(index+5)%8]}};">
+          <div class='content'>　{{item.QUESTIONS_DESC}}</div>
+          <div class='logs'>
+            <div>错误率{{'0.0%'}}</div>
+            <div>评论{{0}}</div>
+          </div>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</template>

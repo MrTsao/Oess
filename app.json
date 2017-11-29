@@ -17,7 +17,10 @@
     "pages/doc/doclist",
     "pages/study/random/random_mde",
     "pages/trade/member",
-    "pages/trade/trademanage"
+    "pages/trade/trademanage",
+    "pages/high/highexam",
+    "pages/high/higherror",
+    "pages/high/myerror"
   ],
   "window": {
     "backgroundTextStyle": "dark",

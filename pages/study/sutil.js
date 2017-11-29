@@ -15,7 +15,7 @@ function touchMove(e) {
 }
 
 // 触摸结束事件
-function touchEnd(e, that, next, refreshComment) {
+function touchEnd(e, that, next, refreshComment, submitExam) {
   var diffX = Math.abs(endDot.x - startDot.x)
   var diffY = Math.abs(endDot.y - startDot.y)
   if (diffX > 130 && diffY < 60) {
@@ -35,10 +35,21 @@ function touchEnd(e, that, next, refreshComment) {
           start_time: new Date()
         })
       } else if (iIndex == that.data.exerises.length - 1) {
-        wx.showToast({
-          title: '全部完成',
-          duration: 1000
-        })
+        if (that.data.PAGE == "REAL_SIMULATE_EXE") {
+          wx.showModal({
+            content:"是否交卷",
+            success:function(res){
+              if(res.confirm){
+                typeof submitExam == "function" && submitExam(that)
+              }
+            }
+          })
+        } else {
+          wx.showToast({
+            title: '全部完成',
+            duration: 1000
+          })
+        }
       }
       else {
         iIndex += 1
