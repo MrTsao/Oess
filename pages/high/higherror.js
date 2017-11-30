@@ -19,7 +19,7 @@ Page({
     q_type: ["单选题", "多选题", "不定项题", "判断题", "主观题", "其他"],
     col1: [],
     col2: [],
-    COLOR: ['#6699cc', '#BC8F8F', '#778899', '#99cc66', '#5F9EA0', '#66CDAA', '#8FBC8F', '#BDB76B']
+    COLOR: ['#6699cc', '#BC8F8F', '#778899', '#5F9EA0', '#51AD8F', '#81B281', '#A8A35D', '#808080']
   },
 
   /**
@@ -48,18 +48,18 @@ Page({
               cnt++;
             }
           }
-          cnt = Math.ceil(cnt / 20)
+          cnt = Math.ceil(cnt / 10)
           if (col1cnt <= col2cnt) {
             col1cnt += cnt;
             steelcol1 += 1
-            col1cnt += Math.floor(steelcol1 / 2)
+            col1cnt += steelcol1 % 2
             steelcol2 = 0
             col1.push(data.exams[i])
           } else {
             col2cnt += cnt;
             steelcol1 = 0
             steelcol2 += 1
-            col2cnt += Math.floor(steelcol2 / 2)
+            col2cnt += steelcol2 % 2
             col2.push(data.exams[i])
           }
         }
@@ -104,18 +104,18 @@ Page({
               cnt++;
             }
           }
-          cnt = Math.ceil(cnt / 20)
+          cnt = Math.ceil(cnt / 10)
           if (col1cnt <= col2cnt) {
             col1cnt += cnt;
             steelcol1 += 1
-            col1cnt += Math.floor(steelcol1 / 2)
+            col1cnt += steelcol1 % 2
             steelcol2 = 0
             col1.push(data.exams[i])
           } else {
             col2cnt += cnt;
             steelcol1 = 0
             steelcol2 += 1
-            col2cnt += Math.floor(steelcol2 / 2)
+            col2cnt += steelcol2 % 2
             col2.push(data.exams[i])
           }
         }

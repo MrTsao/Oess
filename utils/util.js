@@ -111,7 +111,7 @@ function imageUtil(e) {
   console.log('缩放后的宽: ' + imageSize.imageWidth)
   console.log('缩放后的高: ' + imageSize.imageHeight)
   return imageSize;
-} 
+}
 
 //高亮转换
 function HighlightTransform(data) {
@@ -183,36 +183,33 @@ function _post_json(jsPost, success, fail) {
     data: data.GetStr(),
     success: function (res) {
       //wx.hideToast()
-      wx.hideNavigationBarLoading()
-      if (res.data.msg == "err") {
-        console.log(res.data.data);
-      } else {
-        if (res.data.msg == "NO_SESSION") {
-          wx.setStorageSync('openkey', null);
-          wx.setStorageSync('code', '');
-          app.getUserInfo(function () {
-            app.getOpenInfo(function () {
-              _post_json(jsPost, success, fail)
-            });
+      if (res.data.msg == "NO_SESSION") {
+        wx.setStorageSync('openkey', null);
+        wx.setStorageSync('code', '');
+        app.getUserInfo(function () {
+          app.getOpenInfo(function () {
+            _post_json(jsPost, success, fail)
           });
-        } else if (res.data.msg == "NO_USER") {
-          app.getUserInfo(null, function (user) {
-            _newUserId(app.globalData.url, user, app.globalData.openData, function () {
-              _post_json(jsPost, success, fail)
-            })
+        });
+      } else if (res.data.msg == "NO_USER") {
+        app.getUserInfo(null, function (user) {
+          _newUserId(app.globalData.url, user, app.globalData.openData, function () {
+            _post_json(jsPost, success, fail)
           })
-        } else {
-          if (res.data.msg != "") {
-            wx.showToast({
-              title: res.data.msg || "错误"
-            })
-          }
-          success(res);
+        })
+      } else {
+        if (res.data.msg != "") {
+          wx.showToast({
+            title: res.data.msg || "错误"
+          })
         }
+        success(res);
       }
     },
     fail: function (res) {
-      console.log(res);
+      //console.log(res);
+    },
+    complete: function () {
       wx.hideNavigationBarLoading();
     }
   });
@@ -233,17 +230,17 @@ jsonRow.prototype = {
   }
 };
 
-function updateArr(bseobj,fromobj,key){
+function updateArr(bseobj, fromobj, key) {
   var arr = bseobj.concat(fromobj.filter(function (item) {
     var isneed = true
-    bseobj.forEach(function(e){
-      if(e[key] == item[key]){
+    bseobj.forEach(function (e) {
+      if (e[key] == item[key]) {
         isneed = false
         return
       }
     })
     return isneed
-  })).sort(function(a,b){
+  })).sort(function (a, b) {
     return b[key].localeCompare(a[key])
   });
   return arr
@@ -259,7 +256,7 @@ function Post(that, action, data, doAfter) {
     jsPost.AddCell("PAGE", ppage)
     jsPost.AddCell("ACTION", action)
     _post_json(jsPost, function (res) {
-      typeof doAfter == "function" && doAfter(that, res.data.data,res.data.mod,res.data.m)
+      typeof doAfter == "function" && doAfter(that, res.data.data, res.data.mod, res.data.m)
     })
   })
 }

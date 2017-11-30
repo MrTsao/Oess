@@ -51,7 +51,7 @@
       <label class="text24">{{exerises[index].desc}}</label>
     </view>
     <view wx:if="{{exerises[index].rlaw.length > 0}}" class="padding10">
-      <label class="text_label">关联法条</label>
+      <label class="text_label">关联内容</label>
       <label wx:for="{{exerises[index].rlaw}}" wx:key="*this" class="text24 textblock">{{(index+1)+'、'+item.op+':'+item.co}}</label>
     </view>
     <view wx:if="{{exerises[index].rsub.length > 0}}" class="padding10">

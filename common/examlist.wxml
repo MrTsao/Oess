@@ -1,22 +1,28 @@
 <template name="examlist">
-  <scroll-view scroll-y="true" style="height:{{scrollH}}px" bindscrolltolower="loadExames">
+  <scroll-view scroll-y="true" enable-back-to-top="{{true}}" style="height:{{scrollH}}px" lower-threshold="{{10}}" bindscrolltolower="loadExames">
     <view style="width:100%">
       <view id='item1' class="exam_item">
         <view wx:for="{{col1}}" wx:key="{{item.Q_ID}}" style="background-color:{{COLOR[index%8]}};">
-          <div class='content'><label class="text_label">{{q_type[item.Q_TYPE]}}</label>{{item.Q_DESC}}</div>
-          <div class='logs'>
-            <div>错误率{{item.RATE}}</div>
-            <div>评论{{item.DIS}}</div>
-          </div>
+          <navigator url="/pages/high/questionview?QID={{item.Q_ID}}">
+            <div class='content'>
+              <label class="text_label">{{q_type[item.Q_TYPE]}}</label>{{item.Q_DESC}}</div>
+            <div class='logs'>
+              <div>错误率{{item.RATE}}</div>
+              <div>评论{{item.DIS}}</div>
+            </div>
+          </navigator>
         </view>
       </view>
       <view id='item2' class="exam_item">
-        <view wx:for="{{col2}}" wx:key="{{item.Q_ID}}" style="background-color:{{COLOR[(index+5)%8]}};">
-          <div class='content'><label class="text_label">{{q_type[item.Q_TYPE]}}</label>{{item.Q_DESC}}</div>
-          <div class='logs'>
-            <div>错误率{{item.RATE}}</div>
-            <div>评论{{item.DIS}}</div>
-          </div>
+        <view wx:for="{{col2}}" wx:key="{{item.Q_ID}}" style="background-color:{{COLOR[(index+4)%8]}};">
+          <navigator url="/pages/high/questionview?QID={{item.Q_ID}}">
+            <div class='content'>
+              <label class="text_label">{{q_type[item.Q_TYPE]}}</label>{{item.Q_DESC}}</div>
+            <div class='logs'>
+              <div>错误率{{item.RATE}}</div>
+              <div>评论{{item.DIS}}</div>
+            </div>
+          </navigator>
         </view>
       </view>
     </view>

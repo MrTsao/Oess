@@ -20,7 +20,8 @@
     "pages/trade/trademanage",
     "pages/high/highexam",
     "pages/high/higherror",
-    "pages/high/myerror"
+    "pages/high/myerror",
+    "pages/high/questionview"
   ],
   "window": {
     "backgroundTextStyle": "dark",

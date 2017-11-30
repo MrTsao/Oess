@@ -1,26 +1,23 @@
-// pages/tabbar/study/random/random.js
-var util = require('../../../utils/util.js')
-var sUtil = require('../sutil.js')
+// real_exe.js
+var util = require('../../utils/util.js')
+var sUtil = require('../study/sutil.js')
 var app = getApp()
 Page({
+  /**
+   * 页面的初始数据
+   */
   data: {
-    userInfo: {},
-    PAGE: "RANDOM",
+    QID: '',
+    PAGE: "QUESTIONS",
     hideclass: "",
     realhide: false,
     q_type: ["单选题", "多选题", "不定项题", "判断题", "主观题", "其他"],
     exerises: [],
-    ecnt: 0,//有效答题数
-    start_time: null,
     index: 0,//当前答题数量
-    auto_next: false,//自动下一题
-    // right: 0,
-    // error: 0,
     comm_text: '',
     comm_len: 0,
     r_id: '',//评论ID
-    show_comment_module: false,
-    show_content: false
+    show_comment_module: false
   },
   setautonext: function (e) {
     var that = this
@@ -34,12 +31,7 @@ Page({
     sUtil.selectedOptions(e, this, function (that, objExamItem) {
       //单项选择时回调有效
       var jsPost = new util.jsonRow()
-      jsPost.AddCell("ID", objExamItem.id)
       jsPost.AddCell("QID", objExamItem.qid)
-      jsPost.AddCell("BID", objExamItem.bid)
-      jsPost.AddCell("SEQ", objExamItem.seq)
-      jsPost.AddCell("u_answer", objExamItem.u_answer)
-      jsPost.AddCell("u_second", objExamItem.u_second)
       Post.call(this, that, "ANSWERED", jsPost)
     })
   },
@@ -48,12 +40,7 @@ Page({
     sUtil.submitMultiAnswer(e, this, function (that, objExamItem) {
       //非单项选择时回调
       var jsPost = new util.jsonRow()
-      jsPost.AddCell("ID", objExamItem.id)
       jsPost.AddCell("QID", objExamItem.qid)
-      jsPost.AddCell("BID", objExamItem.bid)
-      jsPost.AddCell("SEQ", objExamItem.seq)
-      jsPost.AddCell("u_answer", objExamItem.u_answer)
-      jsPost.AddCell("u_second", objExamItem.u_second)
       Post.call(this, that, "ANSWERED", jsPost)
     })
   },
@@ -67,11 +54,7 @@ Page({
     sUtil.touchMove(e)
   },
   touchEnd: function (e) {
-    sUtil.touchEnd(e, this, function (that, objExamItem) {
-      var jsPost = new util.jsonRow()
-      jsPost.AddCell("BID", objExamItem.bid)
-      Post.call(this, that, "NEXT", jsPost)
-    }, function (that) {
+    sUtil.touchEnd(e, this, null, function (that) {
       //刷新评论
       let iIndex = that.data.index
       let sExe = that.data.exerises
@@ -144,66 +127,36 @@ Page({
       Post.call(this, that, "COLL", jsPost)
     })
   },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
   onLoad: function (options) {
+    //加载时执行
     var that = this
-    app.getUserInfo(null, function (user) {
-      that.setData({
-        userInfo: user
-      })
+    //调用应用实例的方法获取全局数据
+    that.setData({
+      QID: options.QID
     })
     Post.call(this, this, "LOAD")
   },
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-    var that = this
-    return {
-      title: that.data.TXT,
-      desc: '',
-      path: '/pages/study/random/random'
-    }
-  },
-  onPullDownRefresh: function () {
-    wx.stopPullDownRefresh();
-  },
   onReachBottom: function () { }
+  , onPullDownRefresh: function () {
+    Post.call(this, this, "LOAD")
+    wx.stopPullDownRefresh();
+  }
 })
 
 function Post(that, action, data) {
   //数据请求执行方法
   var jsPost = data || new util.jsonRow()
-  jsPost.AddCell("PAGE", that.data.PAGE)
-  jsPost.AddCell("ACTION", action)
-  util.Post(that, action, jsPost, function (that, res, mod) {
-    if (mod == "END") {
-      wx.showModal({
-        showCancel: false,
-        title: '体验已完成！',
-        content: '您已完成所有的随机练习体验模式，如需继续，请完成会员充值！谢谢！',
-        success: function (res) {
-          if (res.confirm) {
-            wx.navigateBack({
-              delta: 1
-            })
-          }
-        }
-      })
-      return
-    }
+  jsPost.AddCell("QID", that.data.QID)
+  util.Post(that, action, jsPost, function (that, res) {
     if (res) {
       //更新数据
-      if (jsPost.arrjson.ACTION == "LOAD") {
-        let iIndex = that.data.index
-        if (res.exerises.length > 5) {
-          iIndex = 2
-        }
+      if (action == "LOAD") {
         that.setData({
           exerises: that.data.exerises.concat(res.exerises)
-          , ecnt: res.ecnt
-          , index: iIndex
-          , start_time: new Date()
-          , show_content: true
           , hideclass: "hideLoad"
         })
         setTimeout(function () {
@@ -212,12 +165,7 @@ function Post(that, action, data) {
           });
         }, 800);
       }
-      else if (jsPost.arrjson.ACTION == "NEXT") {
-        that.setData({
-          exerises: that.data.exerises.concat(res.exerises)
-        })
-      }
-      else if (jsPost.arrjson.ACTION == "COMMENT") {
+      else if (action == "COMMENT") {
         //题目评论
         let cExes = that.data.exerises
         cExes[that.data.index].feeds = res.feeds
@@ -229,7 +177,7 @@ function Post(that, action, data) {
           show_comment_module: false
         })
       }
-      else if (jsPost.arrjson.ACTION == "REFRESHCOMMENT") {
+      else if (action == "REFRESHCOMMENT") {
         //题目评论
         let cExes = that.data.exerises
         cExes[that.data.index].feeds = res.feeds
@@ -238,7 +186,7 @@ function Post(that, action, data) {
         })
       }
     }
-    else if (jsPost.arrjson.ACTION == "ANSWERED" && that.data.auto_next) {
+    else if (action == "ANSWERED" && that.data.auto_next) {
       //答题后，自动下一题的情况下处理
       var iIndex = that.data.index
       if (iIndex == that.data.exerises.length - 2) {
@@ -246,15 +194,10 @@ function Post(that, action, data) {
         jsPost1.AddCell("BID", that.data.exerises[iIndex].bid)
         Post.call(this, that, "NEXT", jsPost1)
       }
-      setTimeout(function () {
-        that.setData({
-          index: ++iIndex
-          , start_time: new Date()
-        });
-      }, 1000)
-    }
-    else {
-      // console.log('error')
+      that.setData({
+        index: ++iIndex
+        , start_time: new Date()
+      })
     }
   })
 }
