@@ -1,6 +1,4 @@
 // pages/highexam.js
-let col1H = 0;
-let col2H = 0;
 var app = getApp();
 var util = require('../../utils/util.js');
 Page({
@@ -10,12 +8,15 @@ Page({
    */
   data: {
     PAGE: "HIGH_EXAM",
+    hideclass: "",
+    realhide: false,
     scrollH: 0,
     curPages: 1,
     col1cnt: 0,
     col2cnt: 0,
     steelcol1: 0,
     steelcol2: 0,
+    q_type: ["单选题", "多选题", "不定项题", "判断题", "主观题", "其他"],
     col1: [],
     col2: [],
     COLOR: ['#6699cc','#BC8F8F', '#778899', '#99cc66', '#5F9EA0','#66CDAA', '#8FBC8F', '#BDB76B']
@@ -28,6 +29,7 @@ Page({
     var SysInfo = wx.getSystemInfoSync()
     var jsPost = new util.jsonRow()
     jsPost.AddCell("CURPAGE", this.data.curPages)
+    jsPost.AddCell("TYPE", 'HEXAM')
     util.Post(this, "LOAD", jsPost, function (that, data, a, m) {
       if (data.exams) {
         let col1 = that.data.col1
@@ -37,7 +39,7 @@ Page({
         let col1cnt = that.data.col1cnt
         let col2cnt = that.data.col2cnt
         for (let i = 0; i < data.exams.length; i++) {
-          let examstr = data.exams[i].QUESTIONS_DESC
+          let examstr = data.exams[i].Q_DESC
           let cnt = 0
           for (let j = 0; j < examstr.length; j++) {
             if (examstr.charCodeAt(j) > 127 || examstr.charCodeAt(j) == 94) {
@@ -47,7 +49,6 @@ Page({
             }
           }
           cnt = Math.ceil(cnt / 20)
-          console.log(cnt)
           if (col1cnt <= col2cnt) {
             col1cnt += cnt;
             steelcol1 += 1
@@ -70,14 +71,21 @@ Page({
           col2cnt: col2cnt,
           steelcol1: steelcol1,
           steelcol2: steelcol2,
-          curPages: that.data.curPages + 1
+          curPages: that.data.curPages + 1,
+          hideclass: "hideLoad"
         })
+        setTimeout(function () {
+          that.setData({
+            realhide: true
+          });
+        }, 800);
       }
     });
   },
   loadExames: function (e) {
     var jsPost = new util.jsonRow()
     jsPost.AddCell("CURPAGE", this.data.curPages)
+    jsPost.AddCell("TYPE", 'HEXAM')
     util.Post(this, "LOAD", jsPost, function (that, data, a, m) {
       if (data.exams) {
         let col1 = that.data.col1
@@ -87,7 +95,7 @@ Page({
         let col1cnt = that.data.col1cnt
         let col2cnt = that.data.col2cnt
         for (let i = 0; i < data.exams.length; i++) {
-          let examstr = data.exams[i].QUESTIONS_DESC
+          let examstr = data.exams[i].Q_DESC
           let cnt = 0
           for (let j = 0; j < examstr.length; j++) {
             if (examstr.charCodeAt(j) > 127 || examstr.charCodeAt(j) == 94) {
@@ -97,7 +105,6 @@ Page({
             }
           }
           cnt = Math.ceil(cnt / 20)
-          console.log(cnt)
           if (col1cnt <= col2cnt) {
             col1cnt += cnt;
             steelcol1 += 1

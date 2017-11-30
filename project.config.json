@@ -25,32 +25,14 @@
 			"list": [
 				{
 					"id": -1,
-					"name": "exec",
-					"pathName": "pages/study/chapter/chapter_exec",
-					"query": "id=RID0H9201W87D1D9&txt=道德"
-				},
-				{
-					"id": -1,
-					"name": "random_mod",
-					"pathName": "pages/study/random/random_mde",
-					"query": ""
-				},
-				{
-					"id": -1,
 					"name": "会员充值",
 					"pathName": "pages/trade/member",
 					"query": ""
 				},
 				{
 					"id": -1,
-					"name": "realsimulate",
-					"pathName": "pages/study/realsimulate/realsimulate",
-					"query": ""
-				},
-				{
-					"id": -1,
-					"name": "chapter",
-					"pathName": "pages/study/chapter/chapter",
+					"name": "highexam",
+					"pathName": "pages/high/highexam",
 					"query": ""
 				}
 			]

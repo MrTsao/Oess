@@ -1,3 +1,12 @@
+.text_label {
+  width: 100rpx;
+  font-size: 24rpx;
+  border: 1rpx solid #eee;
+  padding: 2rpx 4rpx;
+  color: #fff;
+  margin-right: 10rpx;
+}
+
 .exam_item {
   width: 48%;
   margin: 0 1%;
