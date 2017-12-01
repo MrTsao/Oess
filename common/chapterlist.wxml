@@ -2,9 +2,9 @@
   <view class="page-section">
     <view class="section-title">
       <view>
-        章节练习·{{M=='1'?'会员':'免费'}}
+        章节练习{{M=='1'?'·会员':M=='0'?'·免费':''}}
       </view>
-      <view class="addtomember" wx:if="{{M!='1'}}" bindtap="startTrade" >
+      <view class="addtomember" wx:if="{{M=='0'}}" bindtap="startTrade" >
         加入会员
       </view>
     </view>

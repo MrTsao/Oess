@@ -5,10 +5,7 @@ var util = require('../../utils/util.js');
 Page({
   data: {
     PAGE: "INDEX",
-    userInfo: {},
     M: null,
-    height: 0,
-    width: 0,
     menuhide: true,//是否折叠菜单 
     menuIndex: 0,
     menu: [{
@@ -24,21 +21,9 @@ Page({
       id: "4"
       , txt: "综合基础教育类"
     }],//菜单内容
-    background: [{
+    HOTS: [{
       id: "item-1",
-      url: "https://www.yondo.cc/wxapp/images/102.png"
-    }, {
-      id: "item-2",
-      url: "https://www.yondo.cc/wxapp/images/101.png"
-    }],
-    delItems: [{
-      img: "../../image/index-img/5.png",
-      txt: "招考公告",
-      url: "real"
-    }, {
-      img: "../../image/index-img/7.png",
-      txt: "时事政治",
-      url: "real"
+      url: "/image/index.png"
     }],
     showItems: [{
       img: "../../image/index-img/1.png",
@@ -80,7 +65,7 @@ Page({
     wx.navigateTo({
       url: '/pages/trade/member?tp=MR',
     })
-  }, 
+  },
   //展开或隐藏菜单
   menucontrol: function (e) {
     this.setData({
@@ -94,18 +79,58 @@ Page({
     });
   },
   onLoad: function () {
-    var SysInfo = wx.getSystemInfoSync()
+    var that = this
+    var chapterscatch = wx.getStorageSync('CHAPTER_HEAD_LIST') || [];
+    if (chapterscatch.length > 0) {
+      that.setData({
+        chapters: chapterscatch
+      })
+      setTimeout(function () {
+        util.Post(that, "LOAD", null, function (that, data, a, m) {
+          for (let i = 0; i < data.HOTS.length; i++) {
+            data.HOTS[i].url = app.globalData.bseurl + data.HOTS[i].INFO_IMG_URL
+          }
+          that.setData({
+            chapters: data.CHAPTER,
+            HOTS: data.HOTS,
+            M: m
+          })
+          wx.setStorageSync('CHAPTER_HEAD_LIST', data.CHAPTER);//缓存
+        })
+      }, 1000)
+    } else {
+      util.Post(that, "LOAD", null, function (that, data, a, m) {
+        for (let i = 0; i < data.HOTS.length; i++) {
+          data.HOTS[i].url = app.globalData.bseurl + data.HOTS[i].INFO_IMG_URL
+        }
+        that.setData({
+          chapters: data.CHAPTER,
+          HOTS: data.HOTS,
+          M: m
+        })
+        wx.setStorageSync('CHAPTER_HEAD_LIST', data.CHAPTER);//缓存
+      });
+    }
+  },
+  onPullDownRefresh: function () {
     util.Post(this, "LOAD", null, function (that, data, a, m) {
       that.setData({
-        height: SysInfo.windowHeight,
-        width: SysInfo.screenWidth,
         chapters: data.CHAPTER,
         M: m
       })
+      wx.setStorageSync('CHAPTER_HEAD_LIST', data.CHAPTER);//缓存
     });
-  },
-  onPullDownRefresh: function () {
     wx.stopPullDownRefresh()
+  },
+  navtoacive: function (e) {
+    let id = e.currentTarget.dataset.id
+    let txt = e.currentTarget.dataset.txt
+    let url = e.currentTarget.dataset.url
+    if (id) {
+      wx.navigateTo({
+        url: '../focus/focusItem?id=' + id + '&txt=' + txt + '&url=' + url,
+      })
+    }
   },
   /**
    * 用户点击右上角分享

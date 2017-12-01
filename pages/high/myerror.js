@@ -10,13 +10,12 @@ Page({
     PAGE: "HIGH_EXAM",
     hideclass: "",
     realhide: false,
+    moreLoadingComplete: false,
     scrollH: 0,
+    rowWords: 0,
     curPages: 1,
-    col1cnt: 0,
-    col2cnt: 0,
-    steelcol1: 0,
-    steelcol2: 0,
     q_type: ["单选题", "多选题", "不定项题", "判断题", "主观题", "其他"],
+    exams:[],
     col1: [],
     col2: [],
     COLOR: ['#6699cc', '#BC8F8F', '#778899', '#5F9EA0', '#51AD8F', '#81B281', '#A8A35D', '#808080']
@@ -31,13 +30,12 @@ Page({
     jsPost.AddCell("CURPAGE", this.data.curPages)
     jsPost.AddCell("TYPE", 'MYERROR')
     util.Post(this, "LOAD", jsPost, function (that, data, a, m) {
-      if (data.exams) {
+      if (data.exams && data.exams.length > 0) {
         let col1 = that.data.col1
         let col2 = that.data.col2
-        let steelcol1 = that.data.steelcol1
-        let steelcol2 = that.data.steelcol2
-        let col1cnt = that.data.col1cnt
-        let col2cnt = that.data.col2cnt
+        let col1cnt = 0
+        let col2cnt = 0
+        let rowWords = Math.floor((SysInfo.screenWidth * 0.48 * (100 / (Math.floor(SysInfo.screenWidth / 750 * 100))) - 40) / 30)
         for (let i = 0; i < data.exams.length; i++) {
           let examstr = data.exams[i].Q_DESC
           let cnt = 0
@@ -48,29 +46,20 @@ Page({
               cnt++;
             }
           }
-          cnt = Math.ceil(cnt / 10)
+          cnt = Math.ceil(cnt / rowWords)
           if (col1cnt <= col2cnt) {
-            col1cnt += cnt;
-            steelcol1 += 1
-            col1cnt += steelcol1 % 2
-            steelcol2 = 0
+            col1cnt += cnt * 35
             col1.push(data.exams[i])
           } else {
-            col2cnt += cnt;
-            steelcol1 = 0
-            steelcol2 += 1
-            col2cnt += steelcol2 % 2
+            col2cnt += cnt * 35
             col2.push(data.exams[i])
           }
         }
         that.setData({
           scrollH: SysInfo.windowHeight,
+          rowWords: rowWords,
           col1: col1,
           col2: col2,
-          col1cnt: col1cnt,
-          col2cnt: col2cnt,
-          steelcol1: steelcol1,
-          steelcol2: steelcol2,
           curPages: that.data.curPages + 1,
           hideclass: "hideLoad"
         })
@@ -79,54 +68,56 @@ Page({
             realhide: true
           });
         }, 800);
+      } else {
+        that.setData({
+          moreLoadingComplete: true
+        })
       }
     });
   },
   loadExames: function (e) {
+    if (this.data.moreLoadingComplete) {
+      return;
+    }
     var jsPost = new util.jsonRow()
     jsPost.AddCell("CURPAGE", this.data.curPages)
     jsPost.AddCell("TYPE", 'MYERROR')
     util.Post(this, "LOAD", jsPost, function (that, data, a, m) {
-      if (data.exams) {
+      if (data.exams && data.exams.length > 0) {
+        that.setData({
+          exams: data.exams,
+          curPages: that.data.curPages + 1
+        })
+
         let col1 = that.data.col1
         let col2 = that.data.col2
-        let steelcol1 = that.data.steelcol1
-        let steelcol2 = that.data.steelcol2
-        let col1cnt = that.data.col1cnt
-        let col2cnt = that.data.col2cnt
+        let item1heigh = 0
+        let item2heigh = 0
         for (let i = 0; i < data.exams.length; i++) {
-          let examstr = data.exams[i].Q_DESC
-          let cnt = 0
-          for (let j = 0; j < examstr.length; j++) {
-            if (examstr.charCodeAt(j) > 127 || examstr.charCodeAt(j) == 94) {
-              cnt += 2;
-            } else {
-              cnt++;
-            }
-          }
-          cnt = Math.ceil(cnt / 10)
-          if (col1cnt <= col2cnt) {
-            col1cnt += cnt;
-            steelcol1 += 1
-            col1cnt += steelcol1 % 2
-            steelcol2 = 0
-            col1.push(data.exams[i])
-          } else {
-            col2cnt += cnt;
-            steelcol1 = 0
-            steelcol2 += 1
-            col2cnt += steelcol2 % 2
-            col2.push(data.exams[i])
-          }
+          wx.createSelectorQuery().select('#' + data.exams[i].Q_ID).fields({
+            size: true
+          }).exec(function (res) {
+            console.log(res)
+            wx.createSelectorQuery().selectAll('.exam_item').fields({
+              size: true
+            }).exec(function (res2) {
+              let item1heigh = res2[0][0].height
+              let item2heigh = res2[0][1].height
+              if (item1heigh <= item2heigh) {
+                col1.push(data.exams[i])
+              } else {
+                col2.push(data.exams[i])
+              }
+              that.setData({
+                col1: col1,
+                col2: col2
+              })
+            })
+          })
         }
+      } else {
         that.setData({
-          col1: col1,
-          col2: col2,
-          col1cnt: col1cnt,
-          col2cnt: col2cnt,
-          steelcol1: steelcol1,
-          steelcol2: steelcol2,
-          curPages: that.data.curPages + 1
+          moreLoadingComplete: true
         })
       }
     });

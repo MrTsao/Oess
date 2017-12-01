@@ -3,5 +3,5 @@
 <import src="/common/loading.wxml" />
 <template is="pageloading" data="{{hideclass:hideclass,realhide:realhide}}" />
 <view class="container">
-  <template is="examlist" data="{{scrollH: scrollH,col1:col1,col2:col2,COLOR:COLOR,q_type:q_type}}" />
+  <template is="examlist" data="{{scrollH: scrollH,col1:col1,col2:col2,COLOR:COLOR,q_type:q_type,moreLoadingComplete:moreLoadingComplete}}" />
 </view>

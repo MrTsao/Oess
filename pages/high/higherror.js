@@ -10,12 +10,10 @@ Page({
     PAGE: "HIGH_EXAM",
     hideclass: "",
     realhide: false,
+    moreLoadingComplete: false,
     scrollH: 0,
+    rowWords: 0,
     curPages: 1,
-    col1cnt: 0,
-    col2cnt: 0,
-    steelcol1: 0,
-    steelcol2: 0,
     q_type: ["单选题", "多选题", "不定项题", "判断题", "主观题", "其他"],
     col1: [],
     col2: [],
@@ -31,13 +29,12 @@ Page({
     jsPost.AddCell("CURPAGE", this.data.curPages)
     jsPost.AddCell("TYPE", 'HERROR')
     util.Post(this, "LOAD", jsPost, function (that, data, a, m) {
-      if (data.exams) {
+      if (data.exams && data.exams.length > 0) {
         let col1 = that.data.col1
         let col2 = that.data.col2
-        let steelcol1 = that.data.steelcol1
-        let steelcol2 = that.data.steelcol2
-        let col1cnt = that.data.col1cnt
-        let col2cnt = that.data.col2cnt
+        let col1cnt = 0
+        let col2cnt = 0
+        let rowWords = Math.floor((SysInfo.screenWidth * 0.48 * (100 / (Math.floor(SysInfo.screenWidth / 750 * 100))) - 40) / 30)
         for (let i = 0; i < data.exams.length; i++) {
           let examstr = data.exams[i].Q_DESC
           let cnt = 0
@@ -48,29 +45,20 @@ Page({
               cnt++;
             }
           }
-          cnt = Math.ceil(cnt / 10)
+          cnt = Math.ceil(cnt / rowWords)
           if (col1cnt <= col2cnt) {
-            col1cnt += cnt;
-            steelcol1 += 1
-            col1cnt += steelcol1 % 2
-            steelcol2 = 0
+            col1cnt += cnt * 35
             col1.push(data.exams[i])
           } else {
-            col2cnt += cnt;
-            steelcol1 = 0
-            steelcol2 += 1
-            col2cnt += steelcol2 % 2
+            col2cnt += cnt * 35
             col2.push(data.exams[i])
           }
         }
         that.setData({
           scrollH: SysInfo.windowHeight,
+          rowWords: rowWords,
           col1: col1,
           col2: col2,
-          col1cnt: col1cnt,
-          col2cnt: col2cnt,
-          steelcol1: steelcol1,
-          steelcol2: steelcol2,
           curPages: that.data.curPages + 1,
           hideclass: "hideLoad"
         })
@@ -79,54 +67,61 @@ Page({
             realhide: true
           });
         }, 800);
+      } else {
+        that.setData({
+          moreLoadingComplete: true
+        })
       }
     });
   },
   loadExames: function (e) {
+    if (this.data.moreLoadingComplete) {
+      return;
+    }
     var jsPost = new util.jsonRow()
     jsPost.AddCell("CURPAGE", this.data.curPages)
     jsPost.AddCell("TYPE", 'HERROR')
     util.Post(this, "LOAD", jsPost, function (that, data, a, m) {
-      if (data.exams) {
+      if (data.exams && data.exams.length > 0) {
         let col1 = that.data.col1
         let col2 = that.data.col2
-        let steelcol1 = that.data.steelcol1
-        let steelcol2 = that.data.steelcol2
-        let col1cnt = that.data.col1cnt
-        let col2cnt = that.data.col2cnt
-        for (let i = 0; i < data.exams.length; i++) {
-          let examstr = data.exams[i].Q_DESC
-          let cnt = 0
-          for (let j = 0; j < examstr.length; j++) {
-            if (examstr.charCodeAt(j) > 127 || examstr.charCodeAt(j) == 94) {
-              cnt += 2;
+        let item1heigh = 0
+        let item2heigh = 0
+        var query = wx.createSelectorQuery()
+        query.selectAll('.exam_item').fields({
+          size: true
+        }).exec(function (res) {
+          item1heigh = res[0][0].height
+          item2heigh = res[0][1].height
+          for (let i = 0; i < data.exams.length; i++) {
+            let examstr = data.exams[i].Q_DESC
+            let cnt = 0
+            for (let j = 0; j < examstr.length; j++) {
+              if (examstr.charCodeAt(j) > 127 || examstr.charCodeAt(j) == 94) {
+                cnt += 2;
+              } else {
+                cnt++;
+              }
+            }
+            cnt = Math.ceil(cnt / that.data.rowWords)
+            if (item1heigh <= item2heigh) {
+              item1heigh += cnt * 35
+              col1.push(data.exams[i])
             } else {
-              cnt++;
+              item2heigh += cnt * 35
+              col2.push(data.exams[i])
             }
           }
-          cnt = Math.ceil(cnt / 10)
-          if (col1cnt <= col2cnt) {
-            col1cnt += cnt;
-            steelcol1 += 1
-            col1cnt += steelcol1 % 2
-            steelcol2 = 0
-            col1.push(data.exams[i])
-          } else {
-            col2cnt += cnt;
-            steelcol1 = 0
-            steelcol2 += 1
-            col2cnt += steelcol2 % 2
-            col2.push(data.exams[i])
-          }
-        }
+          that.setData({
+            col1: col1,
+            col2: col2,
+            curPages: that.data.curPages + 1,
+            hideclass: "hideLoad"
+          })
+        })
+      } else {
         that.setData({
-          col1: col1,
-          col2: col2,
-          col1cnt: col1cnt,
-          col2cnt: col2cnt,
-          steelcol1: steelcol1,
-          steelcol2: steelcol2,
-          curPages: that.data.curPages + 1
+          moreLoadingComplete: true
         })
       }
     });

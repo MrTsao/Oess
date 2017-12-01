@@ -1,5 +1,5 @@
 <template name="examlist">
-  <scroll-view scroll-y="true" enable-back-to-top="{{true}}" style="height:{{scrollH}}px" lower-threshold="{{10}}" bindscrolltolower="loadExames">
+  <scroll-view scroll-y="true" enable-back-to-top="{{true}}" style="height:{{scrollH}}px" bindscrolltolower="loadExames">
     <view style="width:100%">
       <view id='item1' class="exam_item">
         <view wx:for="{{col1}}" wx:key="{{item.Q_ID}}" style="background-color:{{COLOR[index%8]}};">
@@ -26,5 +26,6 @@
         </view>
       </view>
     </view>
+    <view class="loading" hidden="{{!moreLoadingComplete}}">- 到底了 -</view>
   </scroll-view>
 </template>

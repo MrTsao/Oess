@@ -37,3 +37,14 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
+.loading{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10rpx;
+  text-align: center;
+  font-size: 26rpx;
+  color: #777;
+}

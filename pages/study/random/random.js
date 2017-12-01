@@ -4,7 +4,6 @@ var sUtil = require('../sutil.js')
 var app = getApp()
 Page({
   data: {
-    userInfo: {},
     PAGE: "RANDOM",
     hideclass: "",
     realhide: false,
@@ -145,12 +144,6 @@ Page({
     })
   },
   onLoad: function (options) {
-    var that = this
-    app.getUserInfo(null, function (user) {
-      that.setData({
-        userInfo: user
-      })
-    })
     Post.call(this, this, "LOAD")
   },
   /**
