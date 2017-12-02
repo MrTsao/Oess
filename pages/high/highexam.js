@@ -1,4 +1,5 @@
 // pages/highexam.js
+var _SUCCESS = true;//
 var app = getApp();
 var util = require('../../utils/util.js');
 Page({
@@ -75,9 +76,10 @@ Page({
     });
   },
   loadExames: function (e) {
-    if (this.data.moreLoadingComplete) {
+    if (this.data.moreLoadingComplete || !_SUCCESS) {
       return;
     }
+    _SUCCESS = false
     var jsPost = new util.jsonRow()
     jsPost.AddCell("CURPAGE", this.data.curPages)
     jsPost.AddCell("TYPE", 'HEXAM')
@@ -118,9 +120,8 @@ Page({
             curPages: that.data.curPages + 1,
             hideclass: "hideLoad"
           })
+          _SUCCESS = true
         })
-        console.log(item1heigh, item2heigh)
-
       } else {
         that.setData({
           moreLoadingComplete: true
@@ -139,7 +140,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    _SUCCESS = true
   },
 
   /**

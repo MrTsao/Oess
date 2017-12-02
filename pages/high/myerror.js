@@ -1,4 +1,5 @@
 // pages/highexam.js
+var _SUCCESS = true;//
 var app = getApp();
 var util = require('../../utils/util.js');
 Page({
@@ -15,7 +16,6 @@ Page({
     rowWords: 0,
     curPages: 1,
     q_type: ["单选题", "多选题", "不定项题", "判断题", "主观题", "其他"],
-    exams:[],
     col1: [],
     col2: [],
     COLOR: ['#6699cc', '#BC8F8F', '#778899', '#5F9EA0', '#51AD8F', '#81B281', '#A8A35D', '#808080']
@@ -76,45 +76,52 @@ Page({
     });
   },
   loadExames: function (e) {
-    if (this.data.moreLoadingComplete) {
+    if (this.data.moreLoadingComplete || !_SUCCESS) {
       return;
     }
+    _SUCCESS = false
     var jsPost = new util.jsonRow()
     jsPost.AddCell("CURPAGE", this.data.curPages)
     jsPost.AddCell("TYPE", 'MYERROR')
     util.Post(this, "LOAD", jsPost, function (that, data, a, m) {
       if (data.exams && data.exams.length > 0) {
-        that.setData({
-          exams: data.exams,
-          curPages: that.data.curPages + 1
-        })
-
         let col1 = that.data.col1
         let col2 = that.data.col2
         let item1heigh = 0
         let item2heigh = 0
-        for (let i = 0; i < data.exams.length; i++) {
-          wx.createSelectorQuery().select('#' + data.exams[i].Q_ID).fields({
-            size: true
-          }).exec(function (res) {
-            console.log(res)
-            wx.createSelectorQuery().selectAll('.exam_item').fields({
-              size: true
-            }).exec(function (res2) {
-              let item1heigh = res2[0][0].height
-              let item2heigh = res2[0][1].height
-              if (item1heigh <= item2heigh) {
-                col1.push(data.exams[i])
+        var query = wx.createSelectorQuery()
+        query.selectAll('.exam_item').fields({
+          size: true
+        }).exec(function (res) {
+          item1heigh = res[0][0].height
+          item2heigh = res[0][1].height
+          for (let i = 0; i < data.exams.length; i++) {
+            let examstr = data.exams[i].Q_DESC
+            let cnt = 0
+            for (let j = 0; j < examstr.length; j++) {
+              if (examstr.charCodeAt(j) > 127 || examstr.charCodeAt(j) == 94) {
+                cnt += 2;
               } else {
-                col2.push(data.exams[i])
+                cnt++;
               }
-              that.setData({
-                col1: col1,
-                col2: col2
-              })
-            })
+            }
+            cnt = Math.ceil(cnt / that.data.rowWords)
+            if (item1heigh <= item2heigh) {
+              item1heigh += cnt * 35
+              col1.push(data.exams[i])
+            } else {
+              item2heigh += cnt * 35
+              col2.push(data.exams[i])
+            }
+          }
+          that.setData({
+            col1: col1,
+            col2: col2,
+            curPages: that.data.curPages + 1,
+            hideclass: "hideLoad"
           })
-        }
+          _SUCCESS = true
+        })
       } else {
         that.setData({
           moreLoadingComplete: true
@@ -133,7 +140,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    _SUCCESS = true
   },
 
   /**

@@ -4,14 +4,4 @@
 <template is="pageloading" data="{{hideclass:hideclass,realhide:realhide}}" />
 <view class="container">
   <template is="examlist" data="{{scrollH: scrollH,col1:col1,col2:col2,COLOR:COLOR,q_type:q_type,moreLoadingComplete:moreLoadingComplete}}" />
-  <view id='item1' class="exam_item" style="display:none">
-    <view wx:for="{{exams}}" wx:key="{{item.Q_ID}}" id='{{item.Q_ID}}' style="background-color:{{COLOR[index%8]}};">
-      <div class='content'>
-        <label class="text_label">{{q_type[item.Q_TYPE]}}</label>{{item.Q_DESC}}</div>
-      <div class='logs'>
-        <div>错误率{{item.RATE}}</div>
-        <div>评论{{item.DIS}}</div>
-      </div>
-    </view>
-  </view>
 </view>
