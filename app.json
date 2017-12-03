@@ -21,7 +21,8 @@
     "pages/high/highexam",
     "pages/high/higherror",
     "pages/high/myerror",
-    "pages/high/questionview"
+    "pages/high/questionview",
+    "pages/daily/daily"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -40,6 +41,12 @@
         "iconPath": "image/home.png",
         "selectedIconPath": "image/home2.png",
         "text": "练习"
+      },
+      {
+        "pagePath": "pages/daily/daily",
+        "iconPath": "image/timer.png",
+        "selectedIconPath": "image/timer2.png",
+        "text": "每日一题"
       },
       {
         "pagePath": "pages/focus/focus",

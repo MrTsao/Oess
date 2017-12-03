@@ -287,9 +287,8 @@ function Post(that, action, data) {
       var iIndex = that.data.index
       if (iIndex == that.data.exerises.length - 2) {
         var jsPost = new util.jsonRow()
-        jsPost.AddCell("BID", objExamItem.bid)
+        jsPost.AddCell("BID", that.data.exerises[iIndex].bid)
         Post.call(this, that, "NEXT", jsPost)
-        --iIndex
       }
       else if (iIndex == that.data.exerises.length - 1) {
         wx.showToast({

@@ -1,0 +1,38 @@
+/* pages/daily/daily.wxss */
+@import "../study/random/random.wxss";
+
+.page-section{
+  border-top: none;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  background-color: #fff;
+  padding: 10rpx 0;
+}
+
+.dleft, .dright {
+  flex-grow: 0;
+  color: #eee;
+  font-size: 32rpx;
+}
+
+.dcenter {
+  width: 100%;
+  flex-grow: 1;
+  border-radius: 8rpx;
+  padding-top:70rpx;
+}
+
+.svcontent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  
+}
+
+.page-section {
+  width: 96%;
+}
