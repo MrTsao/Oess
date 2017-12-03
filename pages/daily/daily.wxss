@@ -1,27 +1,35 @@
 /* pages/daily/daily.wxss */
 @import "../study/random/random.wxss";
 
-.page-section{
+.page-section {
   border-top: none;
 }
+
 .container {
   display: flex;
   flex-direction: row;
-  background-color: #fff;
+  background-color: #eee;
   padding: 10rpx 0;
 }
 
 .dleft, .dright {
   flex-grow: 0;
-  color: #eee;
-  font-size: 32rpx;
+  color: #aaa;
+  font-size: 42rpx;
 }
 
 .dcenter {
   width: 100%;
   flex-grow: 1;
   border-radius: 8rpx;
-  padding-top:70rpx;
+}
+
+.scorll {
+  width: 99%;
+  border: 1rpx solid #ddd;
+  border-radius: 10rpx;
+  background-color: #fff;
+  box-shadow: 0 8rpx 8rpx -1rpx #bbb;
 }
 
 .svcontent {
@@ -30,9 +38,29 @@
   align-items: center;
   justify-content: center;
   align-content: center;
-  
 }
 
-.page-section {
-  width: 96%;
+.section_head {
+  background-color: #d7e6d7;
+}
+
+.daily-head {
+  height: 60rpx;
+  width: 99%;
+  border-top-left-radius: 10rpx;
+  border-top-right-radius: 10rpx;  
+  font-size: 32rpx;
+  color: #eee;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.daily-head div{  
+  padding-left: 20rpx;
+}
+.daily-head image{
+  width: 40rpx;
+  height: 40rpx;
+  padding-right: 20rpx;
 }

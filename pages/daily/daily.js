@@ -14,12 +14,22 @@ Page({
     start_time: "",
     q_type: ["单选题", "多选题", "不定项题", "判断题", "主观题", "其他"],
     exerises: [],
+    ecnt: 0,//有效答题数
     index: 0,//当前答题数量
     comm_text: '',
     comm_len: 0,
     r_id: '',//评论ID
     show_comment_module: false,
     scrollH: 0,
+    scurrentdt: '',
+    day: 0,
+    week: 0,
+    COLOR: ['#6699cc', '#BC8F8F', '#778899', '#5F9EA0', '#51AD8F', '#81B281', '#A8A35D'],
+    weeks: ["日", "一", "二", "三", "四", "五", "六"],
+    comm_text: '',
+    comm_len: 0,
+    r_id: '',//评论ID
+    show_comment_module: false,
   },
 
   /**
@@ -28,9 +38,13 @@ Page({
   onLoad: function (options) {
     var SysInfo = wx.getSystemInfoSync()
     let rate = (SysInfo.screenWidth / 750)
+    let dt = new Date();
     this.setData({
+      day: dt.getDate() % 7,
+      week: dt.getDay(),
       start_time: new Date(),
-      scrollH: (1 / rate) * SysInfo.windowHeight - 20-180
+      scrollH: (1 / rate) * SysInfo.windowHeight - 20 - 40,
+      scurrentdt: util.formatTime(dt, "date")
     })
     Post.call(this, this, "DAILY")
   },
@@ -40,18 +54,28 @@ Page({
     sUtil.selectedOptions(e, this, function (that, objExamItem) {
       //单项选择时回调有效
       var jsPost = new util.jsonRow()
+      jsPost.AddCell("ID", objExamItem.id)
       jsPost.AddCell("QID", objExamItem.qid)
+      jsPost.AddCell("BID", objExamItem.bid)
+      jsPost.AddCell("SEQ", objExamItem.seq)
+      jsPost.AddCell("u_answer", objExamItem.u_answer)
+      jsPost.AddCell("u_second", objExamItem.u_second)
       Post.call(this, that, "ANSWERED", jsPost)
-    })
+    }, true)
   },
   submitMultiVal: function (e) {
     //多选、不定项提交答案
     sUtil.submitMultiAnswer(e, this, function (that, objExamItem) {
       //非单项选择时回调
       var jsPost = new util.jsonRow()
+      jsPost.AddCell("ID", objExamItem.id)
       jsPost.AddCell("QID", objExamItem.qid)
+      jsPost.AddCell("BID", objExamItem.bid)
+      jsPost.AddCell("SEQ", objExamItem.seq)
+      jsPost.AddCell("u_answer", objExamItem.u_answer)
+      jsPost.AddCell("u_second", objExamItem.u_second)
       Post.call(this, that, "ANSWERED", jsPost)
-    })
+    }, true)
   }, doComments: function (e) {
     //评论题目窗口
     this.setData({
@@ -167,13 +191,14 @@ Page({
 
 function Post(that, action, data) {
   //数据请求执行方法
-  util.Post(that, action, null, function (that, res) {
+  util.Post(that, action, data, function (that, res) {
     if (res) {
       //更新数据
       if (action == "DAILY") {
         that.setData({
           exerises: that.data.exerises.concat(res.exerises)
           , hideclass: "hideLoad"
+          , ecnt: res.ecnt
         })
         setTimeout(function () {
           that.setData({
