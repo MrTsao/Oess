@@ -22,7 +22,6 @@ Page({
     show_comment_module: false,
     scrollH: 0,
     scurrentdt: '',
-    day: 0,
     week: 0,
     COLOR: ['#6699cc', '#BC8F8F', '#778899', '#5F9EA0', '#51AD8F', '#81B281', '#A8A35D'],
     weeks: ["日", "一", "二", "三", "四", "五", "六"],
@@ -40,9 +39,8 @@ Page({
     let rate = (SysInfo.screenWidth / 750)
     let dt = new Date();
     this.setData({
-      day: dt.getDate() % 7,
       week: dt.getDay(),
-      start_time: new Date(),
+      start_time: dt,
       scrollH: (1 / rate) * SysInfo.windowHeight - 20 - 40,
       scurrentdt: util.formatTime(dt, "date")
     })

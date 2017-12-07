@@ -40,10 +40,13 @@ Page({
       img: "/image/share.png",
       url: "/"
     }],
-    info: [{ RATE: '-', DT: '-', US: '-' }]
+    info: [{ RATE: '-', DT: '-', US: '-' }],
+    week: 0,
+    COLOR: ['#6699cc', '#BC8F8F', '#778899', '#5F9EA0', '#51AD8F', '#81B281', '#A8A35D']
   },
   onLoad: function (options) {
     var that = this
+    let dt = new Date()
     //调用应用实例的方法获取全局数据
     app.getUserInfo(null, function (user) {
       that.setData({
@@ -55,7 +58,8 @@ Page({
         data.info[0].US = util.formatString(data.info[0].US)
       }
       that.setData({
-        info: data.info
+        info: data.info,
+        week: dt.getDay()
       })
     });
   }

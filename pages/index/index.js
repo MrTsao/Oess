@@ -8,6 +8,7 @@ Page({
     M: null,
     menuhide: true,//是否折叠菜单 
     menuIndex: 0,
+    height:0,
     menu: [{
       id: "1"
       , txt: "综合基础知识"
@@ -80,6 +81,7 @@ Page({
   },
   onLoad: function () {
     var that = this
+    var SysInfo = wx.getSystemInfoSync()
     var chapterscatch = wx.getStorageSync('CHAPTER_HEAD_LIST') || [];
     if (chapterscatch.length > 0) {
       that.setData({
@@ -93,7 +95,8 @@ Page({
           that.setData({
             chapters: data.CHAPTER,
             HOTS: data.HOTS,
-            M: m
+            M: m,
+            height: SysInfo.windowHeight
           })
           wx.setStorageSync('CHAPTER_HEAD_LIST', data.CHAPTER);//缓存
         })
@@ -106,7 +109,8 @@ Page({
         that.setData({
           chapters: data.CHAPTER,
           HOTS: data.HOTS,
-          M: m
+          M: m,
+          height: SysInfo.windowHeight
         })
         wx.setStorageSync('CHAPTER_HEAD_LIST', data.CHAPTER);//缓存
       });

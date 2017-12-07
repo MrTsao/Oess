@@ -296,10 +296,16 @@ function Post(that, action, data) {
         })
         --iIndex
       }
-      that.setData({
-        index: ++iIndex
-        , start_time: new Date()
-      })
+ //     that.setData({
+ //       index: ++iIndex
+ //       , start_time: new Date()
+ //    })
+      setTimeout(function () {
+        that.setData({
+          index: ++iIndex
+          , start_time: new Date()
+        });
+      }, 1000)
     }
     wx.setStorageSync('CHAPTER_' + that.data.RSID, that.data.exerises);//缓存
     wx.setStorageSync('CHAPTER_SUM' + that.data.RSID, that.data.summaries);//缓存

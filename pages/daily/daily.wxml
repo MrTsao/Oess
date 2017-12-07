@@ -6,11 +6,11 @@
   <view class='dcenter'>
     <swiper indicator-dots="{{false}}" autoplay="{{false}}" circular="{{false}}" style="height:{{scrollH}}rpx;">
       <swiper-item>
-        <view class="daily-head" style="background:{{COLOR[day]}};border: 1rpx solid {{COLOR[day]}};">
+        <view class="daily-head" style="background:{{COLOR[week]}};border: 1rpx solid {{COLOR[week]}};">
           <div>{{scurrentdt}}•周{{weeks[week]}}</div>
           <image src="/image/{{exerises[index].is_coll?'Liked2':'Like'}}.png" bindtap="doColl"></image>
         </view>
-        <scroll-view scroll-y="true" class="scorll" style="height:{{scrollH-70}}rpx;">
+        <scroll-view scroll-y="true" class="scorll" style="height:{{scrollH-75}}rpx;">
           <view class="svcontent">
             <!--题目-->
             <view class="page-section">
@@ -73,14 +73,14 @@
         </scroll-view>
       </swiper-item>
       <swiper-item>
-        <view class="daily-head" style="background:{{COLOR[day]}};border: 1rpx solid {{COLOR[day]}};">
+        <view class="daily-head" style="background:{{COLOR[week]}};border: 1rpx solid {{COLOR[week]}};">
           <div>讨论专区</div>
           <image src="/image/Comments.png" bindtap="doComments"></image>
         </view>
-        <scroll-view scroll-y="true" class="scorll" style="height:{{scrollH-70}}rpx;">
+        <scroll-view scroll-y="true" class="scorll" style="height:{{scrollH-75}}rpx;">
           <view class="svcontent">
             <!--讨论-->
-            <view class="page-section" hidden="{{exerises[index].show_item >= 1 ? '' : true}}">
+            <view class="page-section">
               <view wx:for="{{exerises[index].feeds}}" wx:for-index="idx" wx:key="{{id}}" class="exerises-feed">
                 <view class="feed-item">
                   <view class="feed-source">

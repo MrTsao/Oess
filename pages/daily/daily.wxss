@@ -29,7 +29,7 @@
   border: 1rpx solid #ddd;
   border-radius: 10rpx;
   background-color: #fff;
-  box-shadow: 0 8rpx 8rpx -1rpx #bbb;
+  box-shadow: 0 4rpx 8rpx -1rpx #bbb;
 }
 
 .svcontent {

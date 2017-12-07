@@ -2,7 +2,7 @@
 <import src="../../common/pagehead.wxml" />
 <import src="../../common/foot.wxml" />
 <view class="container">
-  <template is="pagehead" data="{{avatarUrl: userInfo.avatarUrl,nickName:userInfo.nickName}}" />
+  <template is="pagehead" data="{{avatarUrl: userInfo.avatarUrl,nickName:userInfo.nickName,color:COLOR[week]}}" />
   <view class="page-section page-section-gap">
     <view class="item-total">
       <view class="titem">

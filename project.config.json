@@ -37,8 +37,8 @@
 				},
 				{
 					"id": 2,
-					"name": "daily",
-					"pathName": "pages/daily/daily",
+					"name": "servicelist",
+					"pathName": "pages/services/servicelist",
 					"query": ""
 				}
 			]
