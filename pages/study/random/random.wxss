@@ -86,20 +86,6 @@ page {
   color: cornflowerblue;
 }
 
-/*--------------------------1.通用 div排版 start----------------*/
-
-.horizontal {
-  display: flex;
-  flex-direction: row;
-}
-
-.vertical {
-  display: flex;
-  flex-direction: column;
-}
-
-/*--------------------------1.通用 div排版 end------------------*/
-
 /*--------------------------1.通用 按钮 start----------------*/
 
 .horizontal {
@@ -234,8 +220,8 @@ page {
 }
 
 .page-bottom image {
-  width: 50rpx;
-  height: 50rpx;
+  width: 40rpx;
+  height: 40rpx;
 }
 
 .flex-wrp {
@@ -377,4 +363,8 @@ page {
   font-size: 24rpx;
   font-weight: bolder;
   color: crimson;
+}
+
+.answer_list_scroll{
+  height: 500rpx;
 }

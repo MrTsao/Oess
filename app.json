@@ -22,7 +22,10 @@
     "pages/high/higherror",
     "pages/high/myerror",
     "pages/high/questionview",
-    "pages/daily/daily"
+    "pages/daily/daily",
+    "pages/services/profile",
+    "pages/services/collections",
+    "pages/services/recommend"
   ],
   "window": {
     "backgroundTextStyle": "dark",

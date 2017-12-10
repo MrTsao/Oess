@@ -20,19 +20,40 @@
     </view>
   </view>
   <view class="page-section" wx:for="{{items}}" wx:key="item.id">
-    <navigator open-type="navigate" url="{{item.url}}" hover-class="none">
-      <view wx:if="{{item.spilted}}" class='splited' ></view>
-      <view class="item">
-        <view class="item-image" style="background-color:{{item.color}};">
-          <image src="{{item.img}}"></image>
-        </view>
-        <view class="{{item.spilted?'item-txt':'item-txt2'}}">
-          {{item.txt}}
-        </view>
+    <view wx:if="{{item.spilted}}" class='splited'></view>
+    <view class="item" wx:if="{{item.ty == 'url'}}" data-url="{{item.url}}" bindtap='navtourl'>
+      <view class="item-image" style="background-color:{{item.color}};">
+        <image src="{{item.img}}"></image>
       </view>
-    </navigator>
+      <view class="{{item.spilted?'item-txt':'item-txt2'}}">
+        <view>{{item.txt}}</view>
+        <view class="item-val">{{info[0][item.val]}}</view>
+      </view>
+    </view>
+    <view class="item" wx:if="{{item.ty == 'txt'}}">
+      <view class="item-image" style="background-color:{{item.color}};">
+        <image src="{{item.img}}"></image>
+      </view>
+      <view class="{{item.spilted?'item-txt':'item-txt2'}}">
+        <view>{{item.txt}}</view>
+        <view class="item-val">{{info[0][item.val]}}</view>
+      </view>
+    </view>
+    <view class="item" wx:if="{{item.ty == 'pick'}}">
+      <view class="item-image" style="background-color:{{item.color}};">
+        <image src="{{item.img}}"></image>
+      </view>
+      <view class="{{item.spilted?'item-txt':'item-txt2'}}">
+        <picker mode="{{item.op[0]['mode']}}" bindchange="{{item.op[0]['bindchange']}}" value="{{region[item.op[0]['value']]}}" range="{{region[item.op[0]['range']]}}" style='width:100%;'>
+          <view class='item-pick'>
+            <view class="pick-txt">{{item.txt}}</view>
+            <view class="pick-val">{{info[0][item.val]}}</view>
+          </view>
+        </picker>
+      </view>
+    </view>
   </view>
-  <view class='splited' ></view>
+  <view class='splited'></view>
   <form catchsubmit="formSubmit">
     <input style="display:none;" name="HEAD_IMG" type="text" value="{{HEAD_IMG}}" />
     <view class="page-section">

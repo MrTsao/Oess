@@ -9,7 +9,7 @@
       </view>
     </view>
     <block wx:for="{{chapters}}" wx:for-index="idx" wx:key="{{item.CPID}}">
-      <navigator url="/pages/study/chapter/chapter_exec?id={{item.CPID}}&txt={{item.CNME}}">
+      <navigator url="/pages/study/chapter/chapter_exec?id={{item.CPID}}&txt={{item.CNME}}&TTLCNT={{item.QCNT}}">
         <view class="cpt-item" style="border-color:{{COLOR[idx%COLOR.length]}};">
           <image class="cpt-img" src='/image/index-img/dot.png' style="background-color:{{COLOR[idx%COLOR.length]}};"></image>
           <view class="cpt-content">

@@ -75,12 +75,24 @@ Page({
       let iIndex = that.data.index
       let sExe = that.data.exerises
       let sId = sExe[iIndex].qid
-      var jsPost = new util.jsonRow()
+      let jsPost = new util.jsonRow()
       jsPost.AddCell("QID", sId)
       Post.call(that, that, "REFRESHCOMMENT", jsPost)
     })
   },
   //------------------------END-----左右滑动控制--------------------
+  //------------------------START-----上、下一题------------------
+  nextexam: function (e) {
+    sUtil.nextexam(this, function (that, objExamItem) {
+      let jsPost = new util.jsonRow()
+      jsPost.AddCell("BID", objExamItem.bid)
+      Post.call(this, that, "NEXT", jsPost)
+    })
+  }, 
+  preexam: function (e) {
+    sUtil.preexam(this)
+  },
+  //------------------------END-----上、下一题--------------------
 
   //------------------------START-----评论-------------------------
   doComments: function (e) {

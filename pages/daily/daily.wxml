@@ -125,6 +125,9 @@
                   </view>
                 </view>
               </view>
+              <view wx:if="{{exerises[index].feeds.length <= 0}}" class="feed-item flex-wrp flex-center text24" style="color:#666666;" >
+                  暂无评论！点击右上角[≡]添加评论！
+              </view>
             </view>
           </view>
         </scroll-view>

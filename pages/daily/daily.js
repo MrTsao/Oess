@@ -36,7 +36,7 @@ Page({
    */
   onLoad: function (options) {
     var SysInfo = wx.getSystemInfoSync()
-    let rate = (SysInfo.screenWidth / 750)
+    let rate = (SysInfo.windowWidth / 750)
     let dt = new Date();
     this.setData({
       week: dt.getDay(),

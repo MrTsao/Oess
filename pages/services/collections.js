@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    PAGE: "HIGH_EXAM",
+    PAGE: "COLLECTIONS",
     hideclass: "",
     realhide: false,
     moreLoadingComplete: false,
@@ -18,8 +18,8 @@ Page({
     q_type: ["单选题", "多选题", "不定项题", "判断题", "主观题", "其他"],
     col1: [],
     col2: [],
-    col1cnt:0,
-    col2cnt:0,
+    col1cnt: 0,
+    col2cnt: 0,
     COLOR: ['#6699cc', '#BC8F8F', '#778899', '#5F9EA0', '#51AD8F', '#81B281', '#A8A35D', '#808080']
   },
 
@@ -74,7 +74,9 @@ Page({
         }, 800);
       } else {
         that.setData({
-          moreLoadingComplete: true
+          moreLoadingComplete: true,
+          hideclass: "hideLoad",
+          realhide: true
         })
       }
     });

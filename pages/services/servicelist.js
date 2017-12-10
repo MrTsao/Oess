@@ -3,46 +3,103 @@ var util = require('../../utils/util.js')
 var app = getApp()
 Page({
   data: {
-    userInfo: { avatarUrl: "/image/icon.png"},
+    userInfo: { avatarUrl: "/image/icon.png" },
     HEAD_IMG: "",
     PAGE: "PROFILE",
+    region: {
+      region: ['重庆市', '全部', '全部'],
+      eclass: ["综合基础知识", "管理基础知识", "教育公共基础知识", "综合基础教育类"]
+    },
+    customItem: '全部',
     items: [{
+      id: "profile",
       txt: "个人资料",
       color: "#3CB371",
       img: "/image/user.png",
-      url: "/pages/profile/profile",
+      ty: "url",
+      url: "/pages/services/profile",
       spilted: true
-    },{
-      txt: "我的余额",
+    }, {
+      id: "account",
+      txt: "我的积分",
       color: "#cd853f",
       img: "/image/doller.png",
-      url: "/pages/profile/profile"
-    },{
+      ty: "txt",
+      val: "USER_SCORE"
+    }, {
+      id: "collections",
       txt: "我的收藏",
       color: "#BDB76B",
       img: "/image/Reading.png",
-      url: "/",
-      spilted:true
+      ty: "url",
+      url: "/pages/services/collections",
+      val: "COLL",
+      spilted: true
     }, {
+      id: "locations",
       txt: "报考地区",
       color: "#8FBC8F",
       img: "/image/location.png",
-      url: "/",
+      ty: "pick",
+      op: [{
+        mode: "region",
+        bindchange: "bindRegionChange",
+        value: "region"
+      }],
+      val: "REGION",
       spilted: true
     }, {
+      id: "class",
       txt: "练习科目",
       color: "#778899",
       img: "/image/class.png",
-      url: "/"
+      ty: "pick",
+      op: [{
+        mode: "selector",
+        bindchange: "bindClassChange",
+        range: "eclass"
+      }],
+      val: "EXAM_CLASS"
     }, {
+      id: "command",
       txt: "推荐给朋友",
       color: "#008B8B",
       img: "/image/share.png",
-      url: "/"
+      ty: "url",
+      url: "/pages/services/recommend"
     }],
     info: [{ RATE: '-', DT: '-', US: '-' }],
     week: 0,
     COLOR: ['#6699cc', '#BC8F8F', '#778899', '#5F9EA0', '#51AD8F', '#81B281', '#A8A35D']
+  },
+  navtourl: function (e) {
+    let url = e.currentTarget.dataset.url
+    let user = this.data.info[0].USER_CDE
+    if (url != "" && user && user != "") {
+      wx.navigateTo({
+        url: url + "?urid=" + user,
+      })
+    }
+  },
+  bindRegionChange: function (e) {
+    let info = this.data.info
+    info[0].REGION = e.detail.value.join("-")
+    this.setData({
+      info: info
+    })
+    var jsPost = new util.jsonRow()
+    jsPost.AddCell("REGION", info[0].REGION)
+    util.Post(this, "UPDATE-REGION", jsPost)
+  },
+  bindClassChange: function (e) {
+    let info = this.data.info
+    info[0].EXAM_CLASS = this.data.region.eclass[e.detail.value]
+    this.setData({
+      info: info
+    })
+    var jsPost = new util.jsonRow()
+    jsPost.AddCell("CLASS", this.data.region.eclass[e.detail.value])
+    util.Post(this, "UPDATE-CLASS", jsPost)
   },
   onLoad: function (options) {
     var that = this
@@ -68,7 +125,7 @@ Page({
 //服务器请求数据
 function Post(that, action, data, doAfter) {
   //数据请求执行方法
-  util.Post(that, action, data, function (that,res) {
+  util.Post(that, action, data, function (that, res) {
     if (res) {
       //回调
       typeof doAfter == "function" && doAfter(that, res)

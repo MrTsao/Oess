@@ -1,0 +1,5 @@
+<!--pages/services/recommend.wxml-->
+<import src="../../common/pagehead.wxml" />
+<view class="container">
+  <template is="pagehead" data="{{avatarUrl: userInfo.avatarUrl,nickName:userInfo.nickName,color:COLOR[week]}}" />
+</view>

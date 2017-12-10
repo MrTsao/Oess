@@ -28,4 +28,5 @@
     </view>
     <view class="loading" hidden="{{!moreLoadingComplete}}">- 到底了 -</view>
   </scroll-view>
+  <view class="loading" wx:if="{{col1.length<=0 && col2.length <=0}}">- 暂无数据 -</view>
 </template>

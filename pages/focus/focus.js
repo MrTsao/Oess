@@ -30,8 +30,8 @@ Page({
     Post.call(this, this, "LOAD", jsPost, function (that, data) {
       that.setData({
         height: SysInfo.windowHeight,
-        width: SysInfo.screenWidth,
-        rpxrate: Math.floor(SysInfo.screenWidth / 750 * 100) / 100,
+        width: SysInfo.windowWidth,
+        rpxrate: Math.floor(SysInfo.windowWidth / 750 * 100) / 100,
         HOTS: data.HOTS,
         bseurl: app.globalData.bseurl,
         hideclass: "hideLoad"

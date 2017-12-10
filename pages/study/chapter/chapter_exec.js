@@ -11,6 +11,7 @@ Page({
     RSID: '',
     TXT: '',
     PAGE: "CHAPTER_EXEC",
+    TTLCNT: 0,
     hideclass: "",
     realhide: false,
     q_type: ["单选题", "多选题", "不定项题", "判断题", "主观题", "其他"],
@@ -88,6 +89,19 @@ Page({
     })
   },
   //------------------------END-----左右滑动控制--------------------
+
+  //------------------------START-----上、下一题------------------
+  nextexam: function (e) {
+    sUtil.nextexam(this, function (that, objExamItem) {
+      let jsPost = new util.jsonRow()
+      jsPost.AddCell("BID", objExamItem.bid)
+      Post.call(this, that, "NEXT", jsPost)
+    })
+  },
+  preexam: function (e) {
+    sUtil.preexam(this)
+  },
+  //------------------------END-----上、下一题--------------------
 
   //------------------------START-----弹出的控制面板--------------------
   showCtrlPanel: function (e) {
@@ -185,6 +199,7 @@ Page({
     //调用应用实例的方法获取全局数据
     that.setData({
       RSID: options.id
+      , TTLCNT: options.TTLCNT
       , TXT: options.txt
       , start_time: new Date()
     })
@@ -296,10 +311,10 @@ function Post(that, action, data) {
         })
         --iIndex
       }
- //     that.setData({
- //       index: ++iIndex
- //       , start_time: new Date()
- //    })
+      //     that.setData({
+      //       index: ++iIndex
+      //       , start_time: new Date()
+      //    })
       setTimeout(function () {
         that.setData({
           index: ++iIndex

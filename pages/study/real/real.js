@@ -53,7 +53,7 @@ Page({
     var SysInfo = wx.getSystemInfoSync()
     this.setData({
       height: SysInfo.windowHeight,
-      rpxrate: Math.floor(SysInfo.screenWidth / 750 * 100) / 100,
+      rpxrate: Math.floor(SysInfo.windowWidth / 750 * 100) / 100,
     })
   },
   onPullDownRefresh() {

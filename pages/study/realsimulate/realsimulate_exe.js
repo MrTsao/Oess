@@ -87,6 +87,19 @@ Page({
   },
   //------------------------END-----左右滑动控制--------------------
 
+  //------------------------START-----上、下一题------------------
+  nextexam: function (e) {
+    sUtil.nextexam(this, function (that, objExamItem) {
+      let jsPost = new util.jsonRow()
+      jsPost.AddCell("BID", objExamItem.bid)
+      Post.call(this, that, "NEXT", jsPost)
+    })
+  },
+  preexam: function (e) {
+    sUtil.preexam(this)
+  },
+  //------------------------END-----上、下一题--------------------
+
   //------------------------START-----弹出的控制面板--------------------
   showCtrlPanel: function (e) {
     this.setData({

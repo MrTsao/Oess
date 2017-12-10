@@ -1,0 +1,3 @@
+/* pages/services/recommend.wxss */
+
+@import "../../common/lib/weui.wxss";

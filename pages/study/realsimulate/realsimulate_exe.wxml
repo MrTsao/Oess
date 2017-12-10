@@ -20,6 +20,7 @@
             </view>
             <view class="weui-cell__bd text28">{{item.op}}、{{item.text}}</view>
           </label>
+          <label class="weui-cell weui-check__label" />
         </radio-group>
       </block>
       <block wx:elif="{{exerises[index].type != '0' && exerises[index].type != '3' && exerises[index].type}}">
@@ -30,6 +31,7 @@
             </view>
             <view class="weui-cell__bd text28">{{item.op}}、{{item.text}}</view>
           </label>
+          <label class="weui-cell weui-check__label" />
         </checkbox-group>
         <view class="btn-area">
           <button type="primary" bindtap="submitMultiVal" size="mini" plain="true" disabled="{{summaries[0].IS_FINISH_EXAM}}">确认答案</button>
@@ -110,6 +112,9 @@
         </view>
       </view>
     </view>
+    <view wx:if="{{exerises[index].feeds.length <= 0}}" class="feed-item flex-wrp flex-center text24" style="color:#666666;">
+      暂无评论！
+    </view>
   </view>
   <view class="exerises-feed-bottom">
     <label> </label>
@@ -118,17 +123,23 @@
 <!--底层-->
 <view class="page-bottom">
   <!--没有完成考试时，不显示收藏，评论信息-->
-  <view class="top-tab flex-wrp {{summaries[0].IS_FINISH_EXAM?'flex-justify':'flex-center'}}">
+  <view class="top-tab flex-wrp flex-justify">
+    <view class="flex-item" bindtap="preexam">
+      <image src="/image/left.png"></image>
+    </view>
     <view wx:if="{{summaries[0].IS_FINISH_EXAM}}" class="flex-item bind" bindtap="doColl">
       <image src="/image/{{exerises[index].is_coll?'Liked':'Like'}}.png"></image>
-      <label style="color:{{exerises[index].is_coll?'#1aad19':'inherit'}};">收藏</label>
+      <!-- <label style="color:{{exerises[index].is_coll?'#1aad19':'inherit'}};">收藏</label> -->
     </view>
     <view class="flex-item bind" bindtap="showCtrlPanel">
       <image src="/image/{{show_ctrl_panel?'grided':'grid'}}.png"></image>
     </view>
     <view wx:if="{{summaries[0].IS_FINISH_EXAM}}" class="flex-item bind" bindtap="doComments">
       <image src="/image/Comments.png"></image>
-      <lable>评论</lable>
+      <!-- <lable>评论</lable> -->
+    </view>
+    <view class="flex-item" bindtap="nextexam">
+      <image src="/image/right.png"></image>
     </view>
   </view>
 </view>

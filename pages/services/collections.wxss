@@ -1,0 +1,3 @@
+/* pages/services/collections.wxss */
+
+@import "../../common/lib/examlist.wxss";

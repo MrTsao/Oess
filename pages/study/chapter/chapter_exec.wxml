@@ -20,6 +20,7 @@
             </view>
             <view class="weui-cell__bd text28">{{item.op}}、{{item.text}}</view>
           </label>
+          <label class="weui-cell weui-check__label" />
         </radio-group>
       </block>
       <block wx:elif="{{exerises[index].type != '0' && exerises[index].type != '3' && exerises[index].type}}">
@@ -30,6 +31,7 @@
             </view>
             <view class="weui-cell__bd text28">{{item.op}}、{{item.text}}</view>
           </label>
+          <label class="weui-cell weui-check__label" />
         </checkbox-group>
         <view class="btn-area">
           <button type="primary" bindtap="submitMultiVal" size="mini" plain="true" disabled="{{exerises[index].is_answered}}">确认答案</button>
@@ -110,6 +112,9 @@
         </view>
       </view>
     </view>
+    <view wx:if="{{exerises[index].feeds.length <= 0}}" class="feed-item flex-wrp flex-center text24" style="color:#666666;">
+      暂无评论！
+    </view>
   </view>
   <view class="exerises-feed-bottom">
     <label> </label>
@@ -119,16 +124,22 @@
 <view class="page-bottom">
   <!--没有完成考试时，不显示收藏，评论信息-->
   <view class="top-tab flex-wrp flex-justify">
-    <view  class="flex-item bind" bindtap="doColl">
+    <view class="flex-item" bindtap="preexam">
+      <image src="/image/left.png"></image>
+    </view>
+    <view class="flex-item bind" bindtap="doColl">
       <image src="/image/{{exerises[index].is_coll?'Liked':'Like'}}.png"></image>
-      <label style="color:{{exerises[index].is_coll?'#1aad19':'inherit'}};">收藏</label>
+      <!-- <label style="color:{{exerises[index].is_coll?'#1aad19':'inherit'}};">收藏</label> -->
     </view>
     <view class="flex-item bind" bindtap="showCtrlPanel">
       <image src="/image/{{show_ctrl_panel?'grided':'grid'}}.png"></image>
     </view>
-    <view  class="flex-item bind" bindtap="doComments">
+    <view class="flex-item bind" bindtap="doComments">
       <image src="/image/Comments.png"></image>
-      <lable>评论</lable>
+      <!-- <lable>评论</lable> -->
+    </view>
+    <view class="flex-item" bindtap="nextexam">      
+      <image src="/image/right.png"></image>
     </view>
   </view>
 </view>
@@ -146,6 +157,7 @@
 <!--中控面板-->
 <view class="module-bg-layer2" wx:if="{{show_ctrl_panel}}">
   <view class="dv-module2">
+    <scroll-view scroll-y class="answer_list_scroll" >
     <view class="answer-list">
       <block wx:for="{{exerises}}" wx:for-index="idx" wx:key="item.qid">
         <view class="answer-item" style="border-color:#{{item.u_answer == item.answer ? 'A9A9A9' :'FF7F50'}};" data-idx="{{idx}}" bindtap="setExamIndex">
@@ -154,16 +166,16 @@
         </view>
       </block>
     </view>
-    <view class='splited' ></view>
+    </scroll-view>
+    <view class='splited'></view>
     <view class="setlabel">
       快速做题自动跳转下一题：
       <switch value="{{auto_next}}" checked="{{auto_next}}" bindtap="setautonext"></switch>
     </view>
-    <view class='splited' ></view>
+    <view class='splited'></view>
     <view class="cust-btn">
       <!-- <a wx:if="{{!summaries[0].IS_FINISH_EXAM}}" bindtap="submitExam">交卷</a> -->
       <a bindtap="closeCtrlPanel">关闭</a>
     </view>
   </view>
 </view>
-
