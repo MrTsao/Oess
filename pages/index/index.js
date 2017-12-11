@@ -8,7 +8,7 @@ Page({
     M: null,
     menuhide: true,//是否折叠菜单 
     menuIndex: 0,
-    height:0,
+    height: 0,
     menu: [{
       id: "1"
       , txt: "综合基础知识"
@@ -79,7 +79,8 @@ Page({
       , menuhide: !this.data.menuhide
     });
   },
-  onLoad: function () {
+  onLoad: function (options) {
+    app.globalData.urid = options.urid || ""
     var that = this
     var SysInfo = wx.getSystemInfoSync()
     var chapterscatch = wx.getStorageSync('CHAPTER_HEAD_LIST') || [];
@@ -142,8 +143,6 @@ Page({
   onShareAppMessage: function () {
     var that = this
     return {
-      title: "轻松事考",
-      desc: '选择轻松事考！事业成功！',
       path: '/pages/index/index'
     }
   }

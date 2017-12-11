@@ -1,5 +1,16 @@
 <!--pages/services/recommend.wxml-->
-<import src="../../common/pagehead.wxml" />
+<!-- <import src="../../common/pagehead.wxml" /> -->
 <view class="container">
-  <template is="pagehead" data="{{avatarUrl: userInfo.avatarUrl,nickName:userInfo.nickName,color:COLOR[week]}}" />
+  <!-- <template is="pagehead" data="{{avatarUrl: userInfo.avatarUrl,nickName:userInfo.nickName,color:COLOR[week]}}" /> -->
+  <view class="main">
+    <view class="user" style="width:{{wwidth-60}}px;">
+      <image src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="user-nme">{{userInfo.nickName}}</text>
+      <text class="user-nme">邀您一起轻松事考！</text>
+    </view>
+    <view class="user-bg">
+    </view>
+    <!-- <image style="width:{{wwidth}}px;" class="bg" src="/image/index.png" background-size="cover" mode='center'></image> -->
+  </view>
+  <button class="share-btn" type="primary" plain open-type='share' size="default">分 享</button>
 </view>

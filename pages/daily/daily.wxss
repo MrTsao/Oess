@@ -6,16 +6,22 @@
 }
 
 .container {
-  display: flex;
   flex-direction: row;
   background-color: #eee;
-  padding: 10rpx 0;
 }
 
 .dleft, .dright {
   flex-grow: 0;
-  color: #aaa;
-  font-size: 42rpx;
+}
+
+.dleft image, .dright image {
+  width: 40rpx;
+  height: 60rpx;
+  transition: opacity 1s;
+}
+
+.hideimage {
+  opacity: 0;
 }
 
 .dcenter {
@@ -48,7 +54,7 @@
   height: 60rpx;
   width: 99%;
   border-top-left-radius: 10rpx;
-  border-top-right-radius: 10rpx;  
+  border-top-right-radius: 10rpx;
   font-size: 32rpx;
   color: #eee;
   display: flex;
@@ -56,10 +62,12 @@
   justify-content: space-between;
   align-items: center;
 }
-.daily-head div{  
+
+.daily-head div {
   padding-left: 20rpx;
 }
-.daily-head image{
+
+.daily-head image {
   width: 40rpx;
   height: 40rpx;
   padding-right: 20rpx;

@@ -66,7 +66,8 @@ Page({
       color: "#008B8B",
       img: "/image/share.png",
       ty: "url",
-      url: "/pages/services/recommend"
+      url: "/pages/services/recommend",
+      val: "RECOMM"
     }],
     info: [{ RATE: '-', DT: '-', US: '-' }],
     week: 0,
@@ -118,6 +119,19 @@ Page({
         info: data.info,
         week: dt.getDay()
       })
+    });
+  },
+  onPullDownRefresh: function () {
+    Post.call(this, this, "LOAD", null, function (that, data) {
+      if (data.info.length > 0) {
+        data.info[0].US = util.formatString(data.info[0].US)
+      } 
+      let dt = new Date()
+      that.setData({
+        info: data.info,
+        week: dt.getDay()
+      })
+      wx.stopPullDownRefresh()
     });
   }
 })

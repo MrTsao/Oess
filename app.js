@@ -22,7 +22,7 @@ App({
         typeof doAfter == "function" && doAfter()
       })
     } else if (rescode == '') {
-      that.getUserInfo(function(){
+      that.getUserInfo(function () {
         that.getOpenInfo(doAfter)
       })
     }
@@ -35,7 +35,7 @@ App({
       typeof doAfter == "function" && doAfter()
     }
   },
-  getUserInfo: function (doAfter,doGetUser) {
+  getUserInfo: function (doAfter, doGetUser) {
     var that = this
     var user = wx.getStorageSync('user') || {};
     var code = wx.getStorageSync('code') || '';
@@ -59,7 +59,7 @@ App({
             console.log('获取用户登录态失败！' + res.errMsg)
           }
         }
-        , fail: function (res){
+        , fail: function (res) {
           console.log('获取用户登录态失败！' + res.errMsg)
         }
       })
@@ -74,6 +74,7 @@ App({
     userInfo: null,
     openData: null,
     code: '',
+    urid: '',//推荐码
     url: 'https://www.cqsuoji.com/Oes/wxget.axd',
     uploadurl: 'https://www.cqsuoji.com/Oes/wxupload.axd',
     bseurl: 'https://www.cqsuoji.com/'

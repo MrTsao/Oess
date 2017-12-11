@@ -29,6 +29,7 @@ Page({
     comm_len: 0,
     r_id: '',//评论ID
     show_comment_module: false,
+    showarrorw: 0
   },
 
   /**
@@ -36,12 +37,11 @@ Page({
    */
   onLoad: function (options) {
     var SysInfo = wx.getSystemInfoSync()
-    let rate = (SysInfo.windowWidth / 750)
     let dt = new Date();
     this.setData({
       week: dt.getDay(),
       start_time: dt,
-      scrollH: (1 / rate) * SysInfo.windowHeight - 20 - 40,
+      scrollH: SysInfo.windowHeight,
       scurrentdt: util.formatTime(dt, "date")
     })
     Post.call(this, this, "DAILY")
@@ -146,7 +146,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let week = (new Date()).getDay()
+    let orgweek = this.data.week
+    if (week != orgweek) {
+      Post.call(this, this, "DAILY")
+    }
+  },
+  swiperchange: function(e){
+    let showarrorw = e.detail.current
+    this.setData({
+      showarrorw: showarrorw
+    })
   },
 
   /**

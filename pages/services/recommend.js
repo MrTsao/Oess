@@ -8,7 +8,8 @@ Page({
    */
   data: {
     userInfo: { avatarUrl: "/image/icon.png" },
-    urid: ''
+    urid: '',
+    wwidth: 400
   },
 
   /**
@@ -16,9 +17,11 @@ Page({
    */
   onLoad: function (options) {
     var that = this
+    let SysInfo = wx.getSystemInfoSync()
     app.getUserInfo(null, function (user) {
       that.setData({
         userInfo: user,
+        wwidth: SysInfo.windowWidth,
         urid: options.urid
       })
     })
@@ -56,7 +59,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    wx.stopPullDownRefresh()
   },
 
   /**
@@ -72,7 +75,6 @@ Page({
   onShareAppMessage: function () {
     var that = this
     return {
-      title: '轻松事考',
       path: '/pages/index/index?urid=' + that.data.urid
     }
   }

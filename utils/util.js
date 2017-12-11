@@ -1,4 +1,3 @@
-var app = getApp();
 function formatTime(date, stype) {
   stype = stype || "datetime"
   var year = date.getFullYear()
@@ -198,7 +197,7 @@ function _post_json(jsPost, success, fail) {
         });
       } else if (res.data.msg == "NO_USER") {
         app.getUserInfo(null, function (user) {
-          _newUserId(app.globalData.url, user, app.globalData.openData, function () {
+          _newUserId(app.globalData.url, user, app.globalData.openData, app.globalData.urid, function () {
             _post_json(jsPost, success, fail)
           })
         })
@@ -254,7 +253,7 @@ function updateArr(bseobj, fromobj, key) {
 //服务器请求数据
 function Post(that, action, data, doAfter) {
   //数据请求执行方法
-  var app = getApp();
+  let app = getApp();
   app.getOpenInfo(function () {
     var jsPost = data || new jsonRow()
     var ppage = that.data.PAGE || "BseHandler"
@@ -293,13 +292,14 @@ function _getOpenId(url, rescode, doAfter) {
 }
 
 
-function _newUserId(url, user, openData, doAfter) {
+function _newUserId(url, user, openData, urid, doAfter) {
   var jsPost = new jsonRow()
   jsPost.AddCell("PAGE", "REGIESTHANDLER")
   jsPost.AddCell("ACTION", "NEW")
   jsPost.AddCell("USER_NME", user.nickName)
   jsPost.AddCell("HEAD_IMG", user.avatarUrl)
   jsPost.AddCell("OPEN_KEY", openData.OPEN_KEY)
+  jsPost.AddCell("URID", urid)
   wx.request({
     url: url,
     header: {
