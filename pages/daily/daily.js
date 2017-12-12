@@ -146,13 +146,25 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    var SysInfo = wx.getSystemInfoSync()
     let week = (new Date()).getDay()
     let orgweek = this.data.week
     if (week != orgweek) {
+      this.setData({
+        week: dt.getDay(),
+        start_time: dt,
+        scrollH: SysInfo.windowHeight,
+        scurrentdt: util.formatTime(dt, "date")
+      })
       Post.call(this, this, "DAILY")
+    } else {
+      this.setData({
+        scrollH: SysInfo.windowHeight
+      })
     }
+    console.log(SysInfo.windowHeight)
   },
-  swiperchange: function(e){
+  swiperchange: function (e) {
     let showarrorw = e.detail.current
     this.setData({
       showarrorw: showarrorw

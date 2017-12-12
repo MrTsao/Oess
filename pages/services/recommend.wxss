@@ -1,8 +1,5 @@
 /* pages/services/recommend.wxss */
 
-.main {
-}
-
 .user {
   position: fixed;
   top: 20px;
@@ -16,7 +13,7 @@
 .user-nme {
   color: #eee;
   font-weight: bold;
-  padding: 20rpx 0;
+  padding: 25rpx 0;
 }
 
 .user image {
@@ -31,18 +28,10 @@
   width: 100%;
   background: #c03;
   position: fixed;
-  left: 0;
+  left: 10px;
   top: 60px;
   z-index: 3;
   border-radius: 20rpx;
-}
-
-.bg {
-  height: 80px;
-  position: fixed;
-  left: 0;
-  top: 200px;
-  z-index: 3;
 }
 
 .share-btn{

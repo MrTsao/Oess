@@ -8,7 +8,7 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "1.5.2",
+	"libVersion": "1.7.0",
 	"appid": "wxd924eee97e823854",
 	"projectname": "Oess",
 	"condition": {
@@ -37,8 +37,8 @@
 				},
 				{
 					"id": 2,
-					"name": "servicelist",
-					"pathName": "pages/services/servicelist",
+					"name": "daily",
+					"pathName": "pages/daily/daily",
 					"query": ""
 				}
 			]
