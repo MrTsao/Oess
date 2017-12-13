@@ -29,6 +29,7 @@
                       </view>
                       <view class="weui-cell__bd text28">{{item.op}}、{{item.text}}</view>
                     </label>
+                    <label class="weui-cell weui-check__label" />
                   </radio-group>
                 </block>
                 <block wx:elif="{{exerises[index].type != '0' && exerises[index].type != '3' && exerises[index].type}}">
@@ -38,7 +39,8 @@
                         <checkbox value="{{item.op}}" checked="{{item.check}}" disabled="{{exerises[index].is_answered}}" />
                       </view>
                       <view class="weui-cell__bd text28">{{item.op}}、{{item.text}}</view>
-                    </label>
+                    </label>                    
+                    <label class="weui-cell weui-check__label" />
                   </checkbox-group>
                   <view class="btn-area">
                     <button type="primary" bindtap="submitMultiVal" size="mini" plain="true" disabled="{{exerises[index].is_answered}}">确认答案</button>

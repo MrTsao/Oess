@@ -147,11 +147,12 @@ Page({
    */
   onShow: function () {
     var SysInfo = wx.getSystemInfoSync()
-    let week = (new Date()).getDay()
+    let dt = new Date();
+    let week = dt.getDay()
     let orgweek = this.data.week
     if (week != orgweek) {
       this.setData({
-        week: dt.getDay(),
+        week: week,
         start_time: dt,
         scrollH: SysInfo.windowHeight,
         scurrentdt: util.formatTime(dt, "date")
