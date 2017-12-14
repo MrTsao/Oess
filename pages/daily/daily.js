@@ -163,7 +163,7 @@ Page({
         scrollH: SysInfo.windowHeight
       })
     }
-    console.log(SysInfo.windowHeight)
+   //console.log(SysInfo.windowHeight)
   },
   swiperchange: function (e) {
     let showarrorw = e.detail.current
