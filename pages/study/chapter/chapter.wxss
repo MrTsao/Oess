@@ -1,1 +1,12 @@
 @import "../../../common/lib/chapterlist.wxss";
+.class-desc {
+  font-size: 28rpx;
+  padding: 20rpx 50rpx;
+  align-self: center;
+}
+
+.class-type {
+  color: #4682b4;
+  margin-left: 20rpx;
+  font-size: 16pt;
+}

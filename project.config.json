@@ -21,7 +21,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 3,
 			"list": [
 				{
 					"id": -1,
@@ -39,6 +39,12 @@
 					"id": 2,
 					"name": "daily",
 					"pathName": "pages/daily/daily",
+					"query": ""
+				},
+				{
+					"id": 3,
+					"name": "chapter",
+					"pathName": "pages/study/chapter/chapter",
 					"query": ""
 				}
 			]

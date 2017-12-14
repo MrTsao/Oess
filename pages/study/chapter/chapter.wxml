@@ -7,5 +7,10 @@
 <template is="pageloading" data="{{hideclass:hideclass,realhide:realhide}}" />
 <view class="container">
   <template is="pagehead" data="{{avatarUrl: userInfo.avatarUrl,nickName:userInfo.nickName}}" />
-  <template is="chapterlist" data="{{chapters: chapters,COLOR:COLOR,M:M}}" />
+  <view class="class-desc">
+    <picker mode="selector" bindchange="bindClassChange" range="{{eclass}}" range-key="txt" style='width:100%;'>
+      <label wx:for="{{eclass}}" wx:key="$this" wx:if="{{item.id == ucid}}" class="class-type">{{item.txt}}</label>
+    </picker>
+  </view>
+  <template is="chapterlist" data="{{chapters: chapters,COLOR:COLOR,M:M,ucid:ucid}}" />
 </view>

@@ -1,9 +1,11 @@
 <!--index.wxml-->
 <import src="/common/chapterlist.wxml" />
 <view class="container">
-  <view class="class-desc" bindtap="menucontrol">
-    <label>您当前练习科目:</label>
-    <label class="class-type">{{menu[menuIndex].txt}}</label>
+  <view class="class-desc">
+    <picker mode="selector" bindchange="bindClassChange"  range="{{eclass}}" range-key ="txt" style='width:100%;'>
+      <label>您当前练习科目:</label>
+      <label wx:for="{{eclass}}" wx:key="$this" wx:if="{{item.id == ucid}}" class="class-type">{{item.txt}}</label>
+    </picker>
   </view>
   <view class="fun-list">
     <block wx:for="{{showItems}}" wx:key="{{item.txt}}">
@@ -28,17 +30,5 @@
       </block>
     </swiper>
   </view>
-  <template is="chapterlist" data="{{chapters: chapters,COLOR:COLOR,M:M}}" />
-  <scroll-view scroll-y="{{true}}" class="lawSub1" hidden='{{menuhide}}'>
-    <view class="all-menu">
-      <view class="menu-content" style="height:{{height}}px;">
-        <view wx:for="{{menu}}" wx:for-item="itm" wx:for-index="idx" wx:key="itm.id" class="Sub1item">
-          <view class="itemHead {{menuIndex==idx?'menuSltd':''}}" data-idx="{{idx}}" bindtap="subitemcontrol">
-            <text>{{itm.txt}}</text>
-          </view>
-        </view>
-      </view>
-      <view class="menu-blank" style="height:{{height}}px;" bindtap="menucontrol"></view>
-    </view>
-  </scroll-view>
+  <template is="chapterlist" data="{{chapters: chapters,COLOR:COLOR,M:M,ucid:ucid}}" />
 </view>

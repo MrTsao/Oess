@@ -9,19 +9,9 @@ Page({
     menuhide: true,//是否折叠菜单 
     menuIndex: 0,
     height: 0,
-    menu: [{
-      id: "1"
-      , txt: "综合基础知识"
-    }, {
-      id: "2"
-      , txt: "管理基础知识"
-    }, {
-      id: "3"
-      , txt: "教育公共基础知识"
-    }, {
-      id: "4"
-      , txt: "综合基础教育类"
-    }],//菜单内容
+    eclass: [],
+    ucid: '',
+    chapters: [],
     HOTS: [{
       id: "item-1",
       url: "/image/index.png"
@@ -59,7 +49,6 @@ Page({
       txt: "我的错题",
       url: "/pages/high/myerror"
     }],
-    chapters: [],
     COLOR: ['#6699cc', '#778899', '#99cc66', '#5F9EA0', '#8FBC8F', '#BDB76B']
   },
   startTrade: function () {
@@ -67,26 +56,18 @@ Page({
       url: '/pages/trade/member?tp=MR',
     })
   },
-  //展开或隐藏菜单
-  menucontrol: function (e) {
-    this.setData({
-      menuhide: !this.data.menuhide
-    })
-  },
-  subitemcontrol: function (e) {
-    this.setData({
-      menuIndex: e.currentTarget.dataset.idx
-      , menuhide: !this.data.menuhide
-    });
-  },
   onLoad: function (options) {
     app.globalData.urid = options.urid || ""
     var that = this
     var SysInfo = wx.getSystemInfoSync()
     var chapterscatch = wx.getStorageSync('CHAPTER_HEAD_LIST') || [];
+    var classcatch = wx.getStorageSync('CLASS_HEAD_LIST') || [];
+    var ucid = wx.getStorageSync('_UCID') || "RID0H9201TY701D8";
     if (chapterscatch.length > 0) {
       that.setData({
-        chapters: chapterscatch
+        chapters: chapterscatch,
+        eclass: classcatch,
+        ucid: ucid
       })
       setTimeout(function () {
         util.Post(that, "LOAD", null, function (that, data, a, m) {
@@ -94,12 +75,16 @@ Page({
             data.HOTS[i].url = app.globalData.bseurl + data.HOTS[i].INFO_IMG_URL
           }
           that.setData({
+            eclass: data.ECLASS,
             chapters: data.CHAPTER,
+            ucid: data.UCID,
             HOTS: data.HOTS,
             M: m,
             height: SysInfo.windowHeight
           })
           wx.setStorageSync('CHAPTER_HEAD_LIST', data.CHAPTER);//缓存
+          wx.setStorageSync('CLASS_HEAD_LIST', data.ECLASS);//缓存
+          wx.setStorageSync('_UCID', data.UCID);//缓存
         })
       }, 1000)
     } else {
@@ -108,22 +93,38 @@ Page({
           data.HOTS[i].url = app.globalData.bseurl + data.HOTS[i].INFO_IMG_URL
         }
         that.setData({
+          eclass: data.ECLASS,
           chapters: data.CHAPTER,
+          ucid: data.UCID,
           HOTS: data.HOTS,
           M: m,
           height: SysInfo.windowHeight
         })
         wx.setStorageSync('CHAPTER_HEAD_LIST', data.CHAPTER);//缓存
+        wx.setStorageSync('CLASS_HEAD_LIST', data.ECLASS);//缓存
+        wx.setStorageSync('_UCID', data.UCID);//缓存
       });
+    }
+  },
+  onShow() {
+    var ucid = wx.getStorageSync('_UCID') || "RID0H9201TY701D8";
+    if (ucid != this.data.ucid) {
+      this.setData({
+        ucid: ucid
+      })
     }
   },
   onPullDownRefresh: function () {
     util.Post(this, "LOAD", null, function (that, data, a, m) {
       that.setData({
+        eclass: data.ECLASS,
         chapters: data.CHAPTER,
+        ucid: data.UCID,
         M: m
       })
       wx.setStorageSync('CHAPTER_HEAD_LIST', data.CHAPTER);//缓存
+      wx.setStorageSync('CLASS_HEAD_LIST', data.ECLASS);//缓存
+      wx.setStorageSync('_UCID', data.UCID);//缓存
     });
     wx.stopPullDownRefresh()
   },
@@ -144,6 +145,18 @@ Page({
     var that = this
     return {
       path: '/pages/index/index'
+    }
+  },
+  bindClassChange: function (e) {
+    let idx = e.detail.value
+    if (this.data.ucid != this.data.eclass[idx].id) {
+      this.setData({
+        ucid: this.data.eclass[idx].id
+      })
+      wx.setStorageSync('_UCID', this.data.eclass[idx].id);
+      var jsPost = new util.jsonRow()
+      jsPost.AddCell("CLASS", this.data.eclass[idx].id)
+      util.Post(this, "UPDATE-CLASS", jsPost)
     }
   }
 })

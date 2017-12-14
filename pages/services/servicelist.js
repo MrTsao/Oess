@@ -10,6 +10,7 @@ Page({
       region: ['重庆市', '全部', '全部'],
       eclass: ["综合基础知识", "管理基础知识", "教育公共基础知识", "综合基础教育类"]
     },
+    ucid: '',
     customItem: '全部',
     items: [{
       id: "profile",
@@ -57,7 +58,7 @@ Page({
       op: [{
         mode: "selector",
         bindchange: "bindClassChange",
-        range: "eclass"
+        value: "eclass"
       }],
       val: "EXAM_CLASS"
     }, {
@@ -94,21 +95,30 @@ Page({
   },
   bindClassChange: function (e) {
     let info = this.data.info
-    info[0].EXAM_CLASS = this.data.region.eclass[e.detail.value]
-    this.setData({
-      info: info
-    })
-    var jsPost = new util.jsonRow()
-    jsPost.AddCell("CLASS", this.data.region.eclass[e.detail.value])
-    util.Post(this, "UPDATE-CLASS", jsPost)
+    if (info[0].EXAM_CLASS != this.data.region.eclass[e.detail.value].id) {
+      info[0].EXAM_CLASS = this.data.region.eclass[e.detail.value].id
+      this.setData({
+        info: info
+      })
+      wx.setStorageSync('_UCID', this.data.region.eclass[e.detail.value].id);//缓存
+      var jsPost = new util.jsonRow()
+      jsPost.AddCell("CLASS", this.data.region.eclass[e.detail.value].id)
+      util.Post(this, "UPDATE-CLASS", jsPost)
+    }
   },
   onLoad: function (options) {
     var that = this
     let dt = new Date()
+    var classcatch = wx.getStorageSync('CLASS_HEAD_LIST') || [];
+    let region = that.data.region
+    region.eclass = classcatch
+    var ucid = wx.getStorageSync('_UCID') || "RID0H9201TY701D8";
     //调用应用实例的方法获取全局数据
     app.getUserInfo(null, function (user) {
       that.setData({
-        userInfo: user
+        userInfo: user,
+        region: region,
+        ucid: ucid
       })
     })
     Post.call(this, this, "LOAD", null, function (that, data) {
@@ -125,7 +135,7 @@ Page({
     Post.call(this, this, "LOAD", null, function (that, data) {
       if (data.info.length > 0) {
         data.info[0].US = util.formatString(data.info[0].US)
-      } 
+      }
       let dt = new Date()
       that.setData({
         info: data.info,
@@ -133,6 +143,16 @@ Page({
       })
       wx.stopPullDownRefresh()
     });
+  },
+  onShow() {
+    var ucid = wx.getStorageSync('_UCID') || "RID0H9201TY701D8";
+    let info = this.data.info
+    if (info[0].EXAM_CLASS != ucid) {
+      info[0].EXAM_CLASS = ucid
+      this.setData({
+        info: info
+      })
+    }
   }
 })
 

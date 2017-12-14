@@ -44,10 +44,16 @@
         <image src="{{item.img}}"></image>
       </view>
       <view class="{{item.spilted?'item-txt':'item-txt2'}}">
-        <picker mode="{{item.op[0]['mode']}}" bindchange="{{item.op[0]['bindchange']}}" value="{{region[item.op[0]['value']]}}" range="{{region[item.op[0]['range']]}}" style='width:100%;'>
+        <picker wx:if="{{item.op[0]['value']=='region'}}" mode="{{item.op[0]['mode']}}" bindchange="{{item.op[0]['bindchange']}}" value="{{region[item.op[0]['value']]}}" style='width:100%;'>
           <view class='item-pick'>
             <view class="pick-txt">{{item.txt}}</view>
             <view class="pick-val">{{info[0][item.val]}}</view>
+          </view>
+        </picker>
+        <picker wx:if="{{item.op[0]['value']=='eclass'}}" mode="{{item.op[0]['mode']}}" bindchange="{{item.op[0]['bindchange']}}" range="{{region[item.op[0]['value']]}}" range-key='txt' style='width:100%;'>
+          <view class='item-pick'>
+            <view class="pick-txt">{{item.txt}}</view>
+            <view wx:for="{{region.eclass}}" wx:key="$this" wx:for-item="sitem" wx:if="{{sitem.id == info[0][item.val]}}" class="pick-val">{{sitem.txt}}</view>
           </view>
         </picker>
       </view>
