@@ -44,7 +44,7 @@ Page({
       scrollH: SysInfo.windowHeight,
       scurrentdt: util.formatTime(dt, "date")
     })
-    Post.call(this, this, "DAILY")
+    Post(this, "DAILY")
   },
   //------------------------START-----答题---------------------------
   selected: function (e) {
@@ -157,7 +157,7 @@ Page({
         scrollH: SysInfo.windowHeight,
         scurrentdt: util.formatTime(dt, "date")
       })
-      Post.call(this, this, "DAILY")
+      Post(this, "DAILY")
     } else {
       this.setData({
         scrollH: SysInfo.windowHeight
@@ -190,7 +190,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    Post.call(this, this, "DAILY")
+    Post(this, "DAILY")
     wx.stopPullDownRefresh();
   },
 

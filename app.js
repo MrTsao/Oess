@@ -56,11 +56,31 @@ App({
             })
           }
           else {
-            console.log('获取用户登录态失败！' + res.errMsg)
+            wx.showModal({
+              title: '错误',
+              content: '获取用户登录态失败！',
+              showCancel: false, success: function (res) {
+                if (res.confirm) {
+                  wx.reLaunch({
+                    url: '/pages/index/index',
+                  })
+                }
+              }
+            })
           }
         }
         , fail: function (res) {
-          console.log('获取用户登录态失败！' + res.errMsg)
+          wx.showModal({
+            title: '错误',
+            content: '获取用户登录态失败！',
+            showCancel: false, success: function (res) {
+              if (res.confirm) {
+                wx.reLaunch({
+                  url: '/pages/index/index',
+                })
+              }
+            }
+          })
         }
       })
     } else {
