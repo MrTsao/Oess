@@ -14,7 +14,7 @@ Page({
     TTLCNT: 0,
     hideclass: "",
     realhide: false,
-    q_type: ["单选题", "多选题", "不定项题", "判断题", "主观题", "其他"],
+    q_type: ["单选题", "多选题", "不定项题", "判断题", "主观题", "填空题", "简答题", "其他"],
     exerises: [],
     summaries: [],
     ecnt: 0,//有效答题数
