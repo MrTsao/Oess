@@ -6,7 +6,7 @@
 <import src="/common/loading.wxml" />
 <template is="pageloading" data="{{hideclass:hideclass,realhide:realhide}}" />
 <view class="container">
-  <template is="pagehead" data="{{avatarUrl: userInfo.avatarUrl,nickName:userInfo.nickName}}" />
+  <template is="pagehead" data="{{avatarUrl: (userInfo.avatarUrl || '/image/icon.png'),nickName:userInfo.nickName}}" />
   <view class="class-desc">
     <picker mode="selector" bindchange="bindClassChange" range="{{eclass}}" range-key="txt" style='width:100%;'>
       <label wx:for="{{eclass}}" wx:key="$this" wx:if="{{item.id == ucid}}" class="class-type">{{item.txt}}</label>

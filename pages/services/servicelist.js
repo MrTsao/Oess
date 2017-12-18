@@ -3,7 +3,7 @@ var util = require('../../utils/util.js')
 var app = getApp()
 Page({
   data: {
-    userInfo: { avatarUrl: "/image/icon.png" },
+    userInfo: {},
     HEAD_IMG: "",
     PAGE: "PROFILE",
     region: {
@@ -69,6 +69,15 @@ Page({
       ty: "url",
       url: "/pages/services/recommend",
       val: "RECOMM"
+    }, {
+      id: "clearstorage",
+      txt: "清理缓存",
+      color: "#A52A2A",
+      img: "/image/clear.png",
+      ty: "fun",
+      bindfun: "bindcleartap",
+      val: "STORAGE",
+      spilted: true
     }],
     info: [{ RATE: '-', DT: '-', US: '-' }],
     week: 0,
@@ -82,6 +91,28 @@ Page({
         url: url + "?urid=" + user,
       })
     }
+  },
+  bindcleartap: function (e) {
+    let that = this
+    wx.getStorageInfo({
+      success: function (res) {
+        for (let i = 0; i < res.keys.length; i++) {
+          if (res.keys[i] != "code" && res.keys[i] != "openkey" && res.keys[i] != "user" && res.keys[i] != "_UCID") {
+            try {
+              wx.removeStorageSync(res.keys[i])
+            } catch (e) {
+              console.log(e)
+            }
+          }
+        }
+        let info = that.data.info
+        let StorageInfo = wx.getStorageInfoSync()
+        info[0].STORAGE = (StorageInfo.currentSize / 1024).toFixed(2) + "M"
+        that.setData({
+          info: info
+        })
+      }
+    })
   },
   bindRegionChange: function (e) {
     let info = this.data.info
@@ -125,6 +156,8 @@ Page({
       if (data.info.length > 0) {
         data.info[0].US = util.formatString(data.info[0].US)
       }
+      let StorageInfo = wx.getStorageInfoSync()
+      data.info[0].STORAGE = (StorageInfo.currentSize / 1024).toFixed(2) + "M"
       that.setData({
         info: data.info,
         week: dt.getDay()
@@ -137,6 +170,8 @@ Page({
         data.info[0].US = util.formatString(data.info[0].US)
       }
       let dt = new Date()
+      let StorageInfo = wx.getStorageInfoSync()
+      data.info[0].STORAGE = (StorageInfo.currentSize / 1024).toFixed(2) + "M"
       that.setData({
         info: data.info,
         week: dt.getDay()
@@ -147,6 +182,8 @@ Page({
   onShow() {
     var ucid = wx.getStorageSync('_UCID') || "RID0H9201TY701D8";
     let info = this.data.info
+    let StorageInfo = wx.getStorageInfoSync()
+    info[0].STORAGE = (StorageInfo.currentSize / 1024).toFixed(2) + "M"
     if (info[0].EXAM_CLASS != ucid) {
       info[0].EXAM_CLASS = ucid
       this.setData({

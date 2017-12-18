@@ -2,7 +2,7 @@
 <import src="../../common/pagehead.wxml" />
 <import src="../../common/foot.wxml" />
 <view class="container">
-  <template is="pagehead" data="{{avatarUrl: userInfo.avatarUrl,nickName:userInfo.nickName,color:COLOR[week]}}" />
+  <template is="pagehead" data="{{avatarUrl: (userInfo.avatarUrl || '/image/icon.png'),nickName:userInfo.nickName,color:COLOR[week]}}" />
   <view class="page-section page-section-gap">
     <view class="item-total">
       <view class="titem">
@@ -56,6 +56,15 @@
             <view wx:for="{{region.eclass}}" wx:key="$this" wx:for-item="sitem" wx:if="{{sitem.id == info[0][item.val]}}" class="pick-val">{{sitem.txt}}</view>
           </view>
         </picker>
+      </view>
+    </view>
+    <view class="item" wx:if="{{item.ty == 'fun'}}" bindtap="{{item.bindfun}}">
+      <view class="item-image" style="background-color:{{item.color}};">
+        <image src="{{item.img}}"></image>
+      </view>
+      <view class="{{item.spilted?'item-txt':'item-txt2'}}">
+        <view>{{item.txt}}</view>
+        <view class="item-val">{{info[0][item.val]}}</view>
       </view>
     </view>
   </view>

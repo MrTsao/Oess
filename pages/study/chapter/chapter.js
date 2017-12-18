@@ -8,9 +8,7 @@ Page({
     M: null,
     hideclass: "",
     realhide: false,
-    userInfo: {
-      avatarUrl: "/image/icon.png"
-    },
+    userInfo: {},
     eclass: [],
     ucid: '',
     chapters: [],

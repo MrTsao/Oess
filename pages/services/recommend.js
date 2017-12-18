@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo: { avatarUrl: "/image/icon.png" },
+    userInfo: {},
     urid: '',
     wwidth: 400
   },
