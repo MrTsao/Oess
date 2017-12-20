@@ -39,10 +39,11 @@
     <view class="good-item" wx:for="{{goods}}" wx:if="{{item.GOODS_TYPE==tp}}" wx:key="{{item.GOODS_ID}}">
       <view class="item-content" data-id="{{item.GOODS_ID}}" bindtap='purchmember'>
         <view class="item-txt">
-          {{item.GOODS_EXPIRE}}个月
+          {{item.GOODS_EXPIRE}}{{item.EXPIRE_TYPE=="MONTH"?"个月":item.EXPIRE_TYPE=="DAY"?"天":item.EXPIRE_TYPE=="YEAR"?"年":""}}
         </view>
         <view class="item-price">
-          售价<label style="color:#933;">{{ item.GOODS_AMT/100}}</label>元
+          售价
+          <label style="color:#933;">{{ item.GOODS_AMT/100}}</label>元
         </view>
       </view>
     </view>
@@ -59,12 +60,16 @@
     <checkbox-group name="cgPP" bindchange="selected">
       <label class="paper-item" wx:for="{{goods}}" wx:if="{{item.GOODS_TYPE==tp && (yearList[date] =='全部' || item.IN_YEAR == yearList[date]) && (region[0] == '全部' || item.PLACE_CDE == region[0]) && (region[2] == '全部' || item.STATION_CDE == region[2]) && (id=='' || id != '' && item.REFER_ID == id)}}"
         wx:key="{{item.GOODS_ID}}">
-        <checkbox value="{{item.GOODS_ID}}" checked="{{item.check}}" />
+        <checkbox value="{{item.GOODS_ID}}" disabled="{{item.PURCHASE_TYPE =='MEMBER'}}" checked="{{item.check}}" />
         <label class="paper-content">
           <label class="contnet-ttl">{{item.GOODS_NME}}</label>
-          <label class="item-price">有效期
-            <label style="color:#933;">永久</label> 售价
-            <label style="color:#933;">{{ item.GOODS_AMT/100}}</label>元</label>
+          <label class="item-price" wx:if="{{item.PURCHASE_TYPE =='SINGLE'}}">有效期
+            <label style="color:#933;">{{item.GOODS_EXPIRE}}{{item.EXPIRE_TYPE=="MONTH"?"个月":item.EXPIRE_TYPE=="DAY"?"天":item.EXPIRE_TYPE=="YEAR"?"年":""}}</label> 售价
+            <label style="color:#933;">{{ item.GOODS_AMT/100}}</label>元
+          </label>
+          <label class="item-price" wx:if="{{item.PURCHASE_TYPE =='MEMBER'}}">
+            会员免费
+          </label>
         </label>
       </label>
     </checkbox-group>

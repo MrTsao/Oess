@@ -48,9 +48,9 @@
 					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "servicelist",
-					"pathName": "pages/services/servicelist",
+					"id": 4,
+					"name": "real",
+					"pathName": "pages/study/real/real",
 					"query": ""
 				}
 			]

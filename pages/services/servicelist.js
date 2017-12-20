@@ -37,6 +37,13 @@ Page({
       val: "COLL",
       spilted: true
     }, {
+      id: "realpurchase",
+      txt: "会员/真题购买",
+      color: "#FF6347",
+      img: "/image/pay.png",
+      ty: "url",
+      url: "/pages/trade/member?tp=PP"
+    }, {
       id: "locations",
       txt: "报考地区",
       color: "#8FBC8F",
