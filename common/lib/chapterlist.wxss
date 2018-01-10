@@ -1,5 +1,12 @@
 .addtomember{
-  color: #FF8C00;
+  color: #5F9EA0;
+  display: flex;
+  flex-direction: row;
+}
+
+.addtomember image{
+  width: 50rpx;
+  height: 45rpx;
 }
 
 .cpt-item{  
@@ -9,13 +16,24 @@
   flex-direction: row;
   justify-content: space-around;
 }
-
+.cpt-img-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
 .cpt-img{
   width: 20rpx;
   height: 20rpx;
   margin: 10rpx 30rpx 15rpx 20rpx ;
   border-radius: 100%;
   box-shadow: 0rpx 0rpx 0rpx 2rpx #555;
+}
+
+.cpt-star{
+  width: 50rpx;
+  height: 50rpx;
+  margin: 10rpx 10rpx 15rpx 5rpx ;
 }
 
 .cpt-opt{

@@ -5,7 +5,7 @@
         章节练习{{M=='1'?'·会员':M=='0'?'·免费':''}}
       </view>
       <view class="addtomember" wx:if="{{M=='0'}}" bindtap="startTrade" >
-        加入会员
+        <label>加入会员</label><image src='/image/index-img/member.png'></image>
       </view>
     </view>
     <block wx:for="{{chapters}}" wx:for-index="idx" wx:key="{{item.CPID}}" wx:if="{{item.CID == ucid}}" >

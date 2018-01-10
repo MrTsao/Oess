@@ -45,9 +45,10 @@
   <scroll-view class="sv-content" style="height:{{height-rpxrate*266}}px;" scroll-x="{{false}}" scroll-y="{{true}}">
     <block wx:for="{{batches}}" wx:for-index="idx" wx:key="item.REAL_BATCH_ID">
       <view wx:if="{{(yearList[date] =='全部' || item.IN_YEAR == yearList[date]) && (region[0] == '全部' || item.PLACE_CDE == region[0]) && (region[2] == '全部' || item.STATION_CDE == region[2]) && (!purch_status || purch_status && item.PURCHED == '1') }}">
-        <view class="cpt-item" style="border-color:{{COLOR[idx%COLOR.length]}};" data-real_batch_id="{{item.REAL_BATCH_ID}}" data-purched="{{item.PURCHED}}" data-in_year="{{item.IN_YEAR}}" data-party_type="{{item.PARTY_TYPE}}" bindtap='navitoexe'>
-          <view>
+        <view class="cpt-item" style="border-color:{{COLOR[idx%COLOR.length]}};" data-real_batch_id="{{item.REAL_BATCH_ID}}" data-purched="{{item.PURCHED}}" data-in_year="{{item.IN_YEAR}}" data-party_type="{{item.PARTY_TYPE}}" data-PURCHASE_TYPE="{{item.PURCHASE_TYPE}}" bindtap='navitoexe'>
+          <view class="cpt-img-content" >
             <image class="cpt-img" src='/image/index-img/dot.png' style="background-color:{{COLOR[idx%COLOR.length]}};"></image>
+            <image wx:if="{{item.PURCHASE_TYPE=='MEMBER'}}" class="cpt-star" src='/image/index-img/star.png'></image>
           </view>
           <view class="cpt-content">
             <view class="cpt-head">
@@ -56,7 +57,7 @@
             <view class="cpt-detail">
               <text class="cpt-txt">习题量：{{item.QUESTIONS_CNT}}</text>
               <text class="cpt-txt cpt-space">练习量：{{item.EXAM_TIME}}</text>
-              <text class="cpt-txt cpt-space">{{item.PURCHED=='1'?'已购':'点击购买'}}</text>
+              <text class="cpt-txt cpt-space">{{item.PURCHED=='1'?'已购':(item.PURCHASE_TYPE=='MEMBER'?'会员免费':'点击购买')}}</text>
             </view>
           </view>
           <view class="cpt-opt">

@@ -77,6 +77,7 @@ Page({
   navitoexe: function (e) {
     var sPURCHED = e.currentTarget.dataset.purched
     var sREAL_BATCH_ID = e.currentTarget.dataset.real_batch_id
+    var sPURCHASE_TYPE = e.currentTarget.dataset.purchase_type
     if (sPURCHED == "1") {
       var sIN_YEAR = e.currentTarget.dataset.in_year
       var sPARTY_TYPE = e.currentTarget.dataset.party_type
@@ -85,7 +86,7 @@ Page({
       })
     } else {
       wx.navigateTo({
-        url: '/pages/trade/member?tp=PP&id=' + sREAL_BATCH_ID
+        url: '/pages/trade/member?tp=' + (sPURCHASE_TYPE == 'MEMBER' ? 'MR' : 'PP') + '&id=' + sREAL_BATCH_ID
       })
     }
   },
