@@ -77,7 +77,7 @@
       <swiper-item>
         <view class="daily-head" style="background:{{COLOR[week]}};border: 1rpx solid {{COLOR[week]}};">
           <div>讨论专区</div>
-          <image src="/image/Comments.png" bindtap="doComments"></image>
+          <image src="/image/Comments2.png" bindtap="doComments"></image>
         </view>
         <scroll-view scroll-y="true" class="scorll" style="height:{{scrollH-65}}px;">
           <view class="svcontent">
