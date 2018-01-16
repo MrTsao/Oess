@@ -1,0 +1,5 @@
+<!--pages/services/bul.wxml-->
+<button bindtap='startConnect'>开启蓝牙适配</button>
+<button bindtap='getBluetoothAdapterState'>获取蓝牙适配器状态，判断设备蓝牙是否可用</button>
+<button bindtap='startBluetoothDevicesDiscovery'>开始搜索蓝牙设备</button>
+<button bindtap='getConnectedBluetoothDevices'>获取已配对的蓝牙设备</button>

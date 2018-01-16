@@ -25,7 +25,8 @@
     "pages/daily/daily",
     "pages/services/profile",
     "pages/services/collections",
-    "pages/services/recommend"
+    "pages/services/recommend",
+    "pages/services/bul"
   ],
   "window": {
     "backgroundTextStyle": "dark",

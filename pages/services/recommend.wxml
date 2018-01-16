@@ -1,7 +1,10 @@
 <!--pages/services/recommend.wxml-->
 <view class="container">
   <view class="user" style="width:{{wwidth-60}}px;">
-    <image src="{{(userInfo.avatarUrl || '/image/icon.png')}}" background-size="cover"></image>
+    <view class="user-img">
+      <image wx:if="{{userInfo.avatarUrl!=''&& userInfo.avatarUrl!=undefined}}" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <button wx:if="{{userInfo.avatarUrl==''|| userInfo.avatarUrl==undefined}}" open-type='getUserInfo' bindgetuserinfo='getuserinfo'>点击获取</button>
+    </view>
     <text class="user-nme">{{userInfo.nickName}}</text>
     <text class="user-nme">邀您一起轻松事考！</text>
   </view>

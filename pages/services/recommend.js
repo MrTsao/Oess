@@ -18,12 +18,19 @@ Page({
   onLoad: function (options) {
     var that = this
     let SysInfo = wx.getSystemInfoSync()
+    that.setData({
+      wwidth: SysInfo.windowWidth,
+      urid: options.urid
+    })
     app.getUserInfo(null, function (user) {
       that.setData({
-        userInfo: user,
-        wwidth: SysInfo.windowWidth,
-        urid: options.urid
+        userInfo: user
       })
+    })
+  },
+  getuserinfo: function (e) {
+    this.setData({
+      userInfo: e.detail.userInfo
     })
   },
 

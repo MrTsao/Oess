@@ -20,8 +20,12 @@
 			"current": -1,
 			"list": []
 		},
-		"miniprogram": {
+		"game": {
 			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 5,
 			"list": [
 				{
 					"id": -1,
@@ -49,8 +53,14 @@
 				},
 				{
 					"id": 4,
-					"name": "real",
-					"pathName": "pages/study/real/real",
+					"name": "recommend",
+					"pathName": "pages/services/recommend",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "bluetooth",
+					"pathName": "pages/services/bul",
 					"query": ""
 				}
 			]
