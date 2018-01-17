@@ -44,7 +44,7 @@ Page({
         that.setData({
           realhide: true
         });
-      }, 800);
+      }, 200);
     });
   },
   imageLoad: function (e) {

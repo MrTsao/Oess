@@ -163,7 +163,7 @@ function Post(that, action, data) {
           that.setData({
             realhide: true
           });
-        }, 800);
+        }, 200);
       }
       else if (action == "COMMENT") {
         //题目评论

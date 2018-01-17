@@ -56,7 +56,7 @@ Page({
         that.setData({
           realhide: true
         });
-      }, 800);
+      }, 200);
     });
   },
   purchmember: function (e) {

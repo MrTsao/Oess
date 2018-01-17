@@ -1,7 +1,13 @@
 <!--pages/high/higherror.wxml-->
 <import src="/common/examlist.wxml" />
 <import src="/common/loading.wxml" />
+<import src="/common/membernotify.wxml" />
 <template is="pageloading" data="{{hideclass:hideclass,realhide:realhide}}" />
 <view class="container">
-  <template is="examlist" data="{{scrollH: scrollH,col1:col1,col2:col2,COLOR:COLOR,q_type:q_type,moreLoadingComplete:moreLoadingComplete}}" />
+  <view wx:if="{{M=='1'}}">
+    <template is="examlist" data="{{scrollH: scrollH,col1:col1,col2:col2,COLOR:COLOR,q_type:q_type,moreLoadingComplete:moreLoadingComplete}}" />
+  </view>
+  <view wx:if="{{M!='1'}}">
+    <template is="membernotify" data="{{modename:'高频错题'}}" />
+  </view>
 </view>

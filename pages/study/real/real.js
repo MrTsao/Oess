@@ -35,7 +35,7 @@ Page({
           that.setData({
             realhide: true
           });
-        }, 800);
+        }, 200);
       }
     })
   },

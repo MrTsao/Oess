@@ -36,15 +36,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this
     var SysInfo = wx.getSystemInfoSync()
     let dt = new Date();
-    this.setData({
+    that.setData({
       week: dt.getDay(),
       start_time: dt,
       scrollH: SysInfo.windowHeight,
       scurrentdt: util.formatTime(dt, "date")
+    }, function () {
+      Post(that, "DAILY")
     })
-    Post(this, "DAILY")
   },
   //------------------------START-----答题---------------------------
   selected: function (e) {
@@ -163,7 +165,7 @@ Page({
         scrollH: SysInfo.windowHeight
       })
     }
-   //console.log(SysInfo.windowHeight)
+    //console.log(SysInfo.windowHeight)
   },
   swiperchange: function (e) {
     let showarrorw = e.detail.current
@@ -225,7 +227,7 @@ function Post(that, action, data) {
           that.setData({
             realhide: true
           });
-        }, 800);
+        }, 200);
       }
       else if (action == "COMMENT") {
         //题目评论

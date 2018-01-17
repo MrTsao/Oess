@@ -220,7 +220,7 @@ Page({
         that.setData({
           realhide: true
         });
-      }, 800);
+      }, 200);
     } else {
       Post.call(this, this, "LOAD")
     }
@@ -258,7 +258,7 @@ function Post(that, action, data) {
           that.setData({
             realhide: true
           });
-        }, 800);
+        }, 200);
       }
       else if (action == "FINISHEDEXAM") {
         that.setData({

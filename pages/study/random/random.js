@@ -215,7 +215,7 @@ function Post(that, action, data) {
           that.setData({
             realhide: true
           });
-        }, 800);
+        }, 200);
       }
       else if (jsPost.arrjson.ACTION == "NEXT") {
         that.setData({
