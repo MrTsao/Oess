@@ -1,8 +1,27 @@
 <!--index.wxml-->
 <import src="/common/chapterlist.wxml" />
 <view class="container">
+  <view class="page-section healad">
+  <view class="headHtml5">
+    <view class="letter" data-letter="挑">
+      挑
+    </view>
+    <view class="letter" data-letter="战">
+      战
+    </view>
+    <view class="letter" data-letter="答">
+      答
+    </view >
+    <view class="letter" data-letter="题">
+      题
+    </view>
+    <view class="letter" data-letter="王">
+      王
+    </view>
+</view>
+  </view>
   <view class="class-desc">
-    <picker mode="selector" bindchange="bindClassChange"  range="{{eclass}}" range-key ="txt" style='width:100%;'>
+    <picker mode="selector" bindchange="bindClassChange" range="{{eclass}}" range-key="txt" style='width:100%;'>
       <label>您当前练习科目:</label>
       <label wx:for="{{eclass}}" wx:key="$this" wx:if="{{item.id == ucid}}" class="class-type">{{item.txt}}</label>
     </picker>
